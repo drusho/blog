@@ -38,6 +38,17 @@
   
 
   
+      ,"page2": {
+          "title": "blog",
+          "content": "",
+          "url": "https://drusho.github.io/blog/blog/",
+          "relUrl": "/blog/",
+          "date": ""
+      }
+      
+  
+
+  
 
   
   
@@ -59,7 +70,7 @@
   
 
   
-      ,"page10": {
+      ,"page11": {
           "title": "",
           "content": "Sitemap: {{ “sitemap.xml” | absolute_url }} | .",
           "url": "https://drusho.github.io/blog/robots.txt",
