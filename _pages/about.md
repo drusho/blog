@@ -4,15 +4,5 @@ title: About Me
 permalink: /about/
 ---
 
-<p><img src="https://github.com/drusho/blog/blob/master/assets/headshot.jpg" alt="headshot" width="250"></p>
-
-
-![Hello]("https://github.com/drusho/blog/blob/master/assets/headshot.jpg"){: width="250" }
-
-
-
-![Hello2](https://github.com/drusho/blog/blob/master/assets/headshot.jpg){: width="250" }
 
 My name is David Rusho.  I enjoy photography, traveling (cliché I know), yoga, linguistics, cooking korean/indian food, and creating data analysis projects in my spare time.  Currently enrolled in a MS Data Analysis program at UCF (University of Central Florida).
-
-My name is David.  I enjoy photography, traveling (cliché I know), yoga, linguistics, cooking korean/indian food, and creating data analysis projects in my spare time.  Currently enrolled in a MS Data Analysis program (Big Data).  I also have an MA TESOL (Teaching English to Speakers of Other Languages).  I've worked in muliple places around the world including Hong Kong, Singapore, and Thailand.  Currently I'm based out of Orlando where I work in education.
