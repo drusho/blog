@@ -6,8 +6,8 @@
 # https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
 # https://learnxinyminutes.com/docs/yaml/
 
-title: David Rusho
-description: Data Analysis Blog
+title: David Rusho - Data Analytics Blog
+description:
 github_username: drusho
 # you can comment the below line out if your repo name is not different than your baseurl
 github_repo: "blog"
