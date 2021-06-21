@@ -4,8 +4,14 @@ title: About Me
 permalink: /about/
 ---
 
-<!-- <p><img src="blog/images/headshot.jpg" alt="headshot" width="250"></p> -->
-![Hello](/assets/headshot.jpg){: width="250" }
+<p><img src="https://github.com/drusho/blog/blob/master/assets/headshot.jpg" alt="headshot" width="250"></p>
+
+
+![Hello]("https://github.com/drusho/blog/blob/master/assets/headshot.jpg"){: width="250" }
+
+
+
+![Hello2](https://github.com/drusho/blog/blob/master/assets/headshot.jpg){: width="250" }
 
 My name is David Rusho.  I enjoy photography, traveling (cliché I know), yoga, linguistics, cooking korean/indian food, and creating data analysis projects in my spare time.  Currently enrolled in a MS Data Analysis program at UCF (University of Central Florida).
 
