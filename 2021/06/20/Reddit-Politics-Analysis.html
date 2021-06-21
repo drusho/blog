@@ -4,9 +4,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Data Analysis of /r/Politics Subreddit | David Rusho - Data Analytics Blog</title>
+<title>Data Analysis of Reddit.com/r/Politics | David Rusho - Data Analytics Blog</title>
 <meta name="generator" content="Jekyll v4.1.1" />
-<meta property="og:title" content="Data Analysis of /r/Politics Subreddit" />
+<meta property="og:title" content="Data Analysis of Reddit.com/r/Politics" />
 <meta property="og:locale" content="en_US" />
 <link rel="canonical" href="https://drusho.github.io/blog/2021/06/20/Reddit-Politics-Analysis.html" />
 <meta property="og:url" content="https://drusho.github.io/blog/2021/06/20/Reddit-Politics-Analysis.html" />
@@ -14,7 +14,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-06-20T00:00:00-05:00" />
 <script type="application/ld+json">
-{"url":"https://drusho.github.io/blog/2021/06/20/Reddit-Politics-Analysis.html","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://drusho.github.io/blog/2021/06/20/Reddit-Politics-Analysis.html"},"headline":"Data Analysis of /r/Politics Subreddit","dateModified":"2021-06-20T00:00:00-05:00","datePublished":"2021-06-20T00:00:00-05:00","@context":"https://schema.org"}</script>
+{"url":"https://drusho.github.io/blog/2021/06/20/Reddit-Politics-Analysis.html","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://drusho.github.io/blog/2021/06/20/Reddit-Politics-Analysis.html"},"headline":"Data Analysis of Reddit.com/r/Politics","dateModified":"2021-06-20T00:00:00-05:00","datePublished":"2021-06-20T00:00:00-05:00","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://drusho.github.io/blog/feed.xml" title="David Rusho - Data Analytics Blog" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -69,13 +69,13 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Data Analysis of /r/Politics Subreddit</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-06-20T00:00:00-05:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">Data Analysis of Reddit.com/r/Politics</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-06-20T00:00:00-05:00" itemprop="datePublished">
         Jun 20, 2021
       </time>
        • <span class="read-time" title="Estimated read time">
     
     
-      7 min read
+      6 min read
     
 </span></p>
 
@@ -117,20 +117,13 @@ window.onload = wrap_img;
         
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Goals-of-Project">Goals of Project<a class="anchor-link" href="#Goals-of-Project"> </a></h2><p>The purpose of this project was to practice using APIs to scrape data from the web.  For this project Reddit's subreddit 'politics' was used since it has a large amount of participation and userbase.  Some additional goals for the project included:</p>
-<ul>
-<li>Finding the top posts by score</li>
-<li>Does a high score correlate with a high number of comments</li>
-<li>Popular words that are useed in titles</li>
-<li>Semantics analysis of posts and determine if they are negative, positive, or neutral? </li>
+<h3 id="Data-Analaysis,-NLP,-Visualizations">Data Analaysis, NLP, Visualizations<a class="anchor-link" href="#Data-Analaysis,-NLP,-Visualizations"> </a></h3><h2 id="Goals-of-Project">Goals of Project<a class="anchor-link" href="#Goals-of-Project"> </a></h2><ul>
+<li>Find the top posts by score</li>
+<li>Determine if score correlates with comments</li>
+<li>Determine word frequency of post titles</li>
+<li>Semantics analysis of post titles</li>
 </ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Tools-Used:">Tools Used:<a class="anchor-link" href="#Tools-Used:"> </a></h2><ul>
+<h3 id="Tools-Used:">Tools Used:<a class="anchor-link" href="#Tools-Used:"> </a></h3><ul>
 <li><em>Pandas</em>: organized data and create dataframes</li>
 <li><em>Plotly</em>: create interactive charts/visualizations</li>
 <li><em>Praw</em>: scrape reddit subs</li>
@@ -1286,35 +1279,29 @@ if (outputEl) {{
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Project-Resources"><strong>Project Resources</strong><a class="anchor-link" href="#Project-Resources"> </a></h2><h3 id="Helpful-resources-that-were-used-to-complete-this-project.">Helpful resources that were used to complete this project.<a class="anchor-link" href="#Helpful-resources-that-were-used-to-complete-this-project."> </a></h3><p><div class="footnotes"><p id="fn-1">1. <a href="https://praw.readthedocs.io">PRAW: The Python Reddit API Wrapper</a></p>
 <p>One of the main resources for project was prawn documentation.<a href="#fnref-1" class="footnote footnotes">↩</a></p></div></p>
-<p><div class="footnotes"><p id="fn-1">1. <a href="https://towardsdatascience.com/ultimate-beginners-guide-to-collecting-text-for-natural-language-processing-nlp-with-python-256d113e6184">Ultimate Beginners Guide to Collecting Text for Natural Language Processing (NLP) with Python — Twitter, Reddit, Genius and More
+<p><div class="footnotes"><p id="fn-2">2. <a href="https://towardsdatascience.com/ultimate-beginners-guide-to-collecting-text-for-natural-language-processing-nlp-with-python-256d113e6184">Ultimate Beginners Guide to Collecting Text for Natural Language Processing (NLP) with Python — Twitter, Reddit, Genius and More
 Collect Text through APIs and Web Scraping</a></p>
-<p>
-
 <p><em>by Eric Kleppen</em></p>
-<p>This article was a good resource for learning how to use prawn for scraping Reddit.<a href="#fnref-1" class="footnote footnotes">↩</a></p>&lt;/div&gt;</p>
-<p><div class="footnotes"><p id="fn-1">1. <a href="https://www.storybench.org/how-to-scrape-reddit-with-python/">How to scrape Reddit with Python</a></p>
-<p> 
-
+<p>This article was a good resource for learning how to use prawn for scraping Reddit.<a href="#fnref-2" class="footnote footnotes">↩</a></p></div></p>
+<p><div class="footnotes"><p id="fn-3">3. <a href="https://www.storybench.org/how-to-scrape-reddit-with-python/">How to scrape Reddit with Python</a></p>
 <p><em>by Felippe Rodrigues</em></p>
-<p>None of the code from this resource was used, but it was a useful resource for looking at different methods for achieving the same results layed out in Eric Kleppen article.<a href="#fnref-1" class="footnote footnotes">↩</a></p>&lt;/div&gt;</p>
-<p><div class="footnotes"><p id="fn-1">1. <a href="https://towardsdatascience.com/try-texthero-the-absolute-simplest-way-to-clean-and-analyze-text-in-pandas-6db86ed14272">Try TextHero: The Absolute Simplest way to Clean and Analyze Text in Pandas</a></p>
+<p>None of the code from this resource was used, but it was a useful resource for looking at different methods for achieving the same results layed out in Eric Kleppen article.<a href="#fnref-3" class="footnote footnotes">↩</a></p></div></p>
+<p><div class="footnotes"><p id="fn-4">4. <a href="https://towardsdatascience.com/try-texthero-the-absolute-simplest-way-to-clean-and-analyze-text-in-pandas-6db86ed14272">Try TextHero: The Absolute Simplest way to Clean and Analyze Text in Pandas</a></p>
 <p><em>Natural Language Processing (NLP) made easy for Python</em></p>
-<p><em>Posted on July 2020, By: Eric Kleppen</em><a href="#fnref-1" class="footnote footnotes">↩</a></p></div></p>
-<p><div class="footnotes"><p id="fn-1">1. <a href="https://www.analyticsvidhya.com/blog/2020/08/how-to-use-texthero-to-prepare-a-text-based-dataset-for-your-nlp-project/">How to Use Texthero to Prepare a Text-based Dataset for Your NLP Project</a></p>
-<p><em>Posted on Aug. 2020, By: Davis David</em><a href="#fnref-1" class="footnote footnotes">↩</a></p></div></p>
-<p><div class="footnotes"><p id="fn-1">1. <a href="https://python-bloggers.com/2020/10/how-to-run-sentiment-analysis-in-python-using-vader/">How to Run Sentiment Analysis in Python using VADER</a></p>
+<p><em>Posted on July 2020, By: Eric Kleppen</em><a href="#fnref-4" class="footnote footnotes">↩</a></p></div></p>
+<p><div class="footnotes"><p id="fn-5">5. <a href="https://www.analyticsvidhya.com/blog/2020/08/how-to-use-texthero-to-prepare-a-text-based-dataset-for-your-nlp-project/">How to Use Texthero to Prepare a Text-based Dataset for Your NLP Project</a></p>
+<p><em>Posted on Aug. 2020, By: Davis David</em><a href="#fnref-5" class="footnote footnotes">↩</a></p></div></p>
+<p><div class="footnotes"><p id="fn-6">6. <a href="https://python-bloggers.com/2020/10/how-to-run-sentiment-analysis-in-python-using-vader/">How to Run Sentiment Analysis in Python using VADER</a></p>
 <p><em>Posted on October 11, 2020 by George Pipis</em></p>
-<p>This post provided a great explaination of Vader Sentiment Analysis and a descriptive breakdown of neg, pos, neu, and compound categories.<a href="#fnref-1" class="footnote footnotes">↩</a></p></div></p>
-<p><div class="footnotes"><p id="fn-1">1. <a href="https://www.codeforests.com/2020/06/14/how-to-read-ini-file-in-python/">How to read and write configuration (.ini) file in python</a></p>
-<p>Used this post to understand the basics of creating an init file in order to save login information without having to write it into your python code/notebook.  Makes it much easier to share code without have to worry about giving out username/passwords to the world.<a href="#fnref-1" class="footnote footnotes">↩</a></p></div></p>
+<p>This post provided a great explaination of Vader Sentiment Analysis and a descriptive breakdown of neg, pos, neu, and compound categories.<a href="#fnref-6" class="footnote footnotes">↩</a></p></div></p>
+<p><div class="footnotes"><p id="fn-7">7. <a href="https://www.codeforests.com/2020/06/14/how-to-read-ini-file-in-python/">How to read and write configuration (.ini) file in python</a></p>
+<p>Used this post to understand the basics of creating an init file in order to save login information without having to write it into your python code/notebook.  Makes it much easier to share code without have to worry about giving out username/passwords to the world.<a href="#fnref-7" class="footnote footnotes">↩</a></p></div></p>
 
 </div>
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
- 
+</div>
+</div>
+</div>
 
-</p></div></p></div></div></div></div>
 
 
   </div><a class="u-url" href="/blog/2021/06/20/Reddit-Politics-Analysis.html" hidden></a>
