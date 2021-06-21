@@ -19,7 +19,22 @@
 <script type="application/ld+json">
 {"description":"Data Analaysis, NLP, Visualizations","url":"https://drusho.github.io/blog/nlp/pandas/plotly/texthero/prawn/reddit/api/2021/06/20/Reddit-Politics-Analysis.html","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://drusho.github.io/blog/nlp/pandas/plotly/texthero/prawn/reddit/api/2021/06/20/Reddit-Politics-Analysis.html"},"headline":"Data Analysis of /r/Politics Subreddit","dateModified":"2021-06-20T00:00:00-05:00","datePublished":"2021-06-20T00:00:00-05:00","image":"https://drusho.github.io/blog/images/chart-preview.png","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://drusho.github.io/blog/feed.xml" title="David Rusho - Data Analytics Blog" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://drusho.github.io/blog/feed.xml" title="David Rusho - Data Analytics Blog" /><!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0MDV3HWRL8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0MDV3HWRL8');
+</script>
+
+
+<link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
 
 <script>
@@ -78,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      6 min read
+      5 min read
     
 </span></p>
 
@@ -136,27 +151,18 @@ window.onload = wrap_img;
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
 <li class="toc-entry toc-h2"><a href="#Goals-of-Project">Goals of Project </a></li>
-<li class="toc-entry toc-h2"><a href="#Tools-Used:">Tools Used: </a>
+<li class="toc-entry toc-h2"><a href="#Import-Libraries">Import Libraries </a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#Import-Libraries">Import Libraries </a></li>
 <li class="toc-entry toc-h3"><a href="#Sample-of-reddit-posts-from-/r/poltics-out-of-500-posts">Sample of reddit posts from /r/poltics out of 500 posts </a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h1"><a href="#collapse-hide">collapse-hide </a>
-<ul>
 <li class="toc-entry toc-h3"><a href="#Column-Descriptions">Column Descriptions </a></li>
 <li class="toc-entry toc-h3"><a href="#Top-10-Popular-posts-based-on-score">Top 10 Popular posts based on score </a></li>
 <li class="toc-entry toc-h3"><a href="#Word-cloud-of-top-words-from-clean_title">Word cloud of top words from clean_title </a></li>
 <li class="toc-entry toc-h3"><a href="#Top-25-Words-From-Post-Titles">Top 25 Words From Post Titles </a></li>
 <li class="toc-entry toc-h3"><a href="#Post-Scores-vs-Comments">Post Scores vs Comments </a></li>
 <li class="toc-entry toc-h3"><a href="#Sentiment-Analysis-of-Post-Titles">Sentiment Analysis of Post Titles </a></li>
-<li class="toc-entry toc-h2"><a href="#Project-Resources">Project Resources </a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#Helpful-resources-that-were-used-to-complete-this-project.">Helpful resources that were used to complete this project. </a></li>
 </ul>
 </li>
-</ul>
-</li>
+<li class="toc-entry toc-h2"><a href="#Project-Resources">Project Resources </a></li>
 </ul><body>
 <!--
 #################################################
@@ -179,9 +185,8 @@ window.onload = wrap_img;
 <li>Determine word frequency of post titles</li>
 <li>Semantics analysis of post titles</li>
 </ul>
-<h2 id="Tools-Used:">
-<a class="anchor" href="#Tools-Used:" aria-hidden="true"><span class="octicon octicon-link"></span></a>Tools Used:<a class="anchor-link" href="#Tools-Used:"> </a>
-</h2>
+<p><br></p>
+<p>Tools Used:</p>
 <ul>
 <li>
 <em>Pandas</em>: organized data and create dataframes</li>
@@ -262,9 +267,9 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Import-Libraries">
+<h2 id="Import-Libraries">
 <a class="anchor" href="#Import-Libraries" aria-hidden="true"><span class="octicon octicon-link"></span></a>Import Libraries<a class="anchor-link" href="#Import-Libraries"> </a>
-</h3>
+</h2>
 </div>
 </div>
 </div>
@@ -506,9 +511,6 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="collapse-hide">
-<a class="anchor" href="#collapse-hide" aria-hidden="true"><span class="octicon octicon-link"></span></a>collapse-hide<a class="anchor-link" href="#collapse-hide"> </a>
-</h1>
 <h3 id="Column-Descriptions">
 <a class="anchor" href="#Column-Descriptions" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Column Descriptions</strong><a class="anchor-link" href="#Column-Descriptions"> </a>
 </h3>
@@ -1389,49 +1391,33 @@ if (outputEl) {{
 <h2 id="Project-Resources">
 <a class="anchor" href="#Project-Resources" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Project Resources</strong><a class="anchor-link" href="#Project-Resources"> </a>
 </h2>
-<h3 id="Helpful-resources-that-were-used-to-complete-this-project.">
-<a class="anchor" href="#Helpful-resources-that-were-used-to-complete-this-project." aria-hidden="true"><span class="octicon octicon-link"></span></a>Helpful resources that were used to complete this project.<a class="anchor-link" href="#Helpful-resources-that-were-used-to-complete-this-project."> </a>
-</h3>
-<p></p>
-<div class="footnotes">
-<p id="fn-1">1. <a href="https://praw.readthedocs.io">PRAW: The Python Reddit API Wrapper</a></p>
-<p>One of the main resources for project was prawn documentation.<a href="#fnref-1" class="footnote footnotes">↩</a></p>
-</div>
-<p></p>
-<div class="footnotes">
-<p id="fn-2">2. <a href="https://towardsdatascience.com/ultimate-beginners-guide-to-collecting-text-for-natural-language-processing-nlp-with-python-256d113e6184">Ultimate Beginners Guide to Collecting Text for Natural Language Processing (NLP) with Python — Twitter, Reddit, Genius and More
+<blockquote>
+<p>Helpful resources that were used to complete this project.</p>
+</blockquote>
+<ol>
+<li><a href="https://praw.readthedocs.io">PRAW:The Python Reddit API Wrapper</a></li>
+<li>
+<p><a href="https://towardsdatascience.com/ultimate-beginners-guide-to-collecting-text-for-natural-language-processing-nlp-with-python-256d113e6184">Ultimate Beginners Guide to Collecting Text for Natural Language Processing (NLP) with Python — Twitter, Reddit, Genius and More
 Collect Text through APIs and Web Scraping</a></p>
-<p><em>by Eric Kleppen</em></p>
-<p>This article was a good resource for learning how to use prawn for scraping Reddit.<a href="#fnref-2" class="footnote footnotes">↩</a></p>
-</div>
-<p></p>
-<div class="footnotes">
-<p id="fn-3">3. <a href="https://www.storybench.org/how-to-scrape-reddit-with-python/">How to scrape Reddit with Python</a></p>
-<p><em>by Felippe Rodrigues</em></p>
-<p>None of the code from this resource was used, but it was a useful resource for looking at different methods for achieving the same results layed out in Eric Kleppen article.<a href="#fnref-3" class="footnote footnotes">↩</a></p>
-</div>
-<p></p>
-<div class="footnotes">
-<p id="fn-4">4. <a href="https://towardsdatascience.com/try-texthero-the-absolute-simplest-way-to-clean-and-analyze-text-in-pandas-6db86ed14272">Try TextHero: The Absolute Simplest way to Clean and Analyze Text in Pandas</a></p>
-<p><em>Natural Language Processing (NLP) made easy for Python</em></p>
-<p><em>Posted on July 2020, By: Eric Kleppen</em><a href="#fnref-4" class="footnote footnotes">↩</a></p>
-</div>
-<p></p>
-<div class="footnotes">
-<p id="fn-5">5. <a href="https://www.analyticsvidhya.com/blog/2020/08/how-to-use-texthero-to-prepare-a-text-based-dataset-for-your-nlp-project/">How to Use Texthero to Prepare a Text-based Dataset for Your NLP Project</a></p>
-<p><em>Posted on Aug. 2020, By: Davis David</em><a href="#fnref-5" class="footnote footnotes">↩</a></p>
-</div>
-<p></p>
-<div class="footnotes">
-<p id="fn-6">6. <a href="https://python-bloggers.com/2020/10/how-to-run-sentiment-analysis-in-python-using-vader/">How to Run Sentiment Analysis in Python using VADER</a></p>
-<p><em>Posted on October 11, 2020 by George Pipis</em></p>
-<p>This post provided a great explaination of Vader Sentiment Analysis and a descriptive breakdown of neg, pos, neu, and compound categories.<a href="#fnref-6" class="footnote footnotes">↩</a></p>
-</div>
-<p></p>
-<div class="footnotes">
-<p id="fn-7">7. <a href="https://www.codeforests.com/2020/06/14/how-to-read-ini-file-in-python/">How to read and write configuration (.ini) file in python</a></p>
-<p>Used this post to understand the basics of creating an init file in order to save login information without having to write it into your python code/notebook.  Makes it much easier to share code without have to worry about giving out username/passwords to the world.<a href="#fnref-7" class="footnote footnotes">↩</a></p>
-</div>
+</li>
+<li>
+<p><a href="https://www.storybench.org/how-to-scrape-reddit-with-python/">How to scrape Reddit with Python</a></p>
+</li>
+<li>
+<p><a href="https://towardsdatascience.com/try-texthero-the-absolute-simplest-way-to-clean-and-analyze-text-in-pandas-6db86ed14272">Try TextHero: The Absolute Simplest way to Clean and Analyze Text in Pandas</a></p>
+</li>
+<li>
+<p><a href="https://www.analyticsvidhya.com/blog/2020/08/how-to-use-texthero-to-prepare-a-text-based-dataset-for-your-nlp-project/">How to Use Texthero to Prepare a Text-based Dataset for Your NLP Project</a></p>
+</li>
+</ol>
+<ol>
+<li>
+<p><a href="https://python-bloggers.com/2020/10/how-to-run-sentiment-analysis-in-python-using-vader/">How to Run Sentiment Analysis in Python using VADER</a></p>
+</li>
+<li>
+<p><a href="https://www.codeforests.com/2020/06/14/how-to-read-ini-file-in-python/">How to read and write configuration (.ini) file in python</a></p>
+</li>
+</ol>
 
 </div>
 </div>
