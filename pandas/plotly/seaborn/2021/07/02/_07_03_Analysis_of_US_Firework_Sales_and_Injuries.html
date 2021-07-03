@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      12 min read
+      13 min read
     
 </span></p>
 
@@ -113,27 +113,6 @@ window.onload = wrap_img;
     
 
     
-      
-        <div class="pb-5 d-flex flex-wrap flex-justify-end">
-          <div class="px-2">
-
-    <a href="https://github.com/drusho//tree/master/_notebooks/2021_07_03_Analysis_of_US_Firework_Sales_and_Injuries.ipynb" role="button" target="_blank">
-<img class="notebook-badge-image" src="/assets/badges/github.svg" alt="View On GitHub">
-    </a>
-</div>
-
-          <div class="px-2">
-    <a href="https://mybinder.org/v2/gh/drusho//master?filepath=_notebooks%2F2021_07_03_Analysis_of_US_Firework_Sales_and_Injuries.ipynb" target="_blank">
-        <img class="notebook-badge-image" src="/assets/badges/binder.svg" alt="Open In Binder"/>
-    </a>
-</div>
-
-          <div class="px-2">
-    <a href="https://colab.research.google.com/github/drusho//blob/master/_notebooks/2021_07_03_Analysis_of_US_Firework_Sales_and_Injuries.ipynb" target="_blank">
-        <img class="notebook-badge-image" src="/assets/badges/colab.svg" alt="Open In Colab"/>
-    </a>
-</div>
-        </div>
       </header>
 
   <div class="post-content e-content" itemprop="articleBody">
@@ -245,36 +224,29 @@ There was no significate correlation between the number of injuries in a year co
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Resources">
 <a class="anchor" href="#Resources" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Resources</strong><a class="anchor-link" href="#Resources"> </a>
 </h4>
-<p>Source 1: (Injury Data): <a href="https://www.cpsc.gov/cgibin/NEISSQuery/UserCriteria.aspx?UserAff=5x08cgz9T6YPDAZJzvlZjA%3d%3d&amp;UserAffOther=9OYR9kUytIsLilKZieD5xg%3d%3d">Firework Injury Reports</a></p>
-<details>
-<summary>Source 1 Details</summary>
+<ol>
+<li>
+<p>(Injury Data): <a href="https://www.cpsc.gov/cgibin/NEISSQuery/UserCriteria.aspx?UserAff=5x08cgz9T6YPDAZJzvlZjA%3d%3d&amp;UserAffOther=9OYR9kUytIsLilKZieD5xg%3d%3d">Firework Injury Reports</a></p>
+</li>
+<li>
+<p>(Sales Data): <a href="https://usatrade.census.gov/">USA Trade Census</a></p>
+</li>
+</ol>
+<p><details>&lt;/p&gt;
+<summary>Source Details</summary><p>Source 1 consisted multiple excel incident reports involving fireworks over the past 5 years taken from the U.S. Consumer Product Safety Commission (CPSC).</p>
+<p>The NEISS injury data are gathered from the emergency departments (ED) of 96 hospitals selected as a probability sample of all U.S. hospitals with 24-hour EDs and at least 6 inpatient beds. Each participating NEISS hospital is hand-selected by CPSC because it provides an important representation of all other hospitals of its size and unique characteristics in the U.S.</p>
+<p>Source 2 conatins Sales and Trade data for each state regarding fireworks.  Reports data range from 2016 to April 2021.</p>
+<p>&lt;/details&gt;
+<br></p>
 
-Source 1 consisted multiple excel incident reports involving fireworks over the past 5 years taken from the U.S. Consumer Product Safety Commission (CPSC).
-
-The NEISS injury data are gathered from the emergency departments (ED) of 96 hospitals selected as a probability sample of all U.S. hospitals with 24-hour EDs and at least 6 inpatient beds. Each participating NEISS hospital is hand-selected by CPSC because it provides an important representation of all other hospitals of its size and unique characteristics in the U.S.
-
-</details>
-<br>
-
-
-Source 2: (Sales Data): [USA Trade Census](https://usatrade.census.gov/)
-
-<details>
-
-<summary>Source 2 Details </summary>
-
-  Sales and Trade data each state regarding fireworks.  Reports data range from 2016 to April 2021.
-
-</details>
-</div>
-</div>
-</div>
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1179,68 +1151,34 @@ memory usage: 119.8+ KB
 <h3 id="Fixing-Age-Column">
 <a class="anchor" href="#Fixing-Age-Column" aria-hidden="true"><span class="octicon octicon-link"></span></a>Fixing Age Column<a class="anchor-link" href="#Fixing-Age-Column"> </a>
 </h3>
-<p>The Age column list not only numeric ages but also includes category codes for individuals under the age of 2 year old.  Individuals that are under 2 years old are given a code starting with 200 combined with their age in months.</p>
-<p>Age Code</p>
-<table>
-<thead>
-<tr>
-<th>Age Code</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>No Recorded Age</td>
-</tr>
-<tr>
-<td>2</td>
-<td>2 Years Old</td>
-</tr>
-<tr>
-<td>45</td>
-<td>45 Years Old</td>
-</tr>
-<tr>
-<td>100</td>
-<td>100 Years Old</td>
-</tr>
-<tr>
-<td>102</td>
-<td>102 Years Old</td>
-</tr>
-<tr>
-<td>201</td>
-<td>Three Weeks Old</td>
-</tr>
-<tr>
-<td>201</td>
-<td>Four Weeks Old</td>
-</tr>
-<tr>
-<td>201</td>
-<td>Seven Weeks Old</td>
-</tr>
-<tr>
-<td>202</td>
-<td>Ten Weeks Old</td>
-</tr>
-<tr>
-<td>209</td>
-<td>Nine Months Old</td>
-</tr>
-<tr>
-<td>212</td>
-<td>Twelve months (one year)</td>
-</tr>
-<tr>
-<td>218</td>
-<td>Eighteen months</td>
-</tr>
-</tbody>
-</table>
-<p>If the patient is older than 115 years old, code the age as 115 and indicate the actual age in the Comment. If the ED record indicates the patient was born on January 1, 1900, please verify the patient’s age with hospital staff – some hospitals use this date when the patient’s age is unknown.</p>
 <details>
+
+<summary>Details</summary>
+
+The Age column list not only numeric ages but also includes category codes for individuals under the age of 2 year old.  Individuals that are under 2 years old are given a code starting with 200 combined with their age in months.  
+
+Age Code
+
+|Age Code|Description             |
+|--------|------------------------|
+|0       |No Recorded Age         |
+|2       |2 Years Old             |
+|45      |45 Years Old            |
+|100     |100 Years Old           |
+|102     |102 Years Old           |
+|201     |Three Weeks Old         |
+|201     |Four Weeks Old          |
+|201     |Seven Weeks Old         |
+|202     |Ten Weeks Old           |
+|209     |Nine Months Old         |
+|212     |Twelve months (one year)|
+|218     |Eighteen months         |
+
+
+
+If the patient is older than 115 years old, code the age as 115 and indicate the actual age in the Comment. If the ED record indicates the patient was born on January 1, 1900, please verify the patient’s age with hospital staff – some hospitals use this date when the patient’s age is unknown.
+
+</details><details>
 
 <summary>Note</summary>
 
@@ -1256,8 +1194,13 @@ CPSC prefers that coders use the Date of Birth variable in lieu of the age varia
 <h3 id="Visualizing-Age-Groups-(Histogram)">
 <a class="anchor" href="#Visualizing-Age-Groups-(Histogram)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Visualizing Age Groups (Histogram)<a class="anchor-link" href="#Visualizing-Age-Groups-(Histogram)"> </a>
 </h3>
-<p>The histogram below shows that the majority of firework related injuries that were reported occured with indivuals under the age of 40.  The largest grouping belonged to individuals under the age of 20, which is also below the legal drinking age in the US.</p>
+<details>
 
+<summary>Details</summary>
+
+The histogram below shows that the majority of firework related injuries that were reported occured with indivuals under the age of 40.  The largest grouping belonged to individuals under the age of 20, which is also below the legal drinking age in the US.  
+
+</details>
 </div>
 </div>
 </div>
@@ -2865,8 +2808,13 @@ There was no significate correlation between the number of injuries in a year co
 </div>
 </div>
 </div>
-</div>
+&lt;/div&gt;
+ 
 
+</details></p>
+</div>
+</div></div>
+</div>
 
 </body>
   </div><!-- from https://github.com/utterance/utterances -->
