@@ -34,11 +34,7 @@ url: "https://drusho.github.io" # the base hostname & protocol for your site, e.
 #
 # 3. You must replace the parameter `baseurl` in _action_files/settings.ini with the same value as you set here but WITHOUT QUOTES.
 #
-<<<<<<< HEAD
-baseurl: "drusho.github.io" # the subpath of your site, e.g. "/blog".
-=======
 baseurl: "" # the subpath of your site, e.g. "/blog".
->>>>>>> parent of 889e334 (Update _config.yml)
 
 # Github and twitter are optional:
 minima:
