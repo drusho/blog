@@ -210,13 +210,15 @@ window.onload = wrap_img;
 <summary>Goals</summary>
 
 Provide an overview of incidents that involve fireworks.
+
    - Age Group(s) most affected
    - Frequency of Injury Type(s)
 
 Provide sales figures for fireworks across the US.
+
   - State sales totals all states
 
-</details>
+  </details>
 </div>
 </div>
 </div>
@@ -231,10 +233,13 @@ Provide sales figures for fireworks across the US.
 <summary>Injury Data</summary>
 
    - Age Group(s) most affected
+
      - 0-20 age group showed the highest rate of injury.  
      - Injury rates by age decreased with age
      - 60+ age groups showed the lowest rate of injury
+
    - Frequency of Injury Type(s)
+
      - Hand, Face, and Eye injuries were the most common.
      - Injuries to lower extemities were less common
 
@@ -257,6 +262,7 @@ Provide sales figures for fireworks across the US.
 <a class="anchor" href="#Resources" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Resources</strong><a class="anchor-link" href="#Resources"> </a>
 </h4>
 <details>
+
 <summary>Source 1</summary>
 
 1. Source (Injury Data): [Firework Injury Reports](https://www.cpsc.gov/cgibin/NEISSQuery/UserCriteria.aspx?UserAff=5x08cgz9T6YPDAZJzvlZjA%3d%3d&amp;UserAffOther=9OYR9kUytIsLilKZieD5xg%3d%3d)
@@ -265,13 +271,14 @@ Provide sales figures for fireworks across the US.
 
   NEISS injury data are gathered from the emergency departments (ED) of 96 hospitals selected as a probability sample of all U.S. hospitals with 24-hour EDs and at least 6 inpatient beds. Each participating NEISS hospital is hand-selected by CPSC because it provides an important representation of all other hospitals of its size and unique characteristics in the U.S.
 
-</details>
-<details>
+</details><details>
+
 <summary>Source 2</summary>
 
 2. Source (Sales Data): [USA Trade Census](https://usatrade.census.gov/)
 
   Sales and Trade data each state regarding fireworks.  Reports data range from 2016 to April 2021.
+
 </details>
 </div>
 </div>
@@ -283,6 +290,7 @@ Provide sales figures for fireworks across the US.
 <a class="anchor" href="#Tools-Used" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Tools Used</strong><a class="anchor-link" href="#Tools-Used"> </a>
 </h4>
 <details>
+
 <summary>Tools</summary>
 
 * Matplotlib
@@ -308,29 +316,9 @@ Provide sales figures for fireworks across the US.
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-python"><pre><span></span><span class="c1"># install libraries to save plotly images to disk</span>
-<span class="o">%%</span><span class="n">capture</span>
-<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">kaleido</span>
-<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">plotly</span><span class="o">&gt;=</span><span class="mf">4.0</span><span class="o">.</span><span class="mi">0</span>
-<span class="err">!</span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">plotly</span><span class="o">/</span><span class="n">orca</span><span class="o">/</span><span class="n">releases</span><span class="o">/</span><span class="n">download</span><span class="o">/</span><span class="n">v1</span><span class="o">.</span><span class="mf">2.1</span><span class="o">/</span><span class="n">orca</span><span class="o">-</span><span class="mf">1.2</span><span class="o">.</span><span class="mi">1</span><span class="o">-</span><span class="n">x86_64</span><span class="o">.</span><span class="n">AppImage</span> <span class="o">-</span><span class="n">O</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">orca</span>
-<span class="err">!</span><span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">orca</span>
-<span class="err">!</span><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">xvfb</span> <span class="n">libgtk2</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">0</span> <span class="n">libgconf</span><span class="o">-</span><span class="mi">2</span><span class="o">-</span><span class="mi">4</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
 <div class="input">
 
 <div class="inner_cell">
@@ -348,6 +336,7 @@ Provide sales figures for fireworks across the US.
 </div>
 </div>
 
+    </details>
 </div>
     
 
@@ -365,6 +354,9 @@ Provide sales figures for fireworks across the US.
     
     
 <div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
 <div class="input">
 
 <div class="inner_cell">
@@ -379,6 +371,7 @@ Provide sales figures for fireworks across the US.
 </div>
 </div>
 
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -472,6 +465,9 @@ Provide sales figures for fireworks across the US.
     
     
 <div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
 <div class="input">
 
 <div class="inner_cell">
@@ -485,6 +481,7 @@ Provide sales figures for fireworks across the US.
 </div>
 </div>
 
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
