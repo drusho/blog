@@ -128,8 +128,8 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#Import-Libraries">Import Libraries </a></li>
 <li class="toc-entry toc-h2"><a href="#Import-Firework-Injury-Datasets">Import Firework Injury Datasets </a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#Column-Data-Types-using-pd.info()">Column Data Types using pd.info() </a></li>
-<li class="toc-entry toc-h3"><a href="#Convert-Alchol/Drug-booleans-(0,1)-values-to-yes/no">Convert Alchol/Drug booleans (0,1) values to yes/no </a></li>
+<li class="toc-entry toc-h3"><a href="#Displaying-Column-Data-Types">Displaying Column Data Types </a></li>
+<li class="toc-entry toc-h3"><a href="#Converting-Alchol/Drug-booleans-(0,1)-values-to-yes/no">Converting Alchol/Drug booleans (0,1) values to yes/no </a></li>
 <li class="toc-entry toc-h3"><a href="#Counting-Drug-and-Alchol-Use">Counting Drug and Alchol Use </a></li>
 <li class="toc-entry toc-h3"><a href="#Visualizing-Drug-and-Alcohol-Usuage-(Bar-Plot)">Visualizing Drug and Alcohol Usuage (Bar Plot) </a></li>
 <li class="toc-entry toc-h3"><a href="#Visualizing-Incident-Counts-by-Year-(Bar-Plot)">Visualizing Incident Counts by Year (Bar Plot) </a></li>
@@ -145,13 +145,21 @@ window.onload = wrap_img;
 </li>
 <li class="toc-entry toc-h2"><a href="#Import-Firework-Sales-Data-(State)">Import Firework Sales Data (State) </a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#Web-Scrap-of-State-Abbreviations">Web Scrap of State Abbreviations </a></li>
+<li class="toc-entry toc-h3"><a href="#Web-Scraping-for-State-Abbreviations">Web Scraping for State Abbreviations </a></li>
+<li class="toc-entry toc-h3"><a href="#Merging-State-Abbreviations-with-Master-Dataframe">Merging State Abbreviations with Master Dataframe </a></li>
 <li class="toc-entry toc-h3"><a href="#Visualizating-State-Sales-(Bar-Plot)">Visualizating State Sales (Bar Plot) </a></li>
 <li class="toc-entry toc-h3"><a href="#Visualizating-State-Sales-(Scatter-Plot)">Visualizating State Sales (Scatter Plot) </a></li>
 <li class="toc-entry toc-h3"><a href="#Visualizating-State-Sales-(Heatmap-Plot-of-US)">Visualizating State Sales (Heatmap Plot of US) </a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h1"><a href="#Putting-It-All-Together">Putting It All Together </a></li>
+<li class="toc-entry toc-h1"><a href="#Putting-It-All-Together">Putting It All Together </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Total-Sales-Groupby-Year">Total Sales Groupby Year </a></li>
+<li class="toc-entry toc-h3"><a href="#Total-Injuries-Groupby-Year">Total Injuries Groupby Year </a></li>
+<li class="toc-entry toc-h3"><a href="#Merging-Sales-and-Injury-DataFrame-on-Year">Merging Sales and Injury DataFrame on Year </a></li>
+<li class="toc-entry toc-h3"><a href="#Determining-Correlation-of-New-DataFrame">Determining Correlation of New DataFrame </a></li>
+</ul>
+</li>
 <li class="toc-entry toc-h1"><a href="#Summary">Summary </a></li>
 </ul><body>
 <!--
@@ -463,8 +471,8 @@ Source 2 conatins Sales and Trade data for each state regarding fireworks.  Repo
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Column-Data-Types-using-pd.info()">
-<a class="anchor" href="#Column-Data-Types-using-pd.info()" aria-hidden="true"><span class="octicon octicon-link"></span></a>Column Data Types using <em>pd.info()</em><a class="anchor-link" href="#Column-Data-Types-using-pd.info()"> </a>
+<h3 id="Displaying-Column-Data-Types">
+<a class="anchor" href="#Displaying-Column-Data-Types" aria-hidden="true"><span class="octicon octicon-link"></span></a>Displaying Column Data Types<a class="anchor-link" href="#Displaying-Column-Data-Types"> </a>
 </h3>
 </div>
 </div>
@@ -525,8 +533,8 @@ memory usage: 119.8+ KB
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Convert-Alchol/Drug-booleans-(0,1)-values-to-yes/no">
-<a class="anchor" href="#Convert-Alchol/Drug-booleans-(0,1)-values-to-yes/no" aria-hidden="true"><span class="octicon octicon-link"></span></a>Convert Alchol/Drug booleans (0,1) values to yes/no<a class="anchor-link" href="#Convert-Alchol/Drug-booleans-(0,1)-values-to-yes/no"> </a>
+<h3 id="Converting-Alchol/Drug-booleans-(0,1)-values-to-yes/no">
+<a class="anchor" href="#Converting-Alchol/Drug-booleans-(0,1)-values-to-yes/no" aria-hidden="true"><span class="octicon octicon-link"></span></a>Converting Alchol/Drug booleans (0,1) values to yes/no<a class="anchor-link" href="#Converting-Alchol/Drug-booleans-(0,1)-values-to-yes/no"> </a>
 </h3>
 </div>
 </div>
@@ -1658,9 +1666,16 @@ The histogram below shows that the majority of firework related injuries that we
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Web-Scrap-of-State-Abbreviations">
-<a class="anchor" href="#Web-Scrap-of-State-Abbreviations" aria-hidden="true"><span class="octicon octicon-link"></span></a>Web Scrap of State Abbreviations<a class="anchor-link" href="#Web-Scrap-of-State-Abbreviations"> </a>
+<h3 id="Web-Scraping-for-State-Abbreviations">
+<a class="anchor" href="#Web-Scraping-for-State-Abbreviations" aria-hidden="true"><span class="octicon octicon-link"></span></a>Web Scraping for State Abbreviations<a class="anchor-link" href="#Web-Scraping-for-State-Abbreviations"> </a>
 </h3>
+<details>
+
+<summary>Details</summary>
+
+The dataframe was missing state abbreviations that are needed to plot data onto a map using Plotly.  Used pandas function 'read_hml' to read tables from a website that contact state and state abbreviation data.
+
+</details>
 </div>
 </div>
 </div>
@@ -1764,6 +1779,15 @@ The histogram below shows that the majority of firework related injuries that we
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Merging-State-Abbreviations-with-Master-Dataframe">
+<a class="anchor" href="#Merging-State-Abbreviations-with-Master-Dataframe" aria-hidden="true"><span class="octicon octicon-link"></span></a>Merging State Abbreviations with Master Dataframe<a class="anchor-link" href="#Merging-State-Abbreviations-with-Master-Dataframe"> </a>
+</h3>
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -1874,9 +1898,6 @@ The histogram below shows that the majority of firework related injuries that we
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p></p>
 <div class="input">
 
 <div class="inner_cell">
@@ -1898,8 +1919,10 @@ The histogram below shows that the majority of firework related injuries that we
     </div>
 </div>
 </div>
-
-    </details>
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Output" data-close="Show Output"></summary>
+        <p>
+</p>
 <div class="output_wrapper">
 <div class="output">
 
@@ -1925,6 +1948,7 @@ memory usage: 13.4+ KB
 </div>
 </div>
 
+    </details>
 </div>
     
 
@@ -2187,86 +2211,6 @@ if (outputEl) {{
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-python"><pre><span></span><span class="n">df_sales_st2</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-    </details>
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>State</th>
-      <th>Commodity</th>
-      <th>Time</th>
-      <th>Total Value ($US)</th>
-      <th>Abbrevation</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>284</th>
-      <td>Wyoming</td>
-      <td>360410 Fireworks</td>
-      <td>2021-01-01</td>
-      <td>606265</td>
-      <td>WY</td>
-    </tr>
-    <tr>
-      <th>283</th>
-      <td>Wyoming</td>
-      <td>360410 Fireworks</td>
-      <td>2020-01-01</td>
-      <td>2208173</td>
-      <td>WY</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p></p>
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
 <div class=" highlight hl-python"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">choropleth</span><span class="p">(</span><span class="n">df_sales_st2</span><span class="p">,</span>  <span class="c1"># Input Pandas DataFrame</span>
                     <span class="n">locations</span><span class="o">=</span><span class="s2">"Abbrevation"</span><span class="p">,</span>  <span class="c1"># DataFrame column with locations</span>
                     <span class="n">color</span><span class="o">=</span><span class="s2">"Total Value ($US)"</span><span class="p">,</span>  <span class="c1"># DataFrame column with color values</span>
@@ -2368,12 +2312,20 @@ if (outputEl) {{
 <h1 id="Putting-It-All-Together">
 <a class="anchor" href="#Putting-It-All-Together" aria-hidden="true"><span class="octicon octicon-link"></span></a>Putting It All Together<a class="anchor-link" href="#Putting-It-All-Together"> </a>
 </h1>
-<p>Combining injury and sales data.</p>
 <ul>
+<li>Combining injury and sales data.</li>
 <li>Sales and Injury Correlation</li>
 </ul>
-<p>Predict which Injuries are likely to Occur in 2021-2022</p>
 
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Total-Sales-Groupby-Year">
+<a class="anchor" href="#Total-Sales-Groupby-Year" aria-hidden="true"><span class="octicon octicon-link"></span></a>Total Sales Groupby Year<a class="anchor-link" href="#Total-Sales-Groupby-Year"> </a>
+</h3>
 </div>
 </div>
 </div>
@@ -2471,6 +2423,15 @@ if (outputEl) {{
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Total-Injuries-Groupby-Year">
+<a class="anchor" href="#Total-Injuries-Groupby-Year" aria-hidden="true"><span class="octicon octicon-link"></span></a>Total Injuries Groupby Year<a class="anchor-link" href="#Total-Injuries-Groupby-Year"> </a>
+</h3>
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -2560,6 +2521,15 @@ if (outputEl) {{
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Merging-Sales-and-Injury-DataFrame-on-Year">
+<a class="anchor" href="#Merging-Sales-and-Injury-DataFrame-on-Year" aria-hidden="true"><span class="octicon octicon-link"></span></a>Merging Sales and Injury DataFrame on Year<a class="anchor-link" href="#Merging-Sales-and-Injury-DataFrame-on-Year"> </a>
+</h3>
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -2660,6 +2630,15 @@ if (outputEl) {{
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Determining-Correlation-of-New-DataFrame">
+<a class="anchor" href="#Determining-Correlation-of-New-DataFrame" aria-hidden="true"><span class="octicon octicon-link"></span></a>Determining Correlation of New DataFrame<a class="anchor-link" href="#Determining-Correlation-of-New-DataFrame"> </a>
+</h3>
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
