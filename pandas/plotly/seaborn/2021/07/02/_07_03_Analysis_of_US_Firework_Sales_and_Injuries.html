@@ -372,10 +372,7 @@ window.onload = wrap_img;
     </div>
 </div>
 </div>
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Output" data-close="Show Output"></summary>
-        <p>
-</p>
+
 <div class="output_wrapper">
 <div class="output">
 
@@ -463,13 +460,24 @@ window.onload = wrap_img;
 </div>
 </div>
 
-    </details>
 </div>
     
 
     
     
 <div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1">#Change dtype for 'Treatment_Date' to datetime dtype</span>
+<span class="n">df_injury</span><span class="o">.</span><span class="n">Treatment_Date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df_injury</span><span class="o">.</span><span class="n">Treatment_Date</span><span class="p">)</span>
+<span class="n">df_injury</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
 
 <div class="output_wrapper">
 <div class="output">
