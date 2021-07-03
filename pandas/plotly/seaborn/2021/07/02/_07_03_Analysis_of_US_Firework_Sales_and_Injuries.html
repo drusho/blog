@@ -147,6 +147,7 @@ window.onload = wrap_img;
 <ul>
 <li class="toc-entry toc-h3"><a href="#Web-Scraping-for-State-Abbreviations">Web Scraping for State Abbreviations </a></li>
 <li class="toc-entry toc-h3"><a href="#Merging-State-Abbreviations-with-Master-Dataframe">Merging State Abbreviations with Master Dataframe </a></li>
+<li class="toc-entry toc-h3"><a href="#Changing-Data-Types-for-Time-and-Sales">Changing Data Types for Time and Sales </a></li>
 <li class="toc-entry toc-h3"><a href="#Visualizating-State-Sales-(Bar-Plot)">Visualizating State Sales (Bar Plot) </a></li>
 <li class="toc-entry toc-h3"><a href="#Visualizating-State-Sales-(Scatter-Plot)">Visualizating State Sales (Scatter Plot) </a></li>
 <li class="toc-entry toc-h3"><a href="#Visualizating-State-Sales-(Heatmap-Plot-of-US)">Visualizating State Sales (Heatmap Plot of US) </a></li>
@@ -1895,9 +1896,21 @@ The dataframe was missing state abbreviations that are needed to plot data onto 
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Changing-Data-Types-for-Time-and-Sales">
+<a class="anchor" href="#Changing-Data-Types-for-Time-and-Sales" aria-hidden="true"><span class="octicon octicon-link"></span></a>Changing Data Types for Time and Sales<a class="anchor-link" href="#Changing-Data-Types-for-Time-and-Sales"> </a>
+</h3>
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
 <div class="input">
 
 <div class="inner_cell">
@@ -1912,17 +1925,34 @@ The dataframe was missing state abbreviations that are needed to plot data onto 
 
 <span class="c1">#export csv of clean data</span>
 <span class="n">df_sales_st2</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">'df_state_sales_clean.csv'</span><span class="p">)</span>
-
-<span class="n">df_sales_st2</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 </pre></div>
 
     </div>
 </div>
 </div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
 <details class="description">
-      <summary class="btn btn-sm" data-open="Hide Output" data-close="Show Output"></summary>
-        <p>
-</p>
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">df_sales_st2</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -1948,7 +1978,6 @@ memory usage: 13.4+ KB
 </div>
 </div>
 
-    </details>
 </div>
     
 
