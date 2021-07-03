@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      9 min read
+      12 min read
     
 </span></p>
 
@@ -196,8 +196,6 @@ window.onload = wrap_img;
 <h2 id="Introduction">
 <a class="anchor" href="#Introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Introduction</strong><a class="anchor-link" href="#Introduction"> </a>
 </h2>
-<hr>
-
 </div>
 </div>
 </div>
@@ -1112,7 +1110,50 @@ memory usage: 119.8+ KB
     
     
 <div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
 
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># Incident Counts by Body Part</span>
+
+<span class="c1">#define figure size</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">"figure.figsize"</span><span class="p">:(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">)})</span>
+
+<span class="c1">#set background color</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">"white"</span><span class="p">)</span>
+
+<span class="n">incidentBp</span> <span class="o">=</span> <span class="n">df_injury</span><span class="p">[</span><span class="s1">'Body_Part'</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'incidents'</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">23</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">"incidents"</span><span class="p">,</span> 
+                 <span class="n">y</span><span class="o">=</span><span class="s2">"index"</span><span class="p">,</span> 
+                 <span class="n">data</span><span class="o">=</span><span class="n">incidentBp</span><span class="p">,</span> 
+                 <span class="n">palette</span><span class="o">=</span><span class="s2">"RdYlBu"</span><span class="p">)</span>
+
+<span class="c1">#set x,y labels</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">''</span><span class="p">,</span>
+       <span class="n">ylabel</span><span class="o">=</span><span class="s1">''</span><span class="p">)</span>
+
+<span class="c1">#set title</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Firework Related Incident Counts by Body Part (2016-2020)'</span><span class="p">,</span> 
+             <span class="n">fontdict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'fontsize'</span><span class="p">:</span><span class="mi">15</span><span class="p">})</span>
+
+<span class="c1">#remove spines</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1">#save to png</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"Incident Counts by Body Part.png"</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -1132,7 +1173,8 @@ memory usage: 119.8+ KB
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Fixing-Age-Column">
 <a class="anchor" href="#Fixing-Age-Column" aria-hidden="true"><span class="octicon octicon-link"></span></a>Fixing Age Column<a class="anchor-link" href="#Fixing-Age-Column"> </a>
@@ -1200,14 +1242,14 @@ memory usage: 119.8+ KB
 <p>If the patient is older than 115 years old, code the age as 115 and indicate the actual age in the Comment. If the ED record indicates the patient was born on January 1, 1900, please verify the patient’s age with hospital staff – some hospitals use this date when the patient’s age is unknown.</p>
 <details>
 
-<summary>Note&lt;/summary
+<summary>Note</summary>
 
 CPSC prefers that coders use the Date of Birth variable in lieu of the age variable. Mistakes in coded ages are common when patients have birthdays after the date of treatment and before the NEISS coder codes the case. Hospital medical record systems automatically update the age of the patient daily.
 
-&lt;/details&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
+</details>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1222,7 +1264,47 @@ CPSC prefers that coders use the Date of Birth variable in lieu of the age varia
     
     
 <div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
 
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># Histogram of Ages</span>
+
+<span class="c1">#set figsize</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">"figure.figsize"</span><span class="p">:(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">)})</span>
+
+<span class="c1">#set background color</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">"white"</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df_injury</span><span class="p">,</span> 
+                  <span class="n">x</span><span class="o">=</span><span class="s1">'Age_Fix'</span><span class="p">,</span> 
+                  <span class="n">bins</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c1">#set x,y labels</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">'Age'</span><span class="p">,</span>
+       <span class="n">ylabel</span><span class="o">=</span><span class="s1">'Counts'</span><span class="p">)</span>
+
+<span class="c1">#set title</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Firework Related Incident Counts by Age (2016-2020)'</span><span class="p">,</span> 
+             <span class="n">fontdict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'fontsize'</span><span class="p">:</span><span class="mi">15</span><span class="p">})</span>
+
+<span class="c1">#remove spines</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1">#save to png</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"Incident Counts by Age_Hist.png"</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -1254,7 +1336,50 @@ CPSC prefers that coders use the Date of Birth variable in lieu of the age varia
     
     
 <div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
 
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># Incident Counts by Age (Age_Fix)</span>
+
+<span class="c1">#define figure size</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">"figure.figsize"</span><span class="p">:(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">12</span><span class="p">)})</span>
+
+<span class="c1">#set background color</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">"white"</span><span class="p">)</span>
+
+<span class="n">incidentAge</span> <span class="o">=</span> <span class="n">df_injury</span><span class="p">[</span><span class="s1">'Age_Fix'</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'incidents'</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s2">"incidents"</span><span class="p">,</span> 
+                 <span class="n">x</span><span class="o">=</span><span class="s2">"index"</span><span class="p">,</span> 
+                 <span class="n">data</span><span class="o">=</span><span class="n">incidentAge</span><span class="p">,</span> 
+                 <span class="n">palette</span><span class="o">=</span><span class="s2">"RdYlBu"</span><span class="p">)</span>
+
+<span class="c1">#set x,y labels</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">'Age'</span><span class="p">,</span>
+       <span class="n">ylabel</span><span class="o">=</span><span class="s1">'Count'</span><span class="p">)</span>
+
+<span class="c1">#set title</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Firework Related Incident Counts by Age (2016-2020)'</span><span class="p">,</span> 
+             <span class="n">fontdict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'fontsize'</span><span class="p">:</span><span class="mi">30</span><span class="p">})</span>
+
+<span class="c1">#remove spines</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1">#save to png</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"Incident Counts by Age_Bar.png"</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -1286,7 +1411,49 @@ CPSC prefers that coders use the Date of Birth variable in lieu of the age varia
     
     
 <div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
 
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># Swarm graph by age, year, and gender</span>
+
+<span class="c1">#define figure size</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">"figure.figsize"</span><span class="p">:(</span><span class="mi">14</span><span class="p">,</span><span class="mi">10</span><span class="p">)})</span>
+
+<span class="c1">#set background color</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">"white"</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">swarmplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df_injury</span><span class="p">,</span> 
+                   <span class="n">x</span> <span class="o">=</span> <span class="n">df_injury</span><span class="p">[</span><span class="s1">'Treatment_Date'</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> 
+                   <span class="n">y</span> <span class="o">=</span> <span class="s2">"Age_Fix"</span><span class="p">,</span>
+                   <span class="n">hue</span> <span class="o">=</span> <span class="s2">"Sex"</span><span class="p">,</span>
+                   <span class="n">palette</span> <span class="o">=</span> <span class="s2">"seismic"</span><span class="p">)</span>
+
+<span class="c1">#set x,y labels</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span> <span class="o">=</span> <span class="s1">'Year'</span><span class="p">,</span>
+       <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">'Age'</span><span class="p">)</span>
+
+<span class="c1">#set title</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Firework Related Incident Counts by Age'</span><span class="p">,</span> 
+             <span class="n">fontdict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'fontsize'</span><span class="p">:</span><span class="mi">18</span><span class="p">})</span>
+
+<span class="c1">#remove spines</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1">#save to png</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"Incident Counts by Age_Swarm.png"</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -1318,7 +1485,52 @@ CPSC prefers that coders use the Date of Birth variable in lieu of the age varia
     
     
 <div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
 
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># Incident Counts by Disposition</span>
+
+<span class="n">incidentDis</span> <span class="o">=</span> <span class="n">df_injury</span><span class="p">[</span><span class="s1">'Disposition'</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'incidents'</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+
+<span class="c1">#define figure size</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">"figure.figsize"</span><span class="p">:(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">)})</span>
+
+<span class="c1">#set background color</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">"white"</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="s2">"incidents"</span><span class="p">,</span> 
+                 <span class="n">y</span> <span class="o">=</span> <span class="s2">"index"</span><span class="p">,</span> 
+                 <span class="n">data</span> <span class="o">=</span> <span class="n">incidentDis</span><span class="p">,</span> 
+                 <span class="n">palette</span> <span class="o">=</span> <span class="s2">"RdYlBu"</span><span class="p">)</span>
+
+<span class="c1">#set x,y labels</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span> <span class="o">=</span> <span class="s1">''</span><span class="p">,</span>
+       <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">''</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Firework Related Incident Counts by Disposition (2016-2020)'</span><span class="p">,</span> 
+             <span class="n">fontdict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'fontsize'</span><span class="p">:</span><span class="mi">18</span><span class="p">})</span>
+
+<span class="c1">#set title</span>
+<span class="c1"># ax.set_ylabel('', fontdict= {'fontsize':25})</span>
+
+<span class="c1">#remove spine</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1">#save to png</span>
+<span class="c1"># ax.figure.savefig("Incident Counts by Disposition.png")</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -1350,7 +1562,57 @@ CPSC prefers that coders use the Date of Birth variable in lieu of the age varia
     
     
 <div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
 
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># Incident Counts by Diagnosis</span>
+
+<span class="n">incidentDia</span> <span class="o">=</span> <span class="n">df_injury</span><span class="p">[</span><span class="s1">'Diagnosis'</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'incidents'</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1">#define figure size</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">"figure.figsize"</span><span class="p">:(</span><span class="mi">14</span><span class="p">,</span><span class="mi">10</span><span class="p">)})</span>
+
+<span class="c1">#set background color</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">"white"</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="s2">"incidents"</span><span class="p">,</span> 
+                 <span class="n">y</span> <span class="o">=</span> <span class="s2">"index"</span><span class="p">,</span> 
+                 <span class="n">data</span> <span class="o">=</span> <span class="n">incidentDia</span><span class="p">,</span> 
+                 <span class="n">palette</span> <span class="o">=</span> <span class="s2">"RdYlBu"</span><span class="p">)</span>
+
+<span class="c1">#set x,y labels</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span> <span class="o">=</span> <span class="s1">''</span><span class="p">,</span>
+       <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">''</span><span class="p">)</span>
+
+<span class="c1">#set title</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Firework Related Incident Counts by Diagnosis (2016-2020)'</span><span class="p">,</span> 
+             <span class="n">fontdict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'fontsize'</span><span class="p">:</span><span class="mi">18</span><span class="p">})</span>
+
+<span class="c1">#remove spine</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># #set y axis labels (shortened longer labels to fit for print out)</span>
+<span class="c1"># ax.set_yticklabels(['Burns', 'Contusions', 'Abrasions','Other/Not Stated',</span>
+<span class="c1">#                     'Laceration','Fracture','Amputation','Foreign body',</span>
+<span class="c1">#                     'Internal organ','Strain or Sprain','Avulsion',</span>
+<span class="c1">#                     'Anoxia','Puncture','Poisoning','Dermatitis', 'Conjunctivitis',</span>
+<span class="c1">#                     'Concussions','Hematoma'])</span>
+
+<span class="c1">#save to png</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"Incident Counts by Diagnosis.png"</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -1384,6 +1646,9 @@ CPSC prefers that coders use the Date of Birth variable in lieu of the age varia
     
     
 <div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
 <div class="input">
 
 <div class="inner_cell">
@@ -1396,10 +1661,8 @@ CPSC prefers that coders use the Date of Birth variable in lieu of the age varia
     </div>
 </div>
 </div>
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Output" data-close="Show Output"></summary>
-        <p>
-</p>
+
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -1477,7 +1740,6 @@ CPSC prefers that coders use the Date of Birth variable in lieu of the age varia
 </div>
 </div>
 
-    </details>
 </div>
     
 
@@ -1493,6 +1755,9 @@ CPSC prefers that coders use the Date of Birth variable in lieu of the age varia
     
     
 <div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
 <div class="input">
 
 <div class="inner_cell">
@@ -1517,10 +1782,8 @@ CPSC prefers that coders use the Date of Birth variable in lieu of the age varia
     </div>
 </div>
 </div>
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Output" data-close="Show Output"></summary>
-        <p>
-</p>
+
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -1586,13 +1849,15 @@ CPSC prefers that coders use the Date of Birth variable in lieu of the age varia
 </div>
 </div>
 
-    </details>
 </div>
     
 
     
     
 <div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
 <div class="input">
 
 <div class="inner_cell">
@@ -1606,10 +1871,8 @@ CPSC prefers that coders use the Date of Birth variable in lieu of the age varia
     </div>
 </div>
 </div>
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Output" data-close="Show Output"></summary>
-        <p>
-</p>
+
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -1693,7 +1956,63 @@ CPSC prefers that coders use the Date of Birth variable in lieu of the age varia
 </div>
 </div>
 
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1">#Convert Sales to int dtype</span>
+<span class="n">df_sales_st2</span><span class="p">[</span><span class="s1">'Total Value ($US)'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_sales_st2</span><span class="p">[</span><span class="s1">'Total Value ($US)'</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">','</span><span class="p">,</span><span class="s1">''</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">'int'</span><span class="p">)</span>
+<span class="n">df_sales_st2</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1">#Convert Time to datetime dtype</span>
+<span class="n">df_sales_st2</span><span class="p">[</span><span class="s1">'Time'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_sales_st2</span><span class="p">[</span><span class="s1">'Time'</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'2021 through April'</span><span class="p">,</span><span class="s1">'2021'</span><span class="p">)</span>
+<span class="n">df_sales_st2</span><span class="p">[</span><span class="s1">'Time'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df_sales_st2</span><span class="p">[</span><span class="s1">'Time'</span><span class="p">])</span>
+
+<span class="c1">#export csv of clean data</span>
+<span class="n">df_sales_st2</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">'df_state_sales_clean.csv'</span><span class="p">)</span>
+
+<span class="n">df_sales_st2</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
     </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class 'pandas.core.frame.DataFrame'&gt;
+Int64Index: 285 entries, 0 to 284
+Data columns (total 5 columns):
+ #   Column             Non-Null Count  Dtype         
+---  ------             --------------  -----         
+ 0   State              285 non-null    object        
+ 1   Commodity          285 non-null    object        
+ 2   Time               285 non-null    datetime64[ns]
+ 3   Total Value ($US)  285 non-null    int64         
+ 4   Abbrevation        285 non-null    object        
+dtypes: datetime64[ns](1), int64(1), object(3)
+memory usage: 13.4+ KB
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     
 
@@ -1709,7 +2028,47 @@ CPSC prefers that coders use the Date of Birth variable in lieu of the age varia
     
     
 <div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
 
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># Visualization State Sales (Bar Plot)</span>
+<span class="n">st_sales</span> <span class="o">=</span> <span class="n">df_sales_st2</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="n">st_sales</span> <span class="o">=</span> <span class="n">st_sales</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'State'</span><span class="p">)[</span><span class="s1">'Total Value ($US)'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'Sales'</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">'Sales'</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="n">st_sales</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">'Sales'</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">st_sales</span><span class="p">,</span> 
+             <span class="n">y</span><span class="o">=</span><span class="s1">'State'</span><span class="p">,</span> 
+             <span class="n">x</span><span class="o">=</span><span class="s1">'Sales'</span><span class="p">,</span>
+             <span class="n">orientation</span><span class="o">=</span><span class="s1">'h'</span><span class="p">,</span>
+             <span class="n">color_continuous_scale</span><span class="o">=</span><span class="s1">'Portland'</span><span class="p">,</span>
+             <span class="n">color</span><span class="o">=</span><span class="s2">"Sales"</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">({</span><span class="s2">"plot_bgcolor"</span><span class="p">:</span><span class="s2">"rgba(255,255,255, 0.9)"</span><span class="p">},</span>
+                  <span class="n">title</span><span class="o">=</span><span class="p">{</span><span class="s1">'text'</span><span class="p">:</span> <span class="s2">"Firework Total Sales ($USD) 2016-2020"</span><span class="p">,</span>
+                  <span class="s1">'y'</span><span class="p">:</span><span class="o">.</span><span class="mi">98</span><span class="p">,</span>
+                  <span class="s1">'x'</span><span class="p">:</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span>
+                  <span class="s1">'xanchor'</span><span class="p">:</span> <span class="s1">'center'</span><span class="p">,</span>
+                  <span class="s1">'yanchor'</span><span class="p">:</span> <span class="s1">'top'</span><span class="p">})</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># # save fig to image</span>
+<span class="c1"># fig.write_image("Total Firework Sales ($USD) 2016-2020.png", width=1980, height=1080)</span>
+
+<span class="c1"># fig.write_html("Total Firework Sales ($USD) 2016-2020.html")</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -1788,7 +2147,49 @@ if (outputEl) {{
     
     
 <div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
 
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># Visualization State Sales (Scatter Plot)</span>
+<span class="c1">#Plotly currently does not have the ability to position colorscales to horizontal.</span>
+
+<span class="n">df_sales_st2</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">'State'</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df_sales_st2</span><span class="p">,</span> 
+                 <span class="n">y</span><span class="o">=</span><span class="s2">"State"</span><span class="p">,</span> 
+                 <span class="n">x</span><span class="o">=</span><span class="s2">"Time"</span><span class="p">,</span> 
+                 <span class="n">color</span><span class="o">=</span><span class="s2">"Total Value ($US)"</span><span class="p">,</span>
+                 <span class="n">size</span><span class="o">=</span><span class="s1">'Total Value ($US)'</span><span class="p">,</span> 
+                 <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">1100</span><span class="p">,</span>
+                 <span class="n">color_continuous_scale</span><span class="o">=</span><span class="s1">'Portland'</span><span class="p">)</span>
+
+<span class="c1">#change background and legend background to white</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">({</span><span class="s2">"plot_bgcolor"</span><span class="p">:</span><span class="s2">"rgba(255,255,255, 0.9)"</span><span class="p">},</span>
+                  <span class="c1">#  "paper_bgcolor": "rgba(255,255,255, 0.9)"},</span>
+                  <span class="n">title</span><span class="o">=</span><span class="p">{</span><span class="s1">'text'</span><span class="p">:</span> <span class="s2">"Firework Sales ($USD)"</span><span class="p">,</span>
+                         <span class="s1">'y'</span><span class="p">:</span><span class="o">.</span><span class="mi">98</span><span class="p">,</span>
+                         <span class="s1">'x'</span><span class="p">:</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="s1">'xanchor'</span><span class="p">:</span><span class="s1">'center'</span><span class="p">,</span>
+                         <span class="s1">'yanchor'</span><span class="p">:</span> <span class="s1">'top'</span><span class="p">},</span>
+                  <span class="n">xaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">''</span><span class="p">),</span>
+                  <span class="n">yaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">''</span><span class="p">))</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># save fig to image</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">write_image</span><span class="p">(</span><span class="s2">"Firework Sales ($USD) (scatter_plot).png"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">write_html</span><span class="p">(</span><span class="s2">"Firework Sales ($USD) (scatter_plot).html"</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -1867,7 +2268,122 @@ if (outputEl) {{
     
     
 <div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
 
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">df_sales_st2</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>State</th>
+      <th>Commodity</th>
+      <th>Time</th>
+      <th>Total Value ($US)</th>
+      <th>Abbrevation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>284</th>
+      <td>Wyoming</td>
+      <td>360410 Fireworks</td>
+      <td>2021-01-01</td>
+      <td>606265</td>
+      <td>WY</td>
+    </tr>
+    <tr>
+      <th>283</th>
+      <td>Wyoming</td>
+      <td>360410 Fireworks</td>
+      <td>2020-01-01</td>
+      <td>2208173</td>
+      <td>WY</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">choropleth</span><span class="p">(</span><span class="n">df_sales_st2</span><span class="p">,</span>  <span class="c1"># Input Pandas DataFrame</span>
+                    <span class="n">locations</span><span class="o">=</span><span class="s2">"Abbrevation"</span><span class="p">,</span>  <span class="c1"># DataFrame column with locations</span>
+                    <span class="n">color</span><span class="o">=</span><span class="s2">"Total Value ($US)"</span><span class="p">,</span>  <span class="c1"># DataFrame column with color values</span>
+                    <span class="n">hover_name</span><span class="o">=</span><span class="s2">"Abbrevation"</span><span class="p">,</span> <span class="c1"># DataFrame column hover info</span>
+                    <span class="n">locationmode</span> <span class="o">=</span> <span class="s1">'USA-states'</span><span class="p">,</span> <span class="c1"># Set to plot as US States</span>
+                    <span class="n">color_continuous_scale</span><span class="o">=</span><span class="s1">'Blues'</span><span class="p">)</span> 
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="p">{</span>
+        <span class="s1">'text'</span><span class="p">:</span> <span class="s2">"Firework Total Sales ($USD) 2016-2020"</span><span class="p">,</span>
+        <span class="s1">'y'</span><span class="p">:</span><span class="o">.</span><span class="mi">95</span><span class="p">,</span>
+        <span class="s1">'x'</span><span class="p">:</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span>
+        <span class="s1">'xanchor'</span><span class="p">:</span> <span class="s1">'center'</span><span class="p">,</span>
+        <span class="s1">'yanchor'</span><span class="p">:</span> <span class="s1">'top'</span><span class="p">},</span>
+    <span class="n">geo_scope</span><span class="o">=</span><span class="s1">'usa'</span><span class="p">)</span>  <span class="c1"># Plot only the USA instead of globe</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># save fig to image</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">write_image</span><span class="p">(</span><span class="s2">"Total State Firework Sales ($USD) 2016-2020 (map).png"</span><span class="p">,</span> 
+                <span class="n">width</span><span class="o">=</span><span class="mi">1980</span><span class="p">,</span> 
+                <span class="n">height</span><span class="o">=</span><span class="mi">1080</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">write_html</span><span class="p">(</span><span class="s2">"Total State Firework Sales ($USD) 2016-2020 (map).html"</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -1952,7 +2468,7 @@ if (outputEl) {{
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<details class="description" open="">
+<details class="description">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
         <p></p>
 <div class="input">
@@ -2046,7 +2562,7 @@ if (outputEl) {{
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<details class="description" open="">
+<details class="description">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
         <p></p>
 <div class="input">
@@ -2135,7 +2651,7 @@ if (outputEl) {{
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<details class="description" open="">
+<details class="description">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
         <p></p>
 <div class="input">
@@ -2235,7 +2751,7 @@ if (outputEl) {{
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<details class="description" open="">
+<details class="description">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
         <p></p>
 <div class="input">
@@ -2349,13 +2865,8 @@ There was no significate correlation between the number of injuries in a year co
 </div>
 </div>
 </div>
-&lt;/div&gt;
- 
+</div>
 
-</summary></details>
-</div>
-</div></div>
-</div>
 
 </body>
   </div><!-- from https://github.com/utterance/utterances -->
