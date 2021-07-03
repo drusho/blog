@@ -128,6 +128,7 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#Import-Libraries">Import Libraries </a></li>
 <li class="toc-entry toc-h2"><a href="#Import-Firework-Injury-Datasets">Import Firework Injury Datasets </a>
 <ul>
+<li class="toc-entry toc-h3"><a href="#Column-Data-Types-using-pd.info()">Column Data Types using pd.info() </a></li>
 <li class="toc-entry toc-h3"><a href="#Convert-Alchol/Drug-booleans-(0,1)-values-to-yes/no">Convert Alchol/Drug booleans (0,1) values to yes/no </a></li>
 <li class="toc-entry toc-h3"><a href="#Counting-Drug-and-Alchol-Use">Counting Drug and Alchol Use </a></li>
 <li class="toc-entry toc-h3"><a href="#Visualizing-Drug-and-Alcohol-Usuage-(Bar-Plot)">Visualizing Drug and Alcohol Usuage (Bar Plot) </a></li>
@@ -459,6 +460,15 @@ Source 2 conatins Sales and Trade data for each state regarding fireworks.  Repo
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Column-Data-Types-using-pd.info()">
+<a class="anchor" href="#Column-Data-Types-using-pd.info()" aria-hidden="true"><span class="octicon octicon-link"></span></a>Column Data Types using <em>pd.info()</em><a class="anchor-link" href="#Column-Data-Types-using-pd.info()"> </a>
+</h3>
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -653,6 +663,9 @@ memory usage: 119.8+ KB
     
     
 <div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
 <div class="input">
 
 <div class="inner_cell">
@@ -665,10 +678,8 @@ memory usage: 119.8+ KB
     </div>
 </div>
 </div>
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Output" data-close="Show Output"></summary>
-        <p>
-</p>
+
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -734,7 +745,6 @@ memory usage: 119.8+ KB
 </div>
 </div>
 
-    </details>
 </div>
     
 
@@ -1073,32 +1083,69 @@ memory usage: 119.8+ KB
 <h3 id="Fixing-Age-Column">
 <a class="anchor" href="#Fixing-Age-Column" aria-hidden="true"><span class="octicon octicon-link"></span></a>Fixing Age Column<a class="anchor-link" href="#Fixing-Age-Column"> </a>
 </h3>
+<table>
+<thead>
+<tr>
+<th>Age Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>No Recorded Age</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2 Years Old</td>
+</tr>
+<tr>
+<td>45</td>
+<td>45 Years Old</td>
+</tr>
+<tr>
+<td>100</td>
+<td>100 Years Old</td>
+</tr>
+<tr>
+<td>102</td>
+<td>102 Years Old</td>
+</tr>
+<tr>
+<td>201</td>
+<td>Three Weeks Old</td>
+</tr>
+<tr>
+<td>201</td>
+<td>Four Weeks Old</td>
+</tr>
+<tr>
+<td>201</td>
+<td>Seven Weeks Old</td>
+</tr>
+<tr>
+<td>202</td>
+<td>Ten Weeks Old</td>
+</tr>
+<tr>
+<td>209</td>
+<td>Nine Months Old</td>
+</tr>
+<tr>
+<td>212</td>
+<td>Twelve months (one year)</td>
+</tr>
+<tr>
+<td>218</td>
+<td>Eighteen months</td>
+</tr>
+</tbody>
+</table>
 <details>
 
 <summary>Details</summary>
 
-The Age column list not only numeric ages but also includes category codes for individuals under the age of 2 year old.  Individuals that are under 2 years old are given a code starting with 200 combined with their age in months.  
-
-Age Code
-
-|Age Code|Description             |
-|--------|------------------------|
-|0       |No Recorded Age         |
-|2       |2 Years Old             |
-|45      |45 Years Old            |
-|100     |100 Years Old           |
-|102     |102 Years Old           |
-|201     |Three Weeks Old         |
-|201     |Four Weeks Old          |
-|201     |Seven Weeks Old         |
-|202     |Ten Weeks Old           |
-|209     |Nine Months Old         |
-|212     |Twelve months (one year)|
-|218     |Eighteen months         |
-
-
-
-If the patient is older than 115 years old, code the age as 115 and indicate the actual age in the Comment. If the ED record indicates the patient was born on January 1, 1900, please verify the patient’s age with hospital staff – some hospitals use this date when the patient’s age is unknown.
+The Age column list not only numeric ages but also includes category codes for individuals under the age of 2 year old.  Individuals that are under 2 years old are given a code starting with 200 combined with their age in months.  If the patient is older than 115 years old, code the age as 115 and indicate the actual age in the Comment. If the ED record indicates the patient was born on January 1, 1900, please verify the patient’s age with hospital staff – some hospitals use this date when the patient’s age is unknown.
 
 </details><details>
 
