@@ -6,7 +6,7 @@
 # https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
 # https://learnxinyminutes.com/docs/yaml/
 
-title: Rusho's Data Analytics
+title: Rushoss Data Analytics
 description:
 github_username: drusho
 # you can comment the below line out if your repo name is not different than your baseurl
@@ -37,7 +37,7 @@ url: "https://drusho.github.io" # the base hostname & protocol for your site, e.
 <<<<<<< HEAD
 baseurl: "drusho.github.io" # the subpath of your site, e.g. "/blog".
 =======
-baseurl: "/" # the subpath of your site, e.g. "/blog".
+baseurl: "" # the subpath of your site, e.g. "/blog".
 >>>>>>> parent of 889e334 (Update _config.yml)
 
 # Github and twitter are optional:
