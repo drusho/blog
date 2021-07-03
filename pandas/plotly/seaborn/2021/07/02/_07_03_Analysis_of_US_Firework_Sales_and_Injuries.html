@@ -205,16 +205,17 @@ window.onload = wrap_img;
 <h4 id="Goals">
 <a class="anchor" href="#Goals" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Goals</strong><a class="anchor-link" href="#Goals"> </a>
 </h4>
-<p>Provide an overview of incidents that involve fireworks.</p>
-<ul>
-<li>Age Group(s) most affected</li>
-<li>Frequency of Injury Type(s)</li>
-</ul>
-<p>Provide sales figures for fireworks across the US.</p>
-<ul>
-<li>State sales totals all states</li>
-</ul>
+<details>
+<summary>Goals</summary>
 
+Provide an overview of incidents that involve fireworks.
+   - Age Group(s) most affected
+   - Frequency of Injury Type(s)
+
+Provide sales figures for fireworks across the US.
+  - State sales totals all states
+
+  </details>
 </div>
 </div>
 </div>
@@ -224,30 +225,24 @@ window.onload = wrap_img;
 <h4 id="Conclusions">
 <a class="anchor" href="#Conclusions" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Conclusions</strong><a class="anchor-link" href="#Conclusions"> </a>
 </h4>
-<p>Injury Data</p>
-<ul>
-<li>Age Group(s) most affected<ul>
-<li>0-20 age group showed the highest rate of injury.  </li>
-<li>Injury rates by age decreased with age</li>
-<li>60+ age groups showed the lowest rate of injury</li>
-</ul>
-</li>
-<li>Frequency of Injury Type(s)<ul>
-<li>Hand, Face, and Eye injuries were the most common.</li>
-<li>Injuries to lower extemities were less common</li>
-</ul>
-</li>
-</ul>
-<p>Sales Data</p>
-<ul>
-<li>
-<p>The state of Missouri held the record for most spent on fireworks (over $250 million over the past 5 years).</p>
-</li>
-<li>
-<p>For comparision, Alaska spent around $560,000 with the last five years</p>
-</li>
-</ul>
+<details>
+<summary>Injury Data</summary>
+   - Age Group(s) most affected
+     - 0-20 age group showed the highest rate of injury.  
+     - Injury rates by age decreased with age
+     - 60+ age groups showed the lowest rate of injury
+   - Frequency of Injury Type(s)
+     - Hand, Face, and Eye injuries were the most common.
+     - Injuries to lower extemities were less common
+</details>
+<details>
+<summary>Sales Data</summary>
 
+- The state of Missouri held the record for most spent on fireworks (over $250 million over the past 5 years).
+
+- For comparision, Alaska spent around $560,000 with the last five years
+
+</details>
 </div>
 </div>
 </div>
@@ -257,18 +252,23 @@ window.onload = wrap_img;
 <h4 id="Resources">
 <a class="anchor" href="#Resources" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Resources</strong><a class="anchor-link" href="#Resources"> </a>
 </h4>
-<ol>
-<li>
-<p>Source (Injury Data): <a href="https://www.cpsc.gov/cgibin/NEISSQuery/UserCriteria.aspx?UserAff=5x08cgz9T6YPDAZJzvlZjA%3d%3d&amp;UserAffOther=9OYR9kUytIsLilKZieD5xg%3d%3d">Firework Injury Reports</a></p>
-<p>Consisted multiple excel incident reports involving fireworks over the past 5 years taken from the U.S. Consumer Product Safety Commission (CPSC).</p>
-<p>NEISS injury data are gathered from the emergency departments (ED) of 96 hospitals selected as a probability sample of all U.S. hospitals with 24-hour EDs and at least 6 inpatient beds. Each participating NEISS hospital is hand-selected by CPSC because it provides an important representation of all other hospitals of its size and unique characteristics in the U.S.</p>
-</li>
-<li>
-<p>Source (Sales Data): <a href="https://usatrade.census.gov/">USA Trade Census</a></p>
-<p>Sales and Trade data each state regarding fireworks.  Reports data range from 2016 to April 2021.</p>
-</li>
-</ol>
+<details>
+<summary>Source 1</summary>
 
+1. Source (Injury Data): [Firework Injury Reports](https://www.cpsc.gov/cgibin/NEISSQuery/UserCriteria.aspx?UserAff=5x08cgz9T6YPDAZJzvlZjA%3d%3d&amp;UserAffOther=9OYR9kUytIsLilKZieD5xg%3d%3d)
+
+  Consisted multiple excel incident reports involving fireworks over the past 5 years taken from the U.S. Consumer Product Safety Commission (CPSC).
+
+  NEISS injury data are gathered from the emergency departments (ED) of 96 hospitals selected as a probability sample of all U.S. hospitals with 24-hour EDs and at least 6 inpatient beds. Each participating NEISS hospital is hand-selected by CPSC because it provides an important representation of all other hospitals of its size and unique characteristics in the U.S.
+
+</details>
+<details>
+<summary>Source 2</summary>
+
+2. Source (Sales Data): [USA Trade Census](https://usatrade.census.gov/)
+
+  Sales and Trade data each state regarding fireworks.  Reports data range from 2016 to April 2021.
+</details>
 </div>
 </div>
 </div>
@@ -278,13 +278,15 @@ window.onload = wrap_img;
 <h4 id="Tools-Used">
 <a class="anchor" href="#Tools-Used" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Tools Used</strong><a class="anchor-link" href="#Tools-Used"> </a>
 </h4>
-<ul>
-<li>Matplotlib</li>
-<li>Pandas</li>
-<li>Seaborn</li>
-<li>Plotly</li>
-</ul>
+<details>
+<summary>Tools</summary>
 
+* Matplotlib
+* Pandas
+* Seaborn
+* Plotly
+
+</details>
 </div>
 </div>
 </div>
@@ -640,8 +642,7 @@ memory usage: 119.8+ KB
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Fixing-Age-Column">
 <a class="anchor" href="#Fixing-Age-Column" aria-hidden="true"><span class="octicon octicon-link"></span></a>Fixing Age Column<a class="anchor-link" href="#Fixing-Age-Column"> </a>
@@ -707,11 +708,13 @@ memory usage: 119.8+ KB
 </tbody>
 </table>
 <p>If the patient is older than 115 years old, code the age as 115 and indicate the actual age in the Comment. If the ED record indicates the patient was born on January 1, 1900, please verify the patient’s age with hospital staff – some hospitals use this date when the patient’s age is unknown.</p>
-<p>Please note: CPSC prefers that coders use the Date of Birth variable in lieu of the age variable. Mistakes in coded ages are common when patients have birthdays after the date of treatment and before the NEISS coder codes the case. Hospital medical record systems automatically update the age of the patient daily.</p>
-
-</div>
-</div>
-</div>
+<details>
+<summary>Note&lt;/summary
+Note: CPSC prefers that coders use the Date of Birth variable in lieu of the age variable. Mistakes in coded ages are common when patients have birthdays after the date of treatment and before the NEISS coder codes the case. Hospital medical record systems automatically update the age of the patient daily.
+&lt;/details&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1830,18 +1833,36 @@ if (outputEl) {{
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Injuries</strong></p>
-<p>Ages 0-20 showed the highest rate of injury.  Injury rates by age decrease with age.  The 60+ age groups showed the lowest rate of injury</p>
-<p>Injuries to the hands, face, and eyes were the most common, while injuries to lower extemities were less common.</p>
-<p><strong>Sales</strong></p>
-<p>The state of Missouri held the record for most spent on fireworks (over 250 million dollars over the past 5 years).  For comparision, Alaska spent around 560,000 dollars with the last five years</p>
-<p><strong>Correlation</strong></p>
-<p>There was no significate correlation between the number of injuries in a year compared to the number of sales.</p>
+<details>  
+<summary>Injury</summary>
 
-</div>
-</div>
-</div>
-</div>
+Ages 0-20 showed the highest rate of injury.  Injury rates by age decrease with age.  The 60+ age groups showed the lowest rate of injury
 
+Injuries to the hands, face, and eyes were the most common, while injuries to lower extemities were less common.
+
+</details><p><strong>Sales</strong></p>
+<details>  
+<summary>Sales</summary>
+
+The state of Missouri held the record for most spent on fireworks (over 250 million dollars over the past 5 years).  For comparision, Alaska spent around 560,000 dollars with the last five years
+
+</details><p><strong>Correlation</strong></p>
+<details>  
+<summary>Correlation</summary>
+
+There was no significate correlation between the number of injuries in a year compared to the number of sales.
+
+</details>
+</div>
+</div>
+</div>
+&lt;/div&gt;
+ 
+
+</summary></details>
+</div>
+</div></div>
+</div>
 
 </body>
   </div><!-- from https://github.com/utterance/utterances -->
