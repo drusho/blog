@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      14 min read
+      12 min read
     
 </span></p>
 
@@ -152,21 +152,20 @@ window.onload = wrap_img;
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>History
-Facts and concerns</p>
+<p>Fireworks in the US are commonly used during 4th of July and New Years celebrations.  Besides being nice to look at fireworks also cause a lot of obvious problems.</p>
+<p><strong>Fires</strong></p>
+<p><a href="https://www.nfpa.org/News-and-Research/Data-research-and-tools/US-Fire-Problem/Fireworks-fires-and-injures"><em>"More than one-quarter (28 percent) of fires started by fireworks in 2014–2018 were reported on the Fourth of July."</em></a></p>
+<p><strong>Personal Injury</strong></p>
+<p><a href="https://www.nfpa.org/News-and-Research/Data-research-and-tools/US-Fire-Problem/Fireworks-fires-and-injures">"<em>The Consumer Product Safety Commission (CPSC) estimates that 9,100 consumer fireworks-related injuries were seen in US hospital emergency departments in 2018."</em></a></p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Goals"><strong>Goals</strong><a class="anchor-link" href="#Goals"> </a></h4><details>
+<h4 id="Goal-of-Project"><strong>Goal of Project</strong><a class="anchor-link" href="#Goal-of-Project"> </a></h4><p>To provide an overview of the types of incidents that involve fireworks.  This includes understanding which age groups are most affected and the frequency of injury types.  Insights from this analysis may help prevent future injuries or at least assist with increase awareness of the dangers that fireworks can cause.</p>
+<p>In addition to the above analysis we'll take a look into sales data for all US states for the last five years (2016-2021).</p>
 
-<summary>Details</summary>
-
-Provide an overview of incidents that involve fireworks.  This includes understaing which age groups are most affected and frequency of injury types.  Provide sales figures for fireworks across the US.
-
-</details>
 </div>
 </div>
 </div>
@@ -176,15 +175,13 @@ Provide an overview of incidents that involve fireworks.  This includes understa
 
 <summary>Injuries</summary>
 
-Ages 0-20 showed the highest rate of injury.  Injury rates by age decrease with age.  The 60+ age groups showed the lowest rate of injury
-
-Injuries to the hands, face, and eyes were the most common, while injuries to lower extemities were less common.
+Age group of 0-20 showed the highest rate of injury.  Injury rates by age decrease with age tend to slowly decrease after age 20.  The 60+ age groups showed the lowest rate of injury.  Injuries to the hands, face, and eyes were the most common, while injuries to lower extemities were less common.  This is reflected numerious times in the below analysis such as with word frequency of injury narratives, where an explaination is given for how a person was injuried.  The key take away from this analysis is that people should not hold fireworks when they are lit.  Also hand, eye, and face protection should be worn at all times when handling any fireworks.
 
 </details><details>  
 
 <summary>Sales</summary>
 
-The state of Missouri held the record for most spent on fireworks (over 250 million dollars over the past 5 years).  For comparision, Alaska spent around 560,000 dollars with the last five years
+The state of Missouri held the record for most spent on fireworks (over 250 million dollars over the past 5 years).  For comparision, Alaska spent around 560,000 dollars with the last five years.  Sales for fireworks saw a huge increase in sale during 2020, most likely due to COVID-19.
 
 </details><details>  
 
@@ -394,7 +391,8 @@ There was no significate correlation between the number of injuries in a year co
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Displaying-Column-Data-Types">Displaying Column Data Types<a class="anchor-link" href="#Displaying-Column-Data-Types"> </a></h3>
+<h2 id="Time-Series-Analysis-of-Injuries-(Scatter-Plot)">Time Series Analysis of Injuries (Scatter Plot)<a class="anchor-link" href="#Time-Series-Analysis-of-Injuries-(Scatter-Plot)"> </a></h2><p>July 4th firework celebrations are the clear winner in number of firework related injuries.</p>
+
 </div>
 </div>
 </div>
@@ -405,54 +403,102 @@ There was no significate correlation between the number of injuries in a year co
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-python"><pre><span></span><span class="c1">#Change dtype for &#39;Treatment_Date&#39; to datetime dtype</span>
-<span class="n">df_injury</span><span class="o">.</span><span class="n">Treatment_Date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df_injury</span><span class="o">.</span><span class="n">Treatment_Date</span><span class="p">)</span>
-<span class="n">df_injury</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+<div class=" highlight hl-python"><pre><span></span><span class="n">injury_dates</span> <span class="o">=</span> <span class="n">df_injury</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Treatment_Date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">injury_dates</span> <span class="o">=</span> <span class="n">injury_dates</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Age&#39;</span><span class="p">:</span><span class="s1">&#39;Count&#39;</span><span class="p">})</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">injury_dates</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Treatment_Date&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Count&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">({</span><span class="s2">&quot;plot_bgcolor&quot;</span><span class="p">:</span><span class="s2">&quot;rgba(255,255,255, 0.9)&quot;</span><span class="p">},</span>
+                  <span class="n">title</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s2">&quot;Firework Injury Counts by Date&quot;</span><span class="p">,</span>
+                  <span class="s1">&#39;y&#39;</span><span class="p">:</span><span class="o">.</span><span class="mi">98</span><span class="p">,</span>
+                  <span class="s1">&#39;x&#39;</span><span class="p">:</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span>
+                  <span class="s1">&#39;xanchor&#39;</span><span class="p">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;yanchor&#39;</span><span class="p">:</span> <span class="s1">&#39;top&#39;</span><span class="p">},</span>
+                  <span class="n">xaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Date of Injury&#39;</span><span class="p">),</span>
+                  <span class="n">yaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Injury Counts&#39;</span><span class="p">))</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">marker_color</span><span class="o">=</span><span class="s1">&#39;#1f77b4&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># fig = px.line(df_injury, x=&#39;Treatment_Date&#39;)</span>
+<span class="c1"># fig.show()</span>
 </pre></div>
 
     </div>
 </div>
 </div>
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Output" data-close="Show Output"></summary>
-        <p>
+
 <div class="output_wrapper">
 <div class="output">
 
 <div class="output_area">
 
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-RangeIndex: 1532 entries, 0 to 1531
-Data columns (total 10 columns):
- #   Column           Non-Null Count  Dtype         
----  ------           --------------  -----         
- 0   Treatment_Date   1532 non-null   datetime64[ns]
- 1   Age              1532 non-null   int64         
- 2   Sex              1532 non-null   object        
- 3   Alcohol          701 non-null    float64       
- 4   Drug             701 non-null    float64       
- 5   Narrative        1532 non-null   object        
- 6   Incident Locale  1532 non-null   object        
- 7   Body_Part        1532 non-null   object        
- 8   Diagnosis        1532 non-null   object        
- 9   Disposition      1532 non-null   object        
-dtypes: datetime64[ns](1), float64(2), int64(1), object(6)
-memory usage: 119.8+ KB
-</pre>
+
+<div class="output_html rendered_html output_subarea ">
+<html>
+<head><meta charset="utf-8" /></head>
+<body>
+    <div>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script type="text/javascript">if (window.MathJax) {MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>
+                <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>    
+            <div id="40232362-7873-4861-bfd5-53f4ecc1ff5e" class="plotly-graph-div" style="height:525px; width:100%;"></div>
+            <script type="text/javascript">
+                
+                    window.PLOTLYENV=window.PLOTLYENV || {};
+                    
+                if (document.getElementById("40232362-7873-4861-bfd5-53f4ecc1ff5e")) {
+                    Plotly.newPlot(
+                        '40232362-7873-4861-bfd5-53f4ecc1ff5e',
+                        [{"hoverlabel": {"namelength": 0}, "hovertemplate": "Treatment_Date=%{x}<br>Count=%{y}", "legendgroup": "", "marker": {"color": "#1f77b4", "symbol": "circle"}, "mode": "markers", "name": "", "showlegend": false, "type": "scatter", "x": ["2016-01-01T00:00:00", "2016-01-03T00:00:00", "2016-01-24T00:00:00", "2016-01-30T00:00:00", "2016-02-14T00:00:00", "2016-02-21T00:00:00", "2016-04-23T00:00:00", "2016-04-25T00:00:00", "2016-05-11T00:00:00", "2016-05-20T00:00:00", "2016-05-27T00:00:00", "2016-05-29T00:00:00", "2016-05-30T00:00:00", "2016-05-31T00:00:00", "2016-06-11T00:00:00", "2016-06-12T00:00:00", "2016-06-13T00:00:00", "2016-06-19T00:00:00", "2016-06-20T00:00:00", "2016-06-24T00:00:00", "2016-06-25T00:00:00", "2016-06-26T00:00:00", "2016-06-27T00:00:00", "2016-06-28T00:00:00", "2016-06-30T00:00:00", "2016-07-01T00:00:00", "2016-07-02T00:00:00", "2016-07-03T00:00:00", "2016-07-04T00:00:00", "2016-07-05T00:00:00", "2016-07-06T00:00:00", "2016-07-07T00:00:00", "2016-07-08T00:00:00", "2016-07-09T00:00:00", "2016-07-10T00:00:00", "2016-07-11T00:00:00", "2016-07-13T00:00:00", "2016-07-14T00:00:00", "2016-07-17T00:00:00", "2016-07-18T00:00:00", "2016-07-20T00:00:00", "2016-07-23T00:00:00", "2016-07-25T00:00:00", "2016-07-29T00:00:00", "2016-08-03T00:00:00", "2016-08-06T00:00:00", "2016-08-14T00:00:00", "2016-08-20T00:00:00", "2016-08-28T00:00:00", "2016-09-04T00:00:00", "2016-09-06T00:00:00", "2016-09-12T00:00:00", "2016-09-17T00:00:00", "2016-09-19T00:00:00", "2016-09-25T00:00:00", "2016-10-06T00:00:00", "2016-10-08T00:00:00", "2016-10-09T00:00:00", "2016-10-23T00:00:00", "2016-10-30T00:00:00", "2016-11-06T00:00:00", "2016-11-08T00:00:00", "2016-11-10T00:00:00", "2016-11-12T00:00:00", "2016-11-18T00:00:00", "2016-11-19T00:00:00", "2016-12-03T00:00:00", "2016-12-25T00:00:00", "2016-12-28T00:00:00", "2016-12-30T00:00:00", "2016-12-31T00:00:00", "2017-01-01T00:00:00", "2017-01-02T00:00:00", "2017-01-08T00:00:00", "2017-01-21T00:00:00", "2017-01-23T00:00:00", "2017-02-04T00:00:00", "2017-02-06T00:00:00", "2017-02-17T00:00:00", "2017-02-18T00:00:00", "2017-02-22T00:00:00", "2017-03-09T00:00:00", "2017-03-12T00:00:00", "2017-03-13T00:00:00", "2017-03-28T00:00:00", "2017-03-31T00:00:00", "2017-04-23T00:00:00", "2017-05-15T00:00:00", "2017-05-19T00:00:00", "2017-05-20T00:00:00", "2017-05-28T00:00:00", "2017-05-29T00:00:00", "2017-06-03T00:00:00", "2017-06-06T00:00:00", "2017-06-07T00:00:00", "2017-06-15T00:00:00", "2017-06-17T00:00:00", "2017-06-18T00:00:00", "2017-06-19T00:00:00", "2017-06-20T00:00:00", "2017-06-21T00:00:00", "2017-06-23T00:00:00", "2017-06-25T00:00:00", "2017-06-26T00:00:00", "2017-06-27T00:00:00", "2017-06-28T00:00:00", "2017-06-29T00:00:00", "2017-06-30T00:00:00", "2017-07-01T00:00:00", "2017-07-02T00:00:00", "2017-07-03T00:00:00", "2017-07-04T00:00:00", "2017-07-05T00:00:00", "2017-07-06T00:00:00", "2017-07-07T00:00:00", "2017-07-08T00:00:00", "2017-07-09T00:00:00", "2017-07-10T00:00:00", "2017-07-11T00:00:00", "2017-07-12T00:00:00", "2017-07-13T00:00:00", "2017-07-15T00:00:00", "2017-07-16T00:00:00", "2017-07-19T00:00:00", "2017-07-25T00:00:00", "2017-07-26T00:00:00", "2017-07-30T00:00:00", "2017-08-02T00:00:00", "2017-08-09T00:00:00", "2017-08-11T00:00:00", "2017-08-14T00:00:00", "2017-08-15T00:00:00", "2017-08-17T00:00:00", "2017-08-19T00:00:00", "2017-08-21T00:00:00", "2017-08-27T00:00:00", "2017-08-29T00:00:00", "2017-09-03T00:00:00", "2017-09-05T00:00:00", "2017-09-06T00:00:00", "2017-09-17T00:00:00", "2017-09-20T00:00:00", "2017-09-27T00:00:00", "2017-09-28T00:00:00", "2017-10-07T00:00:00", "2017-10-13T00:00:00", "2017-10-14T00:00:00", "2017-10-21T00:00:00", "2017-10-22T00:00:00", "2017-12-01T00:00:00", "2017-12-10T00:00:00", "2017-12-24T00:00:00", "2017-12-25T00:00:00", "2017-12-27T00:00:00", "2017-12-30T00:00:00", "2017-12-31T00:00:00", "2018-01-01T00:00:00", "2018-01-04T00:00:00", "2018-01-20T00:00:00", "2018-01-22T00:00:00", "2018-02-04T00:00:00", "2018-02-07T00:00:00", "2018-02-09T00:00:00", "2018-03-03T00:00:00", "2018-03-07T00:00:00", "2018-03-31T00:00:00", "2018-05-05T00:00:00", "2018-05-25T00:00:00", "2018-05-26T00:00:00", "2018-05-28T00:00:00", "2018-06-02T00:00:00", "2018-06-06T00:00:00", "2018-06-08T00:00:00", "2018-06-13T00:00:00", "2018-06-15T00:00:00", "2018-06-19T00:00:00", "2018-06-20T00:00:00", "2018-06-23T00:00:00", "2018-06-24T00:00:00", "2018-06-25T00:00:00", "2018-06-26T00:00:00", "2018-06-27T00:00:00", "2018-06-29T00:00:00", "2018-06-30T00:00:00", "2018-07-01T00:00:00", "2018-07-02T00:00:00", "2018-07-03T00:00:00", "2018-07-04T00:00:00", "2018-07-05T00:00:00", "2018-07-06T00:00:00", "2018-07-07T00:00:00", "2018-07-08T00:00:00", "2018-07-09T00:00:00", "2018-07-10T00:00:00", "2018-07-11T00:00:00", "2018-07-13T00:00:00", "2018-07-14T00:00:00", "2018-07-15T00:00:00", "2018-07-19T00:00:00", "2018-07-22T00:00:00", "2018-07-26T00:00:00", "2018-07-28T00:00:00", "2018-07-29T00:00:00", "2018-08-03T00:00:00", "2018-08-04T00:00:00", "2018-08-05T00:00:00", "2018-08-06T00:00:00", "2018-08-10T00:00:00", "2018-08-12T00:00:00", "2018-08-13T00:00:00", "2018-08-22T00:00:00", "2018-08-23T00:00:00", "2018-08-25T00:00:00", "2018-08-26T00:00:00", "2018-08-27T00:00:00", "2018-09-02T00:00:00", "2018-09-03T00:00:00", "2018-09-14T00:00:00", "2018-09-15T00:00:00", "2018-09-16T00:00:00", "2018-09-21T00:00:00", "2018-10-11T00:00:00", "2018-10-25T00:00:00", "2018-11-08T00:00:00", "2018-11-10T00:00:00", "2018-12-22T00:00:00", "2018-12-25T00:00:00", "2018-12-27T00:00:00", "2018-12-30T00:00:00", "2018-12-31T00:00:00", "2019-01-01T00:00:00", "2019-01-13T00:00:00", "2019-01-14T00:00:00", "2019-02-04T00:00:00", "2019-02-10T00:00:00", "2019-02-17T00:00:00", "2019-03-27T00:00:00", "2019-03-30T00:00:00", "2019-04-13T00:00:00", "2019-05-04T00:00:00", "2019-05-11T00:00:00", "2019-05-12T00:00:00", "2019-05-18T00:00:00", "2019-05-19T00:00:00", "2019-06-01T00:00:00", "2019-06-02T00:00:00", "2019-06-09T00:00:00", "2019-06-10T00:00:00", "2019-06-13T00:00:00", "2019-06-16T00:00:00", "2019-06-17T00:00:00", "2019-06-22T00:00:00", "2019-06-23T00:00:00", "2019-06-24T00:00:00", "2019-06-26T00:00:00", "2019-06-27T00:00:00", "2019-06-28T00:00:00", "2019-06-29T00:00:00", "2019-06-30T00:00:00", "2019-07-01T00:00:00", "2019-07-02T00:00:00", "2019-07-03T00:00:00", "2019-07-04T00:00:00", "2019-07-05T00:00:00", "2019-07-06T00:00:00", "2019-07-07T00:00:00", "2019-07-08T00:00:00", "2019-07-09T00:00:00", "2019-07-10T00:00:00", "2019-07-13T00:00:00", "2019-07-14T00:00:00", "2019-07-15T00:00:00", "2019-07-17T00:00:00", "2019-07-18T00:00:00", "2019-07-19T00:00:00", "2019-07-20T00:00:00", "2019-07-22T00:00:00", "2019-07-23T00:00:00", "2019-07-26T00:00:00", "2019-07-27T00:00:00", "2019-07-31T00:00:00", "2019-08-04T00:00:00", "2019-08-11T00:00:00", "2019-08-17T00:00:00", "2019-08-23T00:00:00", "2019-09-05T00:00:00", "2019-09-08T00:00:00", "2019-09-17T00:00:00", "2019-10-26T00:00:00", "2019-10-29T00:00:00", "2019-11-02T00:00:00", "2019-11-15T00:00:00", "2019-12-07T00:00:00", "2019-12-12T00:00:00", "2019-12-31T00:00:00", "2020-01-01T00:00:00", "2020-01-04T00:00:00", "2020-01-05T00:00:00", "2020-01-11T00:00:00", "2020-01-13T00:00:00", "2020-01-29T00:00:00", "2020-02-05T00:00:00", "2020-02-09T00:00:00", "2020-02-19T00:00:00", "2020-02-21T00:00:00", "2020-02-25T00:00:00", "2020-02-27T00:00:00", "2020-03-15T00:00:00", "2020-03-20T00:00:00", "2020-04-05T00:00:00", "2020-04-06T00:00:00", "2020-04-18T00:00:00", "2020-04-28T00:00:00", "2020-05-06T00:00:00", "2020-05-14T00:00:00", "2020-05-16T00:00:00", "2020-05-18T00:00:00", "2020-05-19T00:00:00", "2020-05-23T00:00:00", "2020-05-24T00:00:00", "2020-05-25T00:00:00", "2020-05-26T00:00:00", "2020-05-27T00:00:00", "2020-05-28T00:00:00", "2020-06-01T00:00:00", "2020-06-03T00:00:00", "2020-06-05T00:00:00", "2020-06-06T00:00:00", "2020-06-07T00:00:00", "2020-06-09T00:00:00", "2020-06-10T00:00:00", "2020-06-14T00:00:00", "2020-06-16T00:00:00", "2020-06-17T00:00:00", "2020-06-18T00:00:00", "2020-06-19T00:00:00", "2020-06-20T00:00:00", "2020-06-21T00:00:00", "2020-06-22T00:00:00", "2020-06-23T00:00:00", "2020-06-25T00:00:00", "2020-06-26T00:00:00", "2020-06-27T00:00:00", "2020-06-28T00:00:00", "2020-06-30T00:00:00", "2020-07-01T00:00:00", "2020-07-02T00:00:00", "2020-07-03T00:00:00", "2020-07-04T00:00:00", "2020-07-05T00:00:00", "2020-07-06T00:00:00", "2020-07-07T00:00:00", "2020-07-08T00:00:00", "2020-07-09T00:00:00", "2020-07-10T00:00:00", "2020-07-11T00:00:00", "2020-07-12T00:00:00", "2020-07-13T00:00:00", "2020-07-14T00:00:00", "2020-07-15T00:00:00", "2020-07-16T00:00:00", "2020-07-17T00:00:00", "2020-07-18T00:00:00", "2020-07-19T00:00:00", "2020-07-24T00:00:00", "2020-07-27T00:00:00", "2020-07-29T00:00:00", "2020-07-30T00:00:00", "2020-08-01T00:00:00", "2020-08-02T00:00:00", "2020-08-04T00:00:00", "2020-08-05T00:00:00", "2020-08-08T00:00:00", "2020-08-09T00:00:00", "2020-08-13T00:00:00", "2020-08-17T00:00:00", "2020-08-22T00:00:00", "2020-08-23T00:00:00", "2020-08-30T00:00:00", "2020-09-05T00:00:00", "2020-09-08T00:00:00", "2020-09-09T00:00:00", "2020-09-18T00:00:00", "2020-09-25T00:00:00", "2020-09-30T00:00:00", "2020-10-02T00:00:00", "2020-10-19T00:00:00", "2020-10-27T00:00:00", "2020-10-30T00:00:00", "2020-11-04T00:00:00", "2020-11-10T00:00:00", "2020-11-13T00:00:00", "2020-11-14T00:00:00", "2020-11-19T00:00:00", "2020-11-29T00:00:00", "2020-12-18T00:00:00", "2020-12-19T00:00:00", "2020-12-24T00:00:00", "2020-12-25T00:00:00", "2020-12-30T00:00:00", "2020-12-31T00:00:00"], "xaxis": "x", "y": [14, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 3, 5, 5, 1, 1, 1, 6, 12, 23, 63, 34, 11, 7, 1, 8, 3, 4, 1, 2, 2, 3, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 13, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 3, 3, 2, 1, 1, 3, 9, 8, 12, 96, 54, 8, 12, 15, 4, 1, 1, 1, 3, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 4, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 3, 3, 9, 5, 2, 10, 53, 34, 8, 9, 6, 3, 2, 4, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 2, 2, 1, 1, 1, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 17, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 3, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 2, 1, 4, 3, 2, 4, 9, 66, 46, 15, 9, 5, 4, 3, 2, 4, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 9, 22, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 3, 6, 5, 4, 1, 3, 2, 3, 5, 5, 4, 2, 8, 14, 96, 96, 22, 10, 4, 3, 2, 3, 3, 1, 3, 1, 6, 1, 3, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 2, 2, 1, 1, 1, 1, 3, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 3, 1, 3, 1, 7], "yaxis": "y"}],
+                        {"legend": {"tracegroupgap": 0}, "margin": {"t": 60}, "plot_bgcolor": "rgba(255,255,255, 0.9)", "template": {"data": {"bar": [{"error_x": {"color": "#2a3f5f"}, "error_y": {"color": "#2a3f5f"}, "marker": {"line": {"color": "#E5ECF6", "width": 0.5}}, "type": "bar"}], "barpolar": [{"marker": {"line": {"color": "#E5ECF6", "width": 0.5}}, "type": "barpolar"}], "carpet": [{"aaxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "baxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "type": "carpet"}], "choropleth": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "choropleth"}], "contour": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "contour"}], "contourcarpet": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "contourcarpet"}], "heatmap": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "heatmap"}], "heatmapgl": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "heatmapgl"}], "histogram": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "histogram"}], "histogram2d": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "histogram2d"}], "histogram2dcontour": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "histogram2dcontour"}], "mesh3d": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "mesh3d"}], "parcoords": [{"line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "parcoords"}], "pie": [{"automargin": true, "type": "pie"}], "scatter": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatter"}], "scatter3d": [{"line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatter3d"}], "scattercarpet": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattercarpet"}], "scattergeo": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattergeo"}], "scattergl": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattergl"}], "scattermapbox": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattermapbox"}], "scatterpolar": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterpolar"}], "scatterpolargl": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterpolargl"}], "scatterternary": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterternary"}], "surface": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "surface"}], "table": [{"cells": {"fill": {"color": "#EBF0F8"}, "line": {"color": "white"}}, "header": {"fill": {"color": "#C8D4E3"}, "line": {"color": "white"}}, "type": "table"}]}, "layout": {"annotationdefaults": {"arrowcolor": "#2a3f5f", "arrowhead": 0, "arrowwidth": 1}, "coloraxis": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "colorscale": {"diverging": [[0, "#8e0152"], [0.1, "#c51b7d"], [0.2, "#de77ae"], [0.3, "#f1b6da"], [0.4, "#fde0ef"], [0.5, "#f7f7f7"], [0.6, "#e6f5d0"], [0.7, "#b8e186"], [0.8, "#7fbc41"], [0.9, "#4d9221"], [1, "#276419"]], "sequential": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "sequentialminus": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}, "colorway": ["#636efa", "#EF553B", "#00cc96", "#ab63fa", "#FFA15A", "#19d3f3", "#FF6692", "#B6E880", "#FF97FF", "#FECB52"], "font": {"color": "#2a3f5f"}, "geo": {"bgcolor": "white", "lakecolor": "white", "landcolor": "#E5ECF6", "showlakes": true, "showland": true, "subunitcolor": "white"}, "hoverlabel": {"align": "left"}, "hovermode": "closest", "mapbox": {"style": "light"}, "paper_bgcolor": "white", "plot_bgcolor": "#E5ECF6", "polar": {"angularaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "bgcolor": "#E5ECF6", "radialaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "scene": {"xaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}, "yaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}, "zaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}}, "shapedefaults": {"line": {"color": "#2a3f5f"}}, "ternary": {"aaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "baxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "bgcolor": "#E5ECF6", "caxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "title": {"x": 0.05}, "xaxis": {"automargin": true, "gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "zerolinewidth": 2}, "yaxis": {"automargin": true, "gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "zerolinewidth": 2}}}, "title": {"text": "Firework Injury Counts by Date", "x": 0.5, "xanchor": "center", "y": 0.98, "yanchor": "top"}, "xaxis": {"anchor": "y", "domain": [0.0, 1.0], "title": {"text": "Date of Injury"}}, "yaxis": {"anchor": "x", "domain": [0.0, 1.0], "title": {"text": "Injury Counts"}}},
+                        {"responsive": true}
+                    ).then(function(){
+                            
+var gd = document.getElementById('40232362-7873-4861-bfd5-53f4ecc1ff5e');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })
+                };
+                
+            </script>
+        </div>
+</body>
+</html>
 </div>
+
 </div>
 
 </div>
 </div>
-</p>
-    </details>
+
 </div>
     
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Narrative-Column-Word-Frequency-(Bar-Plot)">Narrative Column Word Frequency (Bar Plot)<a class="anchor-link" href="#Narrative-Column-Word-Frequency-(Bar-Plot)"> </a></h3><p>The Narrative column contains a detailed description of each injury reported.</p>
+<p>Notice how the body parts 'hand', 'eye', and 'face' make the list.</p>
 
 </div>
 </div>
@@ -582,6 +628,7 @@ if (outputEl) {{
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Wordcloud-of-Injury-Report-(2016-2021)">Wordcloud of Injury Report (2016-2021)<a class="anchor-link" href="#Wordcloud-of-Injury-Report-(2016-2021)"> </a></h3><p>Words are taken from the Narrative column and are narrowed down to the top 200 words.</p>
+<p>Looking at this wordcloud I get the idea that the initial lighting of fireworks is when a lot of injuries occur.</p>
 
 </div>
 </div>
@@ -629,224 +676,11 @@ if (outputEl) {{
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Converting-Alchol/Drug-booleans-(0,1)-values-to-yes/no">Converting Alchol/Drug booleans (0,1) values to yes/no<a class="anchor-link" href="#Converting-Alchol/Drug-booleans-(0,1)-values-to-yes/no"> </a></h3>
-</div>
-</div>
-</div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-python"><pre><span></span><span class="c1">#Converting Alcohol and Drug columns to &#39;yes/no&#39; values</span>
-<span class="c1">#Fill nan values to 0.0 </span>
-<span class="c1">#Convert all values to float type</span>
-<span class="c1">#Convert 0.0 to No and 1.0 to Yes</span>
-
-<span class="c1">#Change nan values to to 0.0 string</span>
-<span class="n">df_injury</span><span class="o">.</span><span class="n">Alcohol</span> <span class="o">=</span> <span class="n">df_injury</span><span class="p">[</span><span class="s1">&#39;Alcohol&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
-
-<span class="c1"># Convert dytpe to float</span>
-<span class="n">df_injury</span><span class="o">.</span><span class="n">Alcohol</span> <span class="o">=</span> <span class="n">df_injury</span><span class="o">.</span><span class="n">Alcohol</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float&#39;</span><span class="p">)</span>
-
-<span class="c1"># Convert Alcohol to Yes/No</span>
-<span class="n">df_injury</span><span class="o">.</span><span class="n">Alcohol</span> <span class="o">=</span> <span class="n">df_injury</span><span class="p">[</span><span class="s1">&#39;Alcohol&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="s2">&quot;Yes&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="s2">&quot;No&quot;</span><span class="p">)</span>
-<span class="n">df_injury</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="c1">#Change nan values to to 0.0 string</span>
-<span class="n">df_injury</span><span class="o">.</span><span class="n">Drug</span> <span class="o">=</span> <span class="n">df_injury</span><span class="p">[</span><span class="s1">&#39;Drug&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
-
-<span class="c1"># Convert dytpe to float</span>
-<span class="n">df_injury</span><span class="o">.</span><span class="n">Drug</span> <span class="o">=</span> <span class="n">df_injury</span><span class="o">.</span><span class="n">Drug</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float&#39;</span><span class="p">)</span>
-
-<span class="c1"># Convert Drug to Yes/No</span>
-<span class="n">df_injury</span><span class="o">.</span><span class="n">Drug</span> <span class="o">=</span> <span class="n">df_injury</span><span class="p">[</span><span class="s1">&#39;Drug&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="s2">&quot;Yes&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="s2">&quot;No&quot;</span><span class="p">)</span>
-<span class="n">df_injury</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-</p>
-    </details>
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Treatment_Date</th>
-      <th>Age</th>
-      <th>Sex</th>
-      <th>Alcohol</th>
-      <th>Drug</th>
-      <th>Narrative</th>
-      <th>Incident Locale</th>
-      <th>Body_Part</th>
-      <th>Diagnosis</th>
-      <th>Disposition</th>
-      <th>clean_nar</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>2016-01-01</td>
-      <td>39</td>
-      <td>Male</td>
-      <td>No</td>
-      <td>No</td>
-      <td>39YOM WAS LIGHTING BOTTLE ROCKETS AND ONE FLEW...</td>
-      <td>Home</td>
-      <td>Eyeball</td>
-      <td>Contusions, Abrasions</td>
-      <td>Treated/Untreated and Released</td>
-      <td>39yom  lighting bottle rockets  one flew  eye ...</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2016-01-01</td>
-      <td>13</td>
-      <td>Male</td>
-      <td>No</td>
-      <td>No</td>
-      <td>13YOM SOMEONE POINTED FIREWORKS AT HIM FROM 10...</td>
-      <td>Home</td>
-      <td>Eyeball</td>
-      <td>Contusions, Abrasions</td>
-      <td>Treated/Untreated and Released</td>
-      <td>13yom someone pointed fireworks    10ft away  ...</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Counting-Drug-and-Alchol-Use">Counting Drug and Alchol Use<a class="anchor-link" href="#Counting-Drug-and-Alchol-Use"> </a></h3><p>The number of people injuried with positive results for drug or alcohol use was very insignificant compared to overall count of injuries.</p>
 
 </div>
 </div>
 </div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-python"><pre><span></span><span class="c1"># Count Drug and Alcohol for df_injury</span>
-<span class="n">df_da</span> <span class="o">=</span> <span class="n">df_injury</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Drug&#39;</span><span class="p">,</span><span class="s1">&#39;Alcohol&#39;</span><span class="p">])[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">)</span>
-<span class="n">df_da</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-</p>
-    </details>
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Drug</th>
-      <th>Alcohol</th>
-      <th>count</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>No</td>
-      <td>No</td>
-      <td>1487</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>No</td>
-      <td>Yes</td>
-      <td>40</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Yes</td>
-      <td>No</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Yes</td>
-      <td>Yes</td>
-      <td>4</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Drug-and-Alcohol-Usuage-(Bar-Plot)">Drug and Alcohol Usuage (Bar Plot)<a class="anchor-link" href="#Drug-and-Alcohol-Usuage-(Bar-Plot)"> </a></h3>
@@ -925,31 +759,10 @@ if (outputEl) {{
 </div>
     
 
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-python"><pre><span></span><span class="c1"># Sort DF by treatment date</span>
-<span class="n">df_injury</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="s1">&#39;Treatment_Date&#39;</span><span class="p">,</span>
-                      <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-</p>
-    </details>
-</div>
-    
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Incident-Counts-by-Year-(Bar-Plot)">Incident Counts by Year (Bar Plot)<a class="anchor-link" href="#Incident-Counts-by-Year-(Bar-Plot)"> </a></h3>
+<h3 id="Incident-Counts-by-Year-(Bar-Plot)">Incident Counts by Year (Bar Plot)<a class="anchor-link" href="#Incident-Counts-by-Year-(Bar-Plot)"> </a></h3><p>The most injuries occured in 2020, which also saw its largest increase in firework sales.  This correlation doesn't seem to match prior years.</p>
+
 </div>
 </div>
 </div>
@@ -1093,7 +906,8 @@ if (outputEl) {{
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Incident-Counts-by-Body-Part-(Bar-Plot)">Incident Counts by Body Part (Bar Plot)<a class="anchor-link" href="#Incident-Counts-by-Body-Part-(Bar-Plot)"> </a></h3>
+<h3 id="Incident-Counts-by-Body-Part-(Bar-Plot)">Incident Counts by Body Part (Bar Plot)<a class="anchor-link" href="#Incident-Counts-by-Body-Part-(Bar-Plot)"> </a></h3><p>The body parts listed also match the body parts mentioned in word frequency count of narratives.</p>
+
 </div>
 </div>
 </div>
@@ -1160,188 +974,6 @@ if (outputEl) {{
 </div>
 </div>
 
-</div>
-    
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Fixing-Age-Column---|">Fixing Age Column   |<a class="anchor-link" href="#Fixing-Age-Column---|"> </a></h3><details>
-
-<summary>Details</summary>
-
-The Age column list not only numeric ages but also includes category codes for individuals under the age of 2 year old.  Individuals that are under 2 years old are given a code starting with 200 combined with their age in months.  If the patient is older than 115 years old, code the age as 115 and indicate the actual age in the Comment. If the ED record indicates the patient was born on January 1, 1900, please verify the patient’s age with hospital staff – some hospitals use this date when the patient’s age is unknown.
-
-</details><details>
-
-<summary>Note</summary>
-
-CPSC prefers that coders use the Date of Birth variable in lieu of the age variable. Mistakes in coded ages are common when patients have birthdays after the date of treatment and before the NEISS coder codes the case. Hospital medical record systems automatically update the age of the patient daily.
-
-</details>
-</div>
-</div>
-</div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-python"><pre><span></span><span class="c1"># Age Codes </span>
-<span class="n">age_code</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="s1">&#39;No Recorded Age&#39;</span><span class="p">,</span>
-                <span class="mi">2</span><span class="p">:</span><span class="s1">&#39;2 Years Old&#39;</span><span class="p">,</span>
-                <span class="mi">45</span><span class="p">:</span><span class="s1">&#39;45 Years Old&#39;</span><span class="p">,</span>
-                <span class="mi">100</span><span class="p">:</span><span class="s1">&#39;100 Years Old&#39;</span><span class="p">,</span>
-                <span class="mi">102</span><span class="p">:</span><span class="s1">&#39;102 Years Old&#39;</span><span class="p">,</span>
-                <span class="mi">201</span><span class="p">:</span><span class="s1">&#39;Three Weeks Old&#39;</span><span class="p">,</span>
-                <span class="mi">201</span><span class="p">:</span><span class="s1">&#39;Four Weeks Old&#39;</span><span class="p">,</span>
-                <span class="mi">201</span><span class="p">:</span><span class="s1">&#39;Seven Weeks Old&#39;</span><span class="p">,</span>
-                <span class="mi">202</span><span class="p">:</span><span class="s1">&#39;Ten Weeks Old&#39;</span><span class="p">,</span>
-                <span class="mi">209</span><span class="p">:</span><span class="s1">&#39;Nine Months Old&#39;</span><span class="p">,</span>
-                <span class="mi">212</span><span class="p">:</span><span class="s1">&#39;Twelve months (one year)&#39;</span><span class="p">,</span>
-                <span class="mi">218</span><span class="p">:</span><span class="s1">&#39;Eighteen months&#39;</span><span class="p">}</span>
-
-<span class="c1"># my_dict = {&#39;Computer&#39;:1500,&#39;Monitor&#39;:300,&#39;Printer&#39;:150,&#39;Desk&#39;:250}</span>
-
-<span class="n">age_codes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">age_code</span><span class="o">.</span><span class="n">items</span><span class="p">()),</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Age_Code&#39;</span><span class="p">,</span><span class="s1">&#39;Description&#39;</span><span class="p">])</span> 
-
-<span class="c1">#Display Age Codes and Description</span>
-<span class="n">age_codes</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-</p>
-    </details>
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Age_Code</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>0</td>
-      <td>No Recorded Age</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2</td>
-      <td>2 Years Old</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>45</td>
-      <td>45 Years Old</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>100</td>
-      <td>100 Years Old</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>102</td>
-      <td>102 Years Old</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>201</td>
-      <td>Seven Weeks Old</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>202</td>
-      <td>Ten Weeks Old</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>209</td>
-      <td>Nine Months Old</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>212</td>
-      <td>Twelve months (one year)</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>218</td>
-      <td>Eighteen months</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-python"><pre><span></span><span class="c1"># create fix_age col</span>
-<span class="c1"># &#39;fix_age&#39; col represents ages only in numeric years, </span>
-<span class="k">def</span> <span class="nf">fix_age</span><span class="p">(</span><span class="n">age</span><span class="p">):</span>
-  <span class="k">if</span> <span class="mi">201</span> <span class="o">&lt;=</span> <span class="n">age</span> <span class="o">&lt;=</span><span class="mi">209</span><span class="p">:</span>
-    <span class="n">age</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">return</span> <span class="n">age</span>
-  <span class="k">elif</span> <span class="n">age</span> <span class="o">&gt;=</span><span class="mi">201</span><span class="p">:</span>
-    <span class="n">age</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="k">return</span> <span class="n">age</span>
-  <span class="k">else</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">age</span>
-
-<span class="n">df_injury</span><span class="p">[</span><span class="s1">&#39;Age_Fix&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_injury</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">fix_age</span><span class="p">)</span>
-<span class="n">df_injury</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;Age&gt;=200&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-
-<span class="n">df_injury</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;df_injury_clean2.csv&#39;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-</p>
-    </details>
 </div>
     
 
@@ -1494,7 +1126,7 @@ The histogram below shows that the majority of firework related injuries that we
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Age,-Year,-Gender-(Swarm-Plot)">Age, Year, Gender (Swarm Plot)<a class="anchor-link" href="#Age,-Year,-Gender-(Swarm-Plot)"> </a></h3>
+<h3 id="Firework-Incident-Counts-by-Age,-Year,-and-Gender-(Swarm-Plot)">Firework Incident Counts by Age, Year, and Gender (Swarm Plot)<a class="anchor-link" href="#Firework-Incident-Counts-by-Age,-Year,-and-Gender-(Swarm-Plot)"> </a></h3>
 </div>
 </div>
 </div>
@@ -1639,7 +1271,8 @@ The histogram below shows that the majority of firework related injuries that we
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Incident-Counts-by-Diagnosis-(Bar-Plot)">Incident Counts by Diagnosis (Bar Plot)<a class="anchor-link" href="#Incident-Counts-by-Diagnosis-(Bar-Plot)"> </a></h3>
+<h3 id="Incident-Counts-by-Diagnosis-(Bar-Plot)">Incident Counts by Diagnosis (Bar Plot)<a class="anchor-link" href="#Incident-Counts-by-Diagnosis-(Bar-Plot)"> </a></h3><p>Most injuries were from burns, which makes sense.  Combining this information with body parts that are most commonly involved in injuries (eyes,face, and hands) provides a clear picture for how severe these burn injuries are to people involved.</p>
+
 </div>
 </div>
 </div>
@@ -1824,13 +1457,8 @@ The histogram below shows that the majority of firework related injuries that we
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Web-Scraping-for-State-Abbreviations">Web Scraping for State Abbreviations<a class="anchor-link" href="#Web-Scraping-for-State-Abbreviations"> </a></h3><details>
+<h3 id="Web-Scraping-for-State-Abbreviations">Web Scraping for State Abbreviations<a class="anchor-link" href="#Web-Scraping-for-State-Abbreviations"> </a></h3><p>The dataframe was missing state abbreviations that are needed to plot data onto a map using Plotly.  Used pandas function 'read_hml' to read tables from a website that contact state and state abbreviation data.</p>
 
-<summary>Details</summary>
-
-The dataframe was missing state abbreviations that are needed to plot data onto a map using Plotly.  Used pandas function 'read_hml' to read tables from a website that contact state and state abbreviation data.
-
-</details>
 </div>
 </div>
 </div>
@@ -2047,87 +1675,7 @@ The dataframe was missing state abbreviations that are needed to plot data onto 
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Changing-Data-Types-for-Time-and-Sales">Changing Data Types for Time and Sales<a class="anchor-link" href="#Changing-Data-Types-for-Time-and-Sales"> </a></h3>
-</div>
-</div>
-</div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-python"><pre><span></span><span class="c1">#Convert Sales to int dtype</span>
-<span class="n">df_sales_st2</span><span class="p">[</span><span class="s1">&#39;Total Value ($US)&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_sales_st2</span><span class="p">[</span><span class="s1">&#39;Total Value ($US)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span>
-<span class="n">df_sales_st2</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="c1">#Convert Time to datetime dtype</span>
-<span class="n">df_sales_st2</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_sales_st2</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;2021 through April&#39;</span><span class="p">,</span><span class="s1">&#39;2021&#39;</span><span class="p">)</span>
-<span class="n">df_sales_st2</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df_sales_st2</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">])</span>
-
-<span class="c1">#export csv of clean data</span>
-<span class="n">df_sales_st2</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;df_state_sales_clean.csv&#39;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-</p>
-    </details>
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-python"><pre><span></span><span class="n">df_sales_st2</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Output" data-close="Show Output"></summary>
-        <p>
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-Int64Index: 285 entries, 0 to 284
-Data columns (total 5 columns):
- #   Column             Non-Null Count  Dtype         
----  ------             --------------  -----         
- 0   State              285 non-null    object        
- 1   Commodity          285 non-null    object        
- 2   Time               285 non-null    datetime64[ns]
- 3   Total Value ($US)  285 non-null    int64         
- 4   Abbrevation        285 non-null    object        
-dtypes: datetime64[ns](1), int64(1), object(3)
-memory usage: 13.4+ KB
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-</p>
-    </details>
-</div>
-    
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Top-20-Sales-per-State-(Bar-Plot)">Top 20 Sales per State (Bar Plot)<a class="anchor-link" href="#Top-20-Sales-per-State-(Bar-Plot)"> </a></h3>
+<h3 id="Top-Sales-per-State-(Bar-Plot)">Top Sales per State (Bar Plot)<a class="anchor-link" href="#Top-Sales-per-State-(Bar-Plot)"> </a></h3>
 </div>
 </div>
 </div>
@@ -2476,11 +2024,7 @@ if (outputEl) {{
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Putting-It-All-Together">Putting It All Together<a class="anchor-link" href="#Putting-It-All-Together"> </a></h2><ul>
-<li>Combining injury and sales data.</li>
-<li>Sales and Injury Correlation</li>
-</ul>
-
+<h2 id="Putting-It-All-Together">Putting It All Together<a class="anchor-link" href="#Putting-It-All-Together"> </a></h2>
 </div>
 </div>
 </div>
