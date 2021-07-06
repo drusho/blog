@@ -391,11 +391,15 @@ window.onload = wrap_img;
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-python"><pre><span></span><span class="n">injury_dates</span> <span class="o">=</span> <span class="n">df_injury</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Treatment_Date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<div class=" highlight hl-python"><pre><span></span><span class="c1">#Time Series Analysis of Injuries (Scatter Plot)</span>
+<span class="c1">#groupby treatment</span>
+<span class="n">injury_dates</span> <span class="o">=</span> <span class="n">df_injury</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Treatment_Date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 <span class="n">injury_dates</span> <span class="o">=</span> <span class="n">injury_dates</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Age&#39;</span><span class="p">:</span><span class="s1">&#39;Count&#39;</span><span class="p">})</span>
 
 <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">injury_dates</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Treatment_Date&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Count&quot;</span><span class="p">)</span>
@@ -412,15 +416,13 @@ window.onload = wrap_img;
 <span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">marker_color</span><span class="o">=</span><span class="s1">&#39;#1f77b4&#39;</span><span class="p">)</span>
 
 <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="c1"># fig = px.line(df_injury, x=&#39;Treatment_Date&#39;)</span>
-<span class="c1"># fig.show()</span>
 </pre></div>
 
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
