@@ -1,0 +1,1917 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>US Firework Sales and Injuries (Part 1) - Cleaning | Rusho Analytics</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="US Firework Sales and Injuries (Part 1) - Cleaning" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Data Cleaning, Merging, Pandas" />
+<meta property="og:description" content="Data Cleaning, Merging, Pandas" />
+<link rel="canonical" href="https://drusho.github.io/pandas/data%20cleaning/2021/07/13/_06_25_us_firework_sales_and_injuries_pt_1_cleaning.html" />
+<meta property="og:url" content="https://drusho.github.io/pandas/data%20cleaning/2021/07/13/_06_25_us_firework_sales_and_injuries_pt_1_cleaning.html" />
+<meta property="og:site_name" content="Rusho Analytics" />
+<meta property="og:image" content="https://drusho.github.io/images/thumbnails/fireworks_trash.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-07-13T00:00:00-05:00" />
+<script type="application/ld+json">
+{"url":"https://drusho.github.io/pandas/data%20cleaning/2021/07/13/_06_25_us_firework_sales_and_injuries_pt_1_cleaning.html","@type":"BlogPosting","headline":"US Firework Sales and Injuries (Part 1) - Cleaning","dateModified":"2021-07-13T00:00:00-05:00","datePublished":"2021-07-13T00:00:00-05:00","image":"https://drusho.github.io/images/thumbnails/fireworks_trash.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://drusho.github.io/pandas/data%20cleaning/2021/07/13/_06_25_us_firework_sales_and_injuries_pt_1_cleaning.html"},"description":"Data Cleaning, Merging, Pandas","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://drusho.github.io/feed.xml" title="Rusho Analytics" /><!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PQV3VQXZM1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PQV3VQXZM1');
+</script>
+
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Rusho Analytics</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a><a class="page-link" href="/dashboards/">Dashboards</a><a class="page-link" href="/">Home</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">US Firework Sales and Injuries (Part 1) - Cleaning</h1><p class="page-description">Data Cleaning, Merging, Pandas</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-07-13T00:00:00-05:00" itemprop="datePublished">
+        Jul 13, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      8 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#Pandas">Pandas</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#Data Cleaning">Data Cleaning</a>
+        
+      
+      </p>
+    
+
+    
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2021_06_25_us_firework_sales_and_injuries_pt_1_cleaning.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://colab.research.google.com/github/drusho/drusho.github.io/blob/master/_notebooks/2021_06_25_us_firework_sales_and_injuries_pt_1_cleaning.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" /></a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><br /></p>
+<p><strong>Notebook Created by David Rusho</strong></p>
+<p>Notebook Links:</p>
+<p><a href="https://github.com/drusho/EDA_US_Firework_Sales_and_Injuries">Github</a></p>
+<p><br /></p>
+<p>Other Social Media Links:</p>
+<p><a href="https://twitter.com/drusho">Twitter</a>  |  <a href="https://github.com/drusho">Github</a>  |  <a href="https://linkedin.com/in/davidrusho">Linkedin</a>  |  <a href="https://public.tableau.com/app/profile/drusho">Tableau</a></p>
+<p><br /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Goals">Goals<a class="anchor-link" href="#Goals"> </a></h3><p>Combine and clean firework injury data</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="About-the-Data">About the Data<a class="anchor-link" href="#About-the-Data"> </a></h3><p>Source: <a href="https://www.cpsc.gov/cgibin/NEISSQuery/UserCriteria.aspx?UserAff=5x08cgz9T6YPDAZJzvlZjA%3d%3d&amp;UserAffOther=9OYR9kUytIsLilKZieD5xg%3d%3d">Firework Injury Reports</a></p>
+<details>
+
+<summary>Details</summary>
+
+The following notebook represents steps that were taken to organize and clean 5 excel files that consist of incident reports involving fireforks over the past 5 years from the CPSC (United States Consumer Product Safety Commision).  The data needed to be converted to csv since reading excel into pandas is extremely slow.  CSV did create larger files but the trade off for increased reading speeds was worth it.  This was done manually through Excel and then exporting each file as a csv.  If there were more files a more "pythonic" method would have been used to save time.
+
+</details>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Begin-Cleaning-Process">Begin Cleaning Process<a class="anchor-link" href="#Begin-Cleaning-Process"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Import-Libraries">Import Libraries<a class="anchor-link" href="#Import-Libraries"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Merge-csv-Files">Merge csv Files<a class="anchor-link" href="#Merge-csv-Files"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">filelist</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;NEISS_2016.csv&#39;</span><span class="p">,</span><span class="s1">&#39;NEISS_2017.csv&#39;</span><span class="p">,</span><span class="s1">&#39;NEISS_2018.csv&#39;</span><span class="p">,</span><span class="s1">&#39;NEISS_2019.csv&#39;</span><span class="p">,</span><span class="s1">&#39;NEISS_2020.csv&#39;</span><span class="p">]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">,</span> <span class="n">filelist</span><span class="p">))</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Output" data-close="Show Output"></summary>
+        <p>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>CPSC_Case_Number</th>
+      <th>Treatment_Date</th>
+      <th>Age</th>
+      <th>Sex</th>
+      <th>Race</th>
+      <th>Other_Race</th>
+      <th>Hispanic</th>
+      <th>Body_Part</th>
+      <th>Diagnosis</th>
+      <th>Other_Diagnosis</th>
+      <th>...</th>
+      <th>Fire_Involvement</th>
+      <th>Alcohol</th>
+      <th>Drug</th>
+      <th>Product_1</th>
+      <th>Product_2</th>
+      <th>Product_3</th>
+      <th>Narrative</th>
+      <th>Stratum</th>
+      <th>PSU</th>
+      <th>Weight</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>160101845</td>
+      <td>1/1/16</td>
+      <td>92</td>
+      <td>1</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>79</td>
+      <td>57</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1645</td>
+      <td>1807</td>
+      <td>0</td>
+      <td>92YOM TRYINGO TO TAKE OFF PANTS AND LOST BALAN...</td>
+      <td>M</td>
+      <td>63</td>
+      <td>103.2251</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>160101847</td>
+      <td>1/1/16</td>
+      <td>90</td>
+      <td>1</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>79</td>
+      <td>57</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>670</td>
+      <td>0</td>
+      <td>0</td>
+      <td>90YOM FELL GETTING OUT OF A RECLINER CHAIR AND...</td>
+      <td>M</td>
+      <td>63</td>
+      <td>103.2251</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>160101848</td>
+      <td>1/1/16</td>
+      <td>71</td>
+      <td>2</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>79</td>
+      <td>57</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1807</td>
+      <td>0</td>
+      <td>0</td>
+      <td>71YOF SLIPPED AND FELL TO HER WET KITCHEN FLOO...</td>
+      <td>M</td>
+      <td>63</td>
+      <td>103.2251</td>
+    </tr>
+  </tbody>
+</table>
+<p>3 rows × 25 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+</p>
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Output" data-close="Show Output"></summary>
+        <p>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Int64Index: 1791854 entries, 0 to 309369
+Data columns (total 25 columns):
+ #   Column             Dtype  
+---  ------             -----  
+ 0   CPSC_Case_Number   int64  
+ 1   Treatment_Date     object 
+ 2   Age                int64  
+ 3   Sex                int64  
+ 4   Race               int64  
+ 5   Other_Race         object 
+ 6   Hispanic           float64
+ 7   Body_Part          int64  
+ 8   Diagnosis          int64  
+ 9   Other_Diagnosis    object 
+ 10  Body_Part_2        float64
+ 11  Diagnosis_2        float64
+ 12  Other_Diagnosis_2  object 
+ 13  Disposition        int64  
+ 14  Location           int64  
+ 15  Fire_Involvement   int64  
+ 16  Alcohol            float64
+ 17  Drug               float64
+ 18  Product_1          int64  
+ 19  Product_2          int64  
+ 20  Product_3          int64  
+ 21  Narrative          object 
+ 22  Stratum            object 
+ 23  PSU                int64  
+ 24  Weight             float64
+dtypes: float64(6), int64(13), object(6)
+memory usage: 355.4+ MB
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+</p>
+    </details>
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Reduce-DataFrame-Size">Reduce DataFrame Size<a class="anchor-link" href="#Reduce-DataFrame-Size"> </a></h3><p>Filter results to only diplay firework related incidents</p>
+<ul>
+<li><em>Fireworks product code is '1313'</em></li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df1</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;(Product_1 == 1313) | (Product_2 == 1313) | (Product_3 == 1313)&#39;</span><span class="p">)</span>
+<span class="n">df1</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Output" data-close="Show Output"></summary>
+        <p>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Int64Index: 1532 entries, 57 to 308881
+Data columns (total 25 columns):
+ #   Column             Non-Null Count  Dtype  
+---  ------             --------------  -----  
+ 0   CPSC_Case_Number   1532 non-null   int64  
+ 1   Treatment_Date     1532 non-null   object 
+ 2   Age                1532 non-null   int64  
+ 3   Sex                1532 non-null   int64  
+ 4   Race               1532 non-null   int64  
+ 5   Other_Race         88 non-null     object 
+ 6   Hispanic           701 non-null    float64
+ 7   Body_Part          1532 non-null   int64  
+ 8   Diagnosis          1532 non-null   int64  
+ 9   Other_Diagnosis    146 non-null    object 
+ 10  Body_Part_2        267 non-null    float64
+ 11  Diagnosis_2        267 non-null    float64
+ 12  Other_Diagnosis_2  28 non-null     object 
+ 13  Disposition        1532 non-null   int64  
+ 14  Location           1532 non-null   int64  
+ 15  Fire_Involvement   1532 non-null   int64  
+ 16  Alcohol            701 non-null    float64
+ 17  Drug               701 non-null    float64
+ 18  Product_1          1532 non-null   int64  
+ 19  Product_2          1532 non-null   int64  
+ 20  Product_3          1532 non-null   int64  
+ 21  Narrative          1532 non-null   object 
+ 22  Stratum            1532 non-null   object 
+ 23  PSU                1532 non-null   int64  
+ 24  Weight             1532 non-null   float64
+dtypes: float64(6), int64(13), object(6)
+memory usage: 311.2+ KB
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+</p>
+    </details>
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Reduce-Columns">Reduce Columns<a class="anchor-link" href="#Reduce-Columns"> </a></h3><p>Remove unnecessary columns</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># reduce df size and clean na values</span>
+<span class="n">df2</span> <span class="o">=</span> <span class="n">df1</span><span class="p">[[</span><span class="s1">&#39;Treatment_Date&#39;</span><span class="p">,</span><span class="s1">&#39;Age&#39;</span><span class="p">,</span><span class="s1">&#39;Sex&#39;</span><span class="p">,</span><span class="s1">&#39;Body_Part&#39;</span><span class="p">,</span><span class="s1">&#39;Diagnosis&#39;</span><span class="p">,</span><span class="s1">&#39;Disposition&#39;</span><span class="p">,</span><span class="s1">&#39;Location&#39;</span><span class="p">,</span><span class="s1">&#39;Alcohol&#39;</span><span class="p">,</span><span class="s1">&#39;Drug&#39;</span><span class="p">,</span><span class="s1">&#39;Narrative&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df2</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Output" data-close="Show Output"></summary>
+        <p>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Treatment_Date</th>
+      <th>Age</th>
+      <th>Sex</th>
+      <th>Body_Part</th>
+      <th>Diagnosis</th>
+      <th>Disposition</th>
+      <th>Location</th>
+      <th>Alcohol</th>
+      <th>Drug</th>
+      <th>Narrative</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1/1/16</td>
+      <td>39</td>
+      <td>1</td>
+      <td>77</td>
+      <td>53</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td></td>
+      <td>39YOM WAS LIGHTING BOTTLE ROCKETS AND ONE FLEW...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1/1/16</td>
+      <td>10</td>
+      <td>1</td>
+      <td>82</td>
+      <td>51</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td></td>
+      <td>10YOM SUSTAINED A THERMAL BURN TO HAND AFTER H...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1/1/16</td>
+      <td>35</td>
+      <td>1</td>
+      <td>31</td>
+      <td>62</td>
+      <td>4</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+      <td>35YOM HIT IN THE CHEST WITH A MORTAR TYPE FIRE...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1/1/16</td>
+      <td>13</td>
+      <td>1</td>
+      <td>77</td>
+      <td>53</td>
+      <td>1</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+      <td>13YOM SOMEONE POINTED FIREWORKS AT HIM FROM 10...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1/1/16</td>
+      <td>216</td>
+      <td>1</td>
+      <td>31</td>
+      <td>51</td>
+      <td>1</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+      <td>16MOM FAMILY PLAYING WITH FIREWORKS AND ONE SH...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+</p>
+    </details>
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Fix-Sex-Data">Fix Sex Data<a class="anchor-link" href="#Fix-Sex-Data"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Fix Sex columns</span>
+<span class="n">df2</span><span class="o">.</span><span class="n">Sex</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">Sex</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;Male&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="s2">&quot;Female&quot;</span><span class="p">)</span>
+<span class="n">df2</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Output" data-close="Show Output"></summary>
+        <p>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Treatment_Date</th>
+      <th>Age</th>
+      <th>Sex</th>
+      <th>Body_Part</th>
+      <th>Diagnosis</th>
+      <th>Disposition</th>
+      <th>Location</th>
+      <th>Alcohol</th>
+      <th>Drug</th>
+      <th>Narrative</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1/1/16</td>
+      <td>39</td>
+      <td>Male</td>
+      <td>77</td>
+      <td>53</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td></td>
+      <td>39YOM WAS LIGHTING BOTTLE ROCKETS AND ONE FLEW...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1/1/16</td>
+      <td>10</td>
+      <td>Male</td>
+      <td>82</td>
+      <td>51</td>
+      <td>1</td>
+      <td>1</td>
+      <td></td>
+      <td></td>
+      <td>10YOM SUSTAINED A THERMAL BURN TO HAND AFTER H...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+</p>
+    </details>
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Import-Incident-Local-Dataframe">Import Incident Local Dataframe<a class="anchor-link" href="#Import-Incident-Local-Dataframe"> </a></h3><p>Dataframe was manual input taken from the <strong>2020 NEISS Coding Manual.pdf</strong></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">local_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_pickle</span><span class="p">(</span><span class="s1">&#39;df_incident_local.pkl&#39;</span><span class="p">)</span>
+<span class="n">local_df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Code</th>
+      <th>Incident Locale</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Home</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Farm/Ranch</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4</td>
+      <td>Street or highway</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>5</td>
+      <td>Other public property</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>6</td>
+      <td>Manufactured (mobile) home</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>7</td>
+      <td>Industrial place</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>8</td>
+      <td>School</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>9</td>
+      <td>Place of recreation or sports</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0</td>
+      <td>Not recorded</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Fix-and-Mege-Incident-Locale">Fix and Mege Incident Locale<a class="anchor-link" href="#Fix-and-Mege-Incident-Locale"> </a></h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># fix Incident Locale</span>
+<span class="n">df3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df2</span><span class="p">,</span> <span class="n">local_df</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;Disposition&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;Code&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Code&#39;</span><span class="p">,</span><span class="s1">&#39;Location&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">df3</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Output" data-close="Show Output"></summary>
+        <p>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Treatment_Date</th>
+      <th>Age</th>
+      <th>Sex</th>
+      <th>Body_Part</th>
+      <th>Diagnosis</th>
+      <th>Disposition</th>
+      <th>Alcohol</th>
+      <th>Drug</th>
+      <th>Narrative</th>
+      <th>Incident Locale</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1221</th>
+      <td>5/29/16</td>
+      <td>4</td>
+      <td>Female</td>
+      <td>31</td>
+      <td>51</td>
+      <td>4</td>
+      <td></td>
+      <td></td>
+      <td>4YOF W/BURNS TO CHEST &amp; FINGER TIPS 2/2 PLAYIN...</td>
+      <td>Street or highway</td>
+    </tr>
+    <tr>
+      <th>541</th>
+      <td>7/4/18</td>
+      <td>15</td>
+      <td>Male</td>
+      <td>36</td>
+      <td>72</td>
+      <td>1</td>
+      <td></td>
+      <td></td>
+      <td>15YOM WAS HIT IN BACK OF LEGS WHEN LARGE FIREW...</td>
+      <td>Home</td>
+    </tr>
+    <tr>
+      <th>457</th>
+      <td>8/2/17</td>
+      <td>25</td>
+      <td>Male</td>
+      <td>76</td>
+      <td>51</td>
+      <td>1</td>
+      <td></td>
+      <td></td>
+      <td>25YOM PUT FIREWORKS BOX BON FIRE FIREWORKS WEN...</td>
+      <td>Home</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+</p>
+    </details>
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Import-Body-Part-Dataframe">Import Body Part Dataframe<a class="anchor-link" href="#Import-Body-Part-Dataframe"> </a></h3><p>Dataframe was manual input taken from the <strong>2020 NEISS Coding Manual.pdf</strong></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">body_part_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_pickle</span><span class="p">(</span><span class="s1">&#39;df_body_part.pkl&#39;</span><span class="p">)</span>
+<span class="n">body_part_df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Code</th>
+      <th>Body_Part</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>Internal</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>30</td>
+      <td>Shoulder</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>31</td>
+      <td>Upper Trunk</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>32</td>
+      <td>Elbow</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>33</td>
+      <td>Lower Arm</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>34</td>
+      <td>Wrist</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>35</td>
+      <td>Knee</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>36</td>
+      <td>Lower Leg</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>37</td>
+      <td>Ankle</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>38</td>
+      <td>Pubic Region</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>75</td>
+      <td>Head</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>76</td>
+      <td>Face</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>77</td>
+      <td>Eyeball</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>79</td>
+      <td>Lower Trunk</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>80</td>
+      <td>Upper Arm</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>81</td>
+      <td>Upper Leg</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>82</td>
+      <td>Hand</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>83</td>
+      <td>Foot</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>84</td>
+      <td>25-50'%' of Body</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>85</td>
+      <td>All Parts of Body</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>87</td>
+      <td>Not Stated</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>88</td>
+      <td>Mouth</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>89</td>
+      <td>Neck</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>92</td>
+      <td>Finger</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>93</td>
+      <td>Toe</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>94</td>
+      <td>Ear</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Fix-and-Merge-Body-Part-Data">Fix and Merge Body Part Data<a class="anchor-link" href="#Fix-and-Merge-Body-Part-Data"> </a></h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># fix Body Part</span>
+<span class="n">df4</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df3</span><span class="p">,</span> <span class="n">body_part_df</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;Body_Part&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;Code&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Code&#39;</span><span class="p">,</span><span class="s1">&#39;Body_Part_x&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">df4</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Body_Part_y&#39;</span><span class="p">:</span><span class="s1">&#39;Body_Part&#39;</span><span class="p">},</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df4</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Output" data-close="Show Output"></summary>
+        <p>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Treatment_Date</th>
+      <th>Age</th>
+      <th>Sex</th>
+      <th>Diagnosis</th>
+      <th>Disposition</th>
+      <th>Alcohol</th>
+      <th>Drug</th>
+      <th>Narrative</th>
+      <th>Incident Locale</th>
+      <th>Body_Part</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>169</th>
+      <td>7/4/20</td>
+      <td>14</td>
+      <td>Male</td>
+      <td>56</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>14YOM WAS PLAYING WITH AND WATCHING FIREWORKS ...</td>
+      <td>Home</td>
+      <td>Eyeball</td>
+    </tr>
+    <tr>
+      <th>63</th>
+      <td>7/5/17</td>
+      <td>32</td>
+      <td>Female</td>
+      <td>56</td>
+      <td>1</td>
+      <td></td>
+      <td></td>
+      <td>32YOF W/FOREIGN BODY IN EYE &amp; CONJ IRRITATION ...</td>
+      <td>Home</td>
+      <td>Eyeball</td>
+    </tr>
+    <tr>
+      <th>1153</th>
+      <td>7/1/20</td>
+      <td>54</td>
+      <td>Male</td>
+      <td>50</td>
+      <td>2</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>54 YOM PRESENTED TO THE ER WITH A FIREWORK INJ...</td>
+      <td>Farm/Ranch</td>
+      <td>Finger</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+</p>
+    </details>
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Import-Diagnosis-Dataframe">Import Diagnosis Dataframe<a class="anchor-link" href="#Import-Diagnosis-Dataframe"> </a></h3><p>Dataframe was manual input taken from the <strong>2020 NEISS Coding Manual.pdf</strong></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># import Diagnosis pkl</span>
+<span class="n">diagnosis_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_pickle</span><span class="p">(</span><span class="s1">&#39;df_diagnosis.pkl&#39;</span><span class="p">)</span>
+<span class="n">diagnosis_df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Diagnosis1</th>
+      <th>Code</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Ingested foreign object</td>
+      <td>41</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Aspirated foreign object</td>
+      <td>42</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Burns, electrical 46 Burns, not specified</td>
+      <td>47</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Burns, scald (from hot liquids or steam)</td>
+      <td>48</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Burns, chemical (caustics, etc.)</td>
+      <td>49</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Amputation</td>
+      <td>50</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Burns, thermal (from flames or hot surface)</td>
+      <td>51</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Concussions</td>
+      <td>52</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Contusions, Abrasions</td>
+      <td>53</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Crushing</td>
+      <td>54</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Dislocation</td>
+      <td>55</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Foreign body</td>
+      <td>56</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Fracture</td>
+      <td>57</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Hematoma</td>
+      <td>58</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Laceration</td>
+      <td>59</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Dental injury</td>
+      <td>60</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Nerve damage</td>
+      <td>61</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Internal organ injury</td>
+      <td>62</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Puncture</td>
+      <td>63</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Strain or Sprain</td>
+      <td>64</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>Anoxia</td>
+      <td>65</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>Hemorrhage</td>
+      <td>66</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>Electric shock</td>
+      <td>67</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>Poisoning</td>
+      <td>68</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>Submersion (including Drowning)</td>
+      <td>69</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>Other/Not Stated</td>
+      <td>71</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>Avulsion</td>
+      <td>72</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>Burns, radiation (includes all cell damage by ...</td>
+      <td>73</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>Dermatitis, Conjunctivitis</td>
+      <td>74</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Fix-and-Merge-Diagnosis-Data">Fix and Merge Diagnosis Data<a class="anchor-link" href="#Fix-and-Merge-Diagnosis-Data"> </a></h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># fix Diagnosis</span>
+<span class="n">df5</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df4</span><span class="p">,</span> <span class="n">diagnosis_df</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;Diagnosis&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;Code&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Code&#39;</span><span class="p">,</span><span class="s1">&#39;Diagnosis&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">df5</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Diagnosis1&#39;</span><span class="p">:</span><span class="s1">&#39;Diagnosis&#39;</span><span class="p">},</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df5</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Output" data-close="Show Output"></summary>
+        <p>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Treatment_Date</th>
+      <th>Age</th>
+      <th>Sex</th>
+      <th>Disposition</th>
+      <th>Alcohol</th>
+      <th>Drug</th>
+      <th>Narrative</th>
+      <th>Incident Locale</th>
+      <th>Body_Part</th>
+      <th>Diagnosis</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>153</th>
+      <td>6/10/19</td>
+      <td>58</td>
+      <td>Female</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>58YOF FALL AND C/O R KNEE, SHOULDER WHEN NEIGH...</td>
+      <td>Home</td>
+      <td>Knee</td>
+      <td>Contusions, Abrasions</td>
+    </tr>
+    <tr>
+      <th>250</th>
+      <td>7/2/20</td>
+      <td>32</td>
+      <td>Male</td>
+      <td>2</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>32 YOM PESENTS WITH EYE INJURY. PT WAS LIGHTIN...</td>
+      <td>Farm/Ranch</td>
+      <td>Eyeball</td>
+      <td>Other/Not Stated</td>
+    </tr>
+    <tr>
+      <th>783</th>
+      <td>7/1/16</td>
+      <td>24</td>
+      <td>Female</td>
+      <td>1</td>
+      <td></td>
+      <td></td>
+      <td>24 YO FEMALE HURT FINGER ON A TYPE L SPARKLER....</td>
+      <td>Home</td>
+      <td>Finger</td>
+      <td>Burns, thermal (from flames or hot surface)</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+</p>
+    </details>
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Import-Disposition-Dataframe">Import Disposition Dataframe<a class="anchor-link" href="#Import-Disposition-Dataframe"> </a></h3><p>Dataframe was manual input taken from the <strong>2020 NEISS Coding Manual.pdf</strong></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># import Disposition pkl</span>
+<span class="n">disposition_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_pickle</span><span class="p">(</span><span class="s1">&#39;df_disposition.pkl&#39;</span><span class="p">)</span>
+<span class="n">disposition_df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Code</th>
+      <th>Disposition</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Treated/Untreated and Released</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Treated and transferred to another hospital</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Treated and admitted for hospitalization</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>Held for observation</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>Left without being seen</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>Left against medical advice</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>7</td>
+      <td>Left without treatment</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>8</td>
+      <td>Eloped Fatality/DOA/died in the ED/Died after ...</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>9</td>
+      <td>Not recorded</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Fix-and-Merge-Disposition-Data">Fix and Merge Disposition Data<a class="anchor-link" href="#Fix-and-Merge-Disposition-Data"> </a></h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># fix Disposition</span>
+<span class="n">df6</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df5</span><span class="p">,</span> <span class="n">disposition_df</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;Disposition&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;Code&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Code&#39;</span><span class="p">,</span><span class="s1">&#39;Disposition_x&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">df6</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Disposition_y&#39;</span><span class="p">:</span><span class="s1">&#39;Disposition&#39;</span><span class="p">},</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df6</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Treatment_Date</th>
+      <th>Age</th>
+      <th>Sex</th>
+      <th>Alcohol</th>
+      <th>Drug</th>
+      <th>Narrative</th>
+      <th>Incident Locale</th>
+      <th>Body_Part</th>
+      <th>Diagnosis</th>
+      <th>Disposition</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>551</th>
+      <td>7/4/18</td>
+      <td>11</td>
+      <td>Female</td>
+      <td></td>
+      <td></td>
+      <td>11YOF WENT TO LIGHT UNKNOWN FIREWORK (TYPE R),...</td>
+      <td>Home</td>
+      <td>Upper Leg</td>
+      <td>Burns, thermal (from flames or hot surface)</td>
+      <td>Treated/Untreated and Released</td>
+    </tr>
+    <tr>
+      <th>374</th>
+      <td>7/8/17</td>
+      <td>212</td>
+      <td>Female</td>
+      <td></td>
+      <td></td>
+      <td>12MOF C/O BURN TO R HAND X1 HOUR PTA S/P GRABB...</td>
+      <td>Home</td>
+      <td>Hand</td>
+      <td>Burns, thermal (from flames or hot surface)</td>
+      <td>Treated/Untreated and Released</td>
+    </tr>
+    <tr>
+      <th>159</th>
+      <td>7/18/16</td>
+      <td>12</td>
+      <td>Male</td>
+      <td></td>
+      <td></td>
+      <td>12YOM FOREIGN BODY RT EYE WAS PLAYING W/ "BLAS...</td>
+      <td>Home</td>
+      <td>Eyeball</td>
+      <td>Foreign body</td>
+      <td>Treated/Untreated and Released</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Export-Cleaned-Data-to-csv">Export Cleaned Data to csv<a class="anchor-link" href="#Export-Cleaned-Data-to-csv"> </a></h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df6</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;injury_clean.csv&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="drusho/"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/pandas/data%20cleaning/2021/07/13/_06_25_us_firework_sales_and_injuries_pt_1_cleaning.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p></p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/drusho" title="drusho"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://www.linkedin.com/in/davidrusho" title="davidrusho"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg></a></li><li><a rel="me" href="https://twitter.com/drusho" title="drusho"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
