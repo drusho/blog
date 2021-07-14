@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      9 min read
+      8 min read
     
 </span></p>
 
@@ -146,86 +146,72 @@ window.onload = wrap_img;
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction"> </a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="About-Reddit">About Reddit<a class="anchor-link" href="#About-Reddit"> </a></h3><p>Sources:</p>
+<p><br /></p>
+<p>Notebook Created by <strong><a href="https://github.com/drusho">David Rusho</a></strong></p>
 <ul>
-<li><a href="https:/https://www.wikiwand.com/en/Reddit">Wikipedia</a></li>
-<li><a href="https://www.dailydot.com/debug/what-is-reddit/">Understanding Reddit: A beginner’s guide to the front page of the internet</a></li>
+<li><p>Notebook's <a href="https://github.com/drusho/eda_reddit_politics">Github</a></p>
+</li>
+<li><p>Other Social Media Links:</p>
+<p><a href="https://twitter.com/drusho">Twitter</a>  |  <a href="https://github.com/drusho">Github</a>  |  <a href="https://linkedin.com/in/davidrusho">Linkedin</a>  |  <a href="https://public.tableau.com/app/profile/drusho">Tableau</a></p>
+</li>
 </ul>
-<details>
+<p><br /></p>
 
-<summary>What is Reddit?</summary>
-
-As of February 2021, Reddit ranks as the 18th-most-visited website in the world and 7th most-visited website in the U.S., according to Alexa Internet.
-
-Reddit is an American social news aggregation, web content rating, and discussion website. Registered members submit content to the site such as links, text posts, images, and videos, which are then voted up or down by other members. 
-
-</details><details>
-
-<summary>What is a subreddit</summary>
-Posts are organized by subject into user-created boards called "communities" or "subreddits", which cover a variety of topics such as news, politics, religion, science, movies, video games, music, books, sports, fitness, cooking, pets, and image-sharing. 
-
-</details><details>
-
-<summary>Upvoting and Downvoting</summary>
-
-Submissions with more up-votes appear towards the top of their subreddit and, if they receive enough up-votes, ultimately on the site's front page
-
-</details><details>
-
-<summary>Subreddit Tabs</summary>
-
-At the top of each page on Reddit, you will see a selection of tabs marked Hot, New, Rising, Controversial, Top, Gilded, and Wiki. Here’s what they mean.
-
-Hot posts are the posts that have been getting the most upvotes and comments recently on that subreddit. 
-
-</details>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Goals">Goals<a class="anchor-link" href="#Goals"> </a></h3><details>
+<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction"> </a></h2><hr />
 
-<summary>Details</summary>
-
-This notebook will focus on 'Hot' (see 'What are subreddit tabs') posts due to their focus on upvotes and recent comments.  Data from /r/politics will be scrapped using python library Praw.  Analysis will include determining top posts for this subreddit and understanding what factors contributed to their ranking beyond most upvotes and comments.  Such as the correlation between comments and points, word frequency and semantic analysis of post titles
-</details>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Results">Results<a class="anchor-link" href="#Results"> </a></h3><details>
+<h3 id="About-the-Data">About the Data<a class="anchor-link" href="#About-the-Data"> </a></h3><p><strong>What is Reddit?</strong></p>
+<p>Reddit is an American social news aggregation, web content rating, and discussion website. Registered members submit content to the site such as links, text posts, images, and videos, which are then voted up or down by other members.</p>
+<p><br /></p>
+<p><strong>Subreddit</strong></p>
+<p>Posts are organized by subject into user-created boards called "communities" or "subreddits", which cover a variety of topics such as news, politics, religion, science, movies, video games, music, books, sports, fitness, cooking, pets, and image-sharing.</p>
+<p><br /></p>
+<p><strong>Upvoting and Downvoting</strong></p>
+<p>Submissions with more up-votes appear towards the top of their subreddit and, if they receive enough up-votes, ultimately on the site's front page</p>
+<p><br /></p>
+<p><strong>Subreddit Tabs</strong></p>
+<p>At the top of each page on Reddit, you will see a selection of tabs marked Hot, New, Rising, Controversial, Top, Gilded, and Wiki.</p>
+<p>Hot posts are the posts that have been getting the most upvotes and comments recently on that subreddit. This is the tab that will be used for this notebook.</p>
+<p>&lt;/details&gt;</p>
 
-<summary>Correlation of Post Score and Number of Comments</summary>
-
-Heatmap run through Seaborn showed there was a very positive correlation between the number of comments and the score of a posts (0.89).
-
-</details><details>
-
-<summary>Word Frequency of Post Titles</summary>
-
-Word frequency showed that presidents Biden and Trump were the most popular key words, followed by 'GOP'.
-
-</details><details>
-
-<summary>Sentiment Analysis</summary>
-
-The Majority of posts in /r/politics were found be Neutral, followed by negative.
-
-</details>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Setup-Data-Exploration">Setup Data Exploration<a class="anchor-link" href="#Setup-Data-Exploration"> </a></h2>
+<h3 id="Goals">Goals<a class="anchor-link" href="#Goals"> </a></h3><p>This notebook will focus on 'Hot' (see 'What are subreddit tabs') posts due to their focus on upvotes and recent comments.  Data from /r/politics will be scrapped using python library Praw.  Analysis will include determining top posts for this subreddit and understanding what factors contributed to their ranking beyond most upvotes and comments.  Such as the correlation between comments and points, word frequency and semantic analysis of post titles
+&lt;/details&gt;</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Results">Results<a class="anchor-link" href="#Results"> </a></h3><p><strong>Correlation of Post Score and Number of Comments</strong></p>
+<p>Heatmap run through Seaborn showed there was a very positive correlation between the number of comments and the score of a posts (0.89).</p>
+<p><br /></p>
+<p><strong>Word Frequency of Post Titles</strong></p>
+<p>Word frequency showed that presidents Biden and Trump were the most popular key words, followed by 'GOP'.</p>
+<p><br /></p>
+<p><strong>Sentiment Analysis</strong></p>
+<p>The Majority of posts in /r/politics were found be Neutral, followed by negative.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>bold text</strong>##Setup Data Exploration</p>
+
 </div>
 </div>
 </div>
@@ -683,7 +669,8 @@ Name: clean_title, dtype: object</pre>
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Begin-Data-Exploration">Begin Data Exploration<a class="anchor-link" href="#Begin-Data-Exploration"> </a></h2>
+<h2 id="Data-Exploration">Data Exploration<a class="anchor-link" href="#Data-Exploration"> </a></h2><hr />
+
 </div>
 </div>
 </div>
@@ -1734,31 +1721,23 @@ Plotly currently doesn't have simple solution for using dataframes directly with
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion"> </a></h3><details>
+<h2 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion"> </a></h2><hr />
+<p><strong>Correlation of Post Score and Number of Comments</strong></p>
+<p>Heatmap run through Seaborn showed there was a very positive correlation between the number of comments and the score of a posts (0.89).</p>
+<p><br /></p>
+<p><strong>Word Frequency of Post Titles</strong></p>
+<p>Word frequency showed that presidents Biden and Trump were the most popular key words, followed by 'GOP'.</p>
+<p><br /></p>
+<p><strong>Sentiment Analysis</strong></p>
+<p>The Majority of posts in /r/politics were found be Neutral, followed by negative.</p>
 
-<summary>Correlation of Post Score and Number of Comments</summary>
-
-Heatmap run through Seaborn showed there was a very positive correlation between the number of comments and the score of a posts (0.89).
-
-</details><details>
-
-<summary>Word Frequency of Post Titles</summary>
-
-Word frequency showed that presidents Biden and Trump were the most popular key words, followed by 'GOP'.
-
-</details><details>
-
-<summary>Sentiment Analysis</summary>
-
-The Majority of posts in /r/politics were found be Neutral, followed by negative.
-
-</details>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Resources">Resources<a class="anchor-link" href="#Resources"> </a></h2><ol>
+<h2 id="Resources">Resources<a class="anchor-link" href="#Resources"> </a></h2><hr />
+<ol>
 <li><p><a href="https://praw.readthedocs.io">PRAW: The Python Reddit API Wrapper</a></p>
 </li>
 <li><p><a href="https://towardsdatascience.com/ultimate-beginners-guide-to-collecting-text-for-natural-language-processing-nlp-with-python-256d113e6184">Ultimate Beginners Guide to Collecting Text for Natural Language Processing (NLP) with Python — Twitter, Reddit, Genius and More
@@ -1785,13 +1764,14 @@ Collect Text through APIs and Web Scraping</a></p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Tools-Used">Tools Used<a class="anchor-link" href="#Tools-Used"> </a></h2><details>
+<h2 id="Tools-Used">Tools Used<a class="anchor-link" href="#Tools-Used"> </a></h2><hr />
+<ol>
+<li>Pandas</li>
+<li>Plotly</li>
+<li>Praw (reddit api tool)
+4.Texthero (NLP tool)</li>
+</ol>
 
-<summary>Details</summary>
-
-Pandas, Plotly, Praw (reddit api tool), Texthero (NLP tool)
-
-</details>
 </div>
 </div>
 </div>
