@@ -134,7 +134,7 @@ window.onload = wrap_img;
 <p><br /></p>
 <p><strong>Notebook Created by David Rusho</strong></p>
 <ul>
-<li><p>Notebook's <a href="https://github.com/drusho/EDA_US_Firework_Sales_and_Injuries">Github</a></p>
+<li><p><a href="https://github.com/drusho/EDA_US_Firework_Sales_and_Injuries">Github Repository for this Notebook</a></p>
 </li>
 <li><p>Other Social Media Links:</p>
 <p><a href="https://twitter.com/drusho">Twitter</a>  |  <a href="https://github.com/drusho">Github</a>  |  <a href="https://linkedin.com/in/davidrusho">Linkedin</a>  |  <a href="https://public.tableau.com/app/profile/drusho">Tableau</a></p>
@@ -147,7 +147,8 @@ window.onload = wrap_img;
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction"> </a></h2>
+<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction"> </a></h2><hr />
+
 </div>
 </div>
 </div>
@@ -161,19 +162,16 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="About-the-Data">About the Data<a class="anchor-link" href="#About-the-Data"> </a></h3><p>Source: <a href="https://www.cpsc.gov/cgibin/NEISSQuery/UserCriteria.aspx?UserAff=5x08cgz9T6YPDAZJzvlZjA%3d%3d&amp;UserAffOther=9OYR9kUytIsLilKZieD5xg%3d%3d">Firework Injury Reports</a></p>
-<details>
+<p>The following notebook represents steps that were taken to organize and clean 5 excel files that consist of incident reports involving fireforks over the past 5 years from the CPSC (United States Consumer Product Safety Commision).</p>
+<p>The data needed to be converted to csv since reading excel into pandas is extremely slow.  CSV did create larger files but the trade off for increased reading speeds was worth it.  This was done manually through Excel and then exporting each file as a csv.  If there were more files a more "pythonic" method would have been used to save time.</p>
 
-<summary>Details</summary>
-
-The following notebook represents steps that were taken to organize and clean 5 excel files that consist of incident reports involving fireforks over the past 5 years from the CPSC (United States Consumer Product Safety Commision).  The data needed to be converted to csv since reading excel into pandas is extremely slow.  CSV did create larger files but the trade off for increased reading speeds was worth it.  This was done manually through Excel and then exporting each file as a csv.  If there were more files a more "pythonic" method would have been used to save time.
-
-</details>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Begin-Cleaning-Process">Begin Cleaning Process<a class="anchor-link" href="#Begin-Cleaning-Process"> </a></h2>
+<h2 id="Begin-Cleaning-Process">Begin Cleaning Process<a class="anchor-link" href="#Begin-Cleaning-Process"> </a></h2><hr />
+
 </div>
 </div>
 </div>
