@@ -1,0 +1,2455 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Florida School’s Covid-19 Cases | Rusho Analytics</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Florida School’s Covid-19 Cases" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Cleaning Data for Tableau" />
+<meta property="og:description" content="Cleaning Data for Tableau" />
+<link rel="canonical" href="https://drusho.github.io/pandas/2021/07/14/_07_09_FL_Schools_Covid19_2021.html" />
+<meta property="og:url" content="https://drusho.github.io/pandas/2021/07/14/_07_09_FL_Schools_Covid19_2021.html" />
+<meta property="og:site_name" content="Rusho Analytics" />
+<meta property="og:image" content="https://drusho.github.io/images/thumbnails/header_classroom.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-07-14T00:00:00-05:00" />
+<script type="application/ld+json">
+{"url":"https://drusho.github.io/pandas/2021/07/14/_07_09_FL_Schools_Covid19_2021.html","@type":"BlogPosting","headline":"Florida School’s Covid-19 Cases","dateModified":"2021-07-14T00:00:00-05:00","datePublished":"2021-07-14T00:00:00-05:00","image":"https://drusho.github.io/images/thumbnails/header_classroom.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://drusho.github.io/pandas/2021/07/14/_07_09_FL_Schools_Covid19_2021.html"},"description":"Cleaning Data for Tableau","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://drusho.github.io/feed.xml" title="Rusho Analytics" /><!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PQV3VQXZM1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PQV3VQXZM1');
+</script>
+
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Rusho Analytics</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a><a class="page-link" href="/dashboards/">Dashboards</a><a class="page-link" href="/">Home</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Florida School&#39;s Covid-19 Cases</h1><p class="page-description">Cleaning Data for Tableau</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-07-14T00:00:00-05:00" itemprop="datePublished">
+        Jul 14, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      8 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#Pandas">Pandas</a>
+        
+      
+      </p>
+    
+
+    
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2021_07_09_FL_Schools_Covid19_2021.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://colab.research.google.com/github/drusho/drusho.github.io/blob/master/_notebooks/2021_07_09_FL_Schools_Covid19_2021.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" /></a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><br /></p>
+<p><strong>Notebook Created by David Rusho</strong></p>
+<h4 id="Github-Repository-for-this-Notebook"><a href="https://github.com/drusho/EDA_US_Firework_Sales_and_Injuries">Github Repository for this Notebook</a><a class="anchor-link" href="#Github-Repository-for-this-Notebook"> </a></h4><p><br /></p>
+<h4 id="Tableau-Dashboard---FL-School's-Covid-19-Cases"><a href="https://public.tableau.com/app/profile/drusho/viz/FloridaSchools2020-2021Covid-19/Dashboard1">Tableau Dashboard - FL School's Covid-19 Cases</a><a class="anchor-link" href="#Tableau-Dashboard---FL-School's-Covid-19-Cases"> </a></h4><h5><a href="https://public.tableau.com/app/profile/drusho/viz/FloridaSchools2020-2021Covid-19/Dashboard1"><img src="https://raw.githubusercontent.com/drusho/fl_schools_covid19_2021/main/assets/tableau_dashboard_preview.png" height="200" /></a><a class="anchor-link" href="#"> </a></h5><p><br /></p>
+<h4 id="Other-Social-Media-Links:">Other Social Media Links:<a class="anchor-link" href="#Other-Social-Media-Links:"> </a></h4><p><a href="https://twitter.com/drusho">Twitter</a>  |  <a href="https://github.com/drusho">Github</a>  |  <a href="https://linkedin.com/in/davidrusho">Linkedin</a>  |  <a href="https://public.tableau.com/app/profile/drusho">Tableau</a></p>
+<p><br /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Introduction"><strong>Introduction</strong><a class="anchor-link" href="#Introduction"> </a></h2><hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="About-the-Data">About the Data<a class="anchor-link" href="#About-the-Data"> </a></h3><h4><img src="https://raw.githubusercontent.com/drusho/fl_schools_covid19_2021/main/assets/pdf_report_preview.png" height="200" /><a class="anchor-link" href="#"> </a></h4><p>The <a href="http://ww11.doh.state.fl.us/comm/_partners/covid19_report_archive/school-reports/">Data</a> comes from Florida Department of Health.  They release several reports throughout the years that list the number of postive covid-19 cases by school.  The school types include Elementary, Middle, High School, Charter/Prepatory Schools, and University/Colleges.  The data is presented on a pdf, is in wide format, and data is not labeled by school type.</p>
+<p>Also, the version of Tableau that is being used is Tableau Public.  This means that the data that is export will need to be in excel format.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Data-Cleaning"><strong>Data Cleaning</strong><a class="anchor-link" href="#Data-Cleaning"> </a></h2><hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Import-Data">Import Data<a class="anchor-link" href="#Import-Data"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1">#import pdf and filter cols/rows</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;schools_latest.csv&#39;</span><span class="p">,</span><span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">19</span><span class="p">],</span><span class="n">skiprows</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>School</th>
+      <th>County</th>
+      <th>Unnamed: 12</th>
+      <th>Students.1</th>
+      <th>Teachers.1</th>
+      <th>Staff.1</th>
+      <th>Unknown.2</th>
+      <th>Yes.1</th>
+      <th>No.1</th>
+      <th>Unknown.3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>4230</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Cumulative (Sep 6 - May 22)</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>6209</th>
+      <td>THE WEBSTER SCHOOL</td>
+      <td>St. Johns</td>
+      <td>25</td>
+      <td>14</td>
+      <td>2</td>
+      <td>5</td>
+      <td>4</td>
+      <td>17</td>
+      <td>8</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Rename-Columns">Rename Columns<a class="anchor-link" href="#Rename-Columns"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1">#rename columns</span>
+<span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;School&#39;</span><span class="p">,</span><span class="s1">&#39;County&#39;</span><span class="p">,</span><span class="s1">&#39;Total_Cases&#39;</span><span class="p">,</span><span class="s1">&#39;Students&#39;</span><span class="p">,</span><span class="s1">&#39;Teachers&#39;</span><span class="p">,</span><span class="s1">&#39;Staff&#39;</span><span class="p">,</span><span class="s1">&#39;Unknown&#39;</span><span class="p">,</span><span class="s1">&#39;Symptoms_Yes&#39;</span><span class="p">,</span><span class="s1">&#39;Symptoms_No&#39;</span><span class="p">,</span><span class="s1">&#39;Symptoms_Unknown&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>School</th>
+      <th>County</th>
+      <th>Total_Cases</th>
+      <th>Students</th>
+      <th>Teachers</th>
+      <th>Staff</th>
+      <th>Unknown</th>
+      <th>Symptoms_Yes</th>
+      <th>Symptoms_No</th>
+      <th>Symptoms_Unknown</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2900</th>
+      <td>BOYETTE SPRINGS ELEMENTARY SCHOOL</td>
+      <td>Hillsborough</td>
+      <td>24</td>
+      <td>15</td>
+      <td>3</td>
+      <td>4</td>
+      <td>2</td>
+      <td>15</td>
+      <td>3</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>3641</th>
+      <td>SIX MILE CHARTER ACADEMY</td>
+      <td>Lee</td>
+      <td>17</td>
+      <td>15</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>7</td>
+      <td>7</td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Remove-nan-values-from-'School'-col">Remove nan values from <em>'School'</em> col<a class="anchor-link" href="#Remove-nan-values-from-'School'-col"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Remove-nan-values-from-'County'-col">Remove nan values from <em>'County'</em> col<a class="anchor-link" href="#Remove-nan-values-from-'County'-col"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># new df with nan values removed</span>
+<span class="n">df2</span> <span class="o">=</span> <span class="n">df1</span><span class="p">[</span><span class="n">df1</span><span class="p">[</span><span class="s1">&#39;County&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">==</span><span class="kc">False</span><span class="p">]</span>
+<span class="n">df2</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Output" data-close="Show Output"></summary>
+        <p>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>School</th>
+      <th>County</th>
+      <th>Total_Cases</th>
+      <th>Students</th>
+      <th>Teachers</th>
+      <th>Staff</th>
+      <th>Unknown</th>
+      <th>Symptoms_Yes</th>
+      <th>Symptoms_No</th>
+      <th>Symptoms_Unknown</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>995</th>
+      <td>COCONUT GROVE MONTESSORI SCHOOL</td>
+      <td>Dade</td>
+      <td>4</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>2</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3805</th>
+      <td>MIAMI NORLAND SENIOR HIGH SCHOOL</td>
+      <td>Dade</td>
+      <td>27</td>
+      <td>16</td>
+      <td>2</td>
+      <td>2</td>
+      <td>7</td>
+      <td>19</td>
+      <td>8</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2619</th>
+      <td>HENRY S. WEST LABORATORY SCHOOL</td>
+      <td>Dade</td>
+      <td>6</td>
+      <td>5</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>3</td>
+      <td>2</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+</p>
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>School                0
+County                0
+Total_Cases         135
+Students              0
+Teachers              0
+Staff                 0
+Unknown               0
+Symptoms_Yes          0
+Symptoms_No           0
+Symptoms_Unknown      0
+dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Remove-nan-values-from-'Total-Cases'-col">Remove nan values from <em>'Total Cases'</em> col<a class="anchor-link" href="#Remove-nan-values-from-'Total-Cases'-col"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">df3</span> <span class="o">=</span> <span class="n">df2</span><span class="p">[</span><span class="n">df2</span><span class="o">.</span><span class="n">Total_Cases</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">==</span><span class="kc">False</span><span class="p">]</span>
+<span class="n">df3</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>School</th>
+      <th>County</th>
+      <th>Total_Cases</th>
+      <th>Students</th>
+      <th>Teachers</th>
+      <th>Staff</th>
+      <th>Unknown</th>
+      <th>Symptoms_Yes</th>
+      <th>Symptoms_No</th>
+      <th>Symptoms_Unknown</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>4686</th>
+      <td>PORT CHARLOTTE MIDDLE SCHOOL</td>
+      <td>Charlotte</td>
+      <td>34</td>
+      <td>28</td>
+      <td>2</td>
+      <td>0</td>
+      <td>4</td>
+      <td>25</td>
+      <td>9</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>5681</th>
+      <td>SURGE CHRISTIAN ACADEMY</td>
+      <td>Pinellas</td>
+      <td>4</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>6204</th>
+      <td>VALRICO LAKE ADVANTAGE ACADEMY</td>
+      <td>Hillsborough</td>
+      <td>15</td>
+      <td>10</td>
+      <td>3</td>
+      <td>0</td>
+      <td>2</td>
+      <td>7</td>
+      <td>0</td>
+      <td>8</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Dataframe-contains-no-nan-values.">Dataframe contains no nan values.<a class="anchor-link" href="#Dataframe-contains-no-nan-values."> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1">#df is balanced with nan values removed</span>
+<span class="n">df3</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Int64Index: 6064 entries, 0 to 6603
+Data columns (total 10 columns):
+ #   Column            Non-Null Count  Dtype 
+---  ------            --------------  ----- 
+ 0   School            6064 non-null   object
+ 1   County            6064 non-null   object
+ 2   Total_Cases       6064 non-null   object
+ 3   Students          6064 non-null   object
+ 4   Teachers          6064 non-null   object
+ 5   Staff             6064 non-null   object
+ 6   Unknown           6064 non-null   object
+ 7   Symptoms_Yes      6064 non-null   object
+ 8   Symptoms_No       6064 non-null   object
+ 9   Symptoms_Unknown  6064 non-null   object
+dtypes: object(10)
+memory usage: 521.1+ KB
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Drop-unnecessary-cols">Drop unnecessary cols<a class="anchor-link" href="#Drop-unnecessary-cols"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># No way to identify which goups symptoms belong to</span>
+<span class="n">df4</span> <span class="o">=</span> <span class="n">df3</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Symptoms_Yes&#39;</span><span class="p">,</span><span class="s1">&#39;Symptoms_No&#39;</span><span class="p">,</span><span class="s1">&#39;Symptoms_Unknown&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df4</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>School</th>
+      <th>County</th>
+      <th>Total_Cases</th>
+      <th>Students</th>
+      <th>Teachers</th>
+      <th>Staff</th>
+      <th>Unknown</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>IRVING &amp; BEATRICE PESKOE K-8 CENTER</td>
+      <td>Dade</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2010 E HILLSBOROUGH AVE,</td>
+      <td>Hillsborough</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>A BLESSED ACADEMY</td>
+      <td>Polk</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Concat-'School'-and-'County'-cols">Concat <em>'School'</em> and <em>'County'</em> cols<a class="anchor-link" href="#Concat-'School'-and-'County'-cols"> </a></h3><p>Several schools have the same name.  Combining School and County columns creates a unique identifier that can later be split in Tableau to contain more useful data visualizations.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">df4</span><span class="p">[</span><span class="s1">&#39;School_County&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df4</span><span class="o">.</span><span class="n">School</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">df4</span><span class="o">.</span><span class="n">County</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot; (&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; County)&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+<span class="n">df4</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>School</th>
+      <th>County</th>
+      <th>Total_Cases</th>
+      <th>Students</th>
+      <th>Teachers</th>
+      <th>Staff</th>
+      <th>Unknown</th>
+      <th>School_County</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>IRVING &amp; BEATRICE PESKOE K-8 CENTER</td>
+      <td>Dade</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>Irving &amp; Beatrice Peskoe K-8 Center (Dade Cou...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2010 E HILLSBOROUGH AVE,</td>
+      <td>Hillsborough</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2010 E Hillsborough Ave, (Hillsborough County)</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>A BLESSED ACADEMY</td>
+      <td>Polk</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>A Blessed Academy (Polk County)</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>A CHILD'S PLACE MONTESSORI SCHOOL</td>
+      <td>Duval</td>
+      <td>2</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>A Child'S Place Montessori School (Duval County)</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>A E F SCHOOLS ALTERNATIVE EDU. FOUNDATION</td>
+      <td>Broward</td>
+      <td>3</td>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>0</td>
+      <td>A E F Schools Alternative Edu. Foundation (Bro...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Convert-df-from-wide-to-long-using-melt()">Convert df from wide to long using melt()<a class="anchor-link" href="#Convert-df-from-wide-to-long-using-melt()"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">df_long</span> <span class="o">=</span> <span class="n">df4</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;School&#39;</span><span class="p">,</span><span class="s1">&#39;County&#39;</span><span class="p">,</span><span class="s1">&#39;School_County&#39;</span><span class="p">,</span><span class="s1">&#39;Total_Cases&#39;</span><span class="p">],</span> 
+                   <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;Individual&#39;</span><span class="p">,</span> 
+                   <span class="n">value_name</span><span class="o">=</span><span class="s1">&#39;pos_covid&#39;</span><span class="p">)</span>
+<span class="n">df_long</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>School</th>
+      <th>County</th>
+      <th>School_County</th>
+      <th>Total_Cases</th>
+      <th>Individual</th>
+      <th>pos_covid</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>6492</th>
+      <td>BENNETT ELEMENTARY SCHOOL</td>
+      <td>Broward</td>
+      <td>Bennett Elementary School (Broward County)</td>
+      <td>22</td>
+      <td>Teachers</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>9414</th>
+      <td>MENI NINHO MENI NINHA INC</td>
+      <td>Dade</td>
+      <td>Meni Ninho Meni Ninha Inc (Dade County)</td>
+      <td>1</td>
+      <td>Teachers</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2962</th>
+      <td>LEE ADOLESCENT MOTHERS PROGRAM</td>
+      <td>Lee</td>
+      <td>Lee Adolescent Mothers Program (Lee County)</td>
+      <td>3</td>
+      <td>Students</td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Drop-'Total-Cases'-col">Drop '<em>Total Cases</em>' col<a class="anchor-link" href="#Drop-'Total-Cases'-col"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># Drop &#39;_Total Cases_&#39; col</span>
+<span class="n">df_long2</span> <span class="o">=</span> <span class="n">df_long</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s1">&#39;Total_Cases&#39;</span><span class="p">)</span>
+<span class="n">df_long2</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>School</th>
+      <th>County</th>
+      <th>School_County</th>
+      <th>Individual</th>
+      <th>pos_covid</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>IRVING &amp; BEATRICE PESKOE K-8 CENTER</td>
+      <td>Dade</td>
+      <td>Irving &amp; Beatrice Peskoe K-8 Center (Dade Cou...</td>
+      <td>Students</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2010 E HILLSBOROUGH AVE,</td>
+      <td>Hillsborough</td>
+      <td>2010 E Hillsborough Ave, (Hillsborough County)</td>
+      <td>Students</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Clean-'School'-names.">Clean <em>'School'</em> names.<a class="anchor-link" href="#Clean-'School'-names."> </a></h3><p>Convert to title() case</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1">#Title Case for Schools</span>
+<span class="n">df_long2</span><span class="o">.</span><span class="n">School</span> <span class="o">=</span> <span class="n">df_long2</span><span class="o">.</span><span class="n">School</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+<span class="n">df_long2</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Output" data-close="Show Output"></summary>
+        <p>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>School</th>
+      <th>County</th>
+      <th>School_County</th>
+      <th>Individual</th>
+      <th>pos_covid</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Irving &amp; Beatrice Peskoe K-8 Center</td>
+      <td>Dade</td>
+      <td>Irving &amp; Beatrice Peskoe K-8 Center (Dade Cou...</td>
+      <td>Students</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2010 E Hillsborough Ave,</td>
+      <td>Hillsborough</td>
+      <td>2010 E Hillsborough Ave, (Hillsborough County)</td>
+      <td>Students</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+</p>
+    </details>
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Label-University/Colleges">Label University/Colleges<a class="anchor-link" href="#Label-University/Colleges"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1">#Label University/Colleges</span>
+<span class="n">df_long2</span><span class="o">.</span><span class="n">loc</span><span class="p">[((</span><span class="n">df_long2</span><span class="o">.</span><span class="n">School</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;University&#39;</span><span class="p">)</span><span class="o">==</span><span class="kc">True</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">df_long2</span><span class="o">.</span><span class="n">School</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;College&#39;</span><span class="p">)</span><span class="o">==</span><span class="kc">True</span><span class="p">))</span> <span class="o">&amp;</span> 
+         <span class="p">(</span><span class="n">df_long2</span><span class="o">.</span><span class="n">School</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;Middle&#39;</span><span class="p">)</span><span class="o">==</span><span class="kc">False</span><span class="p">)</span> <span class="o">&amp;</span>
+         <span class="p">(</span><span class="n">df_long2</span><span class="o">.</span><span class="n">School</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;Elementary&#39;</span><span class="p">)</span><span class="o">==</span><span class="kc">False</span><span class="p">)</span> <span class="o">&amp;</span> 
+         <span class="p">(</span><span class="n">df_long2</span><span class="o">.</span><span class="n">School</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;High&#39;</span><span class="p">)</span><span class="o">==</span><span class="kc">False</span><span class="p">)</span> <span class="o">&amp;</span> 
+         <span class="p">(</span><span class="n">df_long2</span><span class="o">.</span><span class="n">School</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;Academy&#39;</span><span class="p">)</span><span class="o">==</span><span class="kc">False</span><span class="p">)</span> <span class="o">&amp;</span> 
+         <span class="p">(</span><span class="n">df_long2</span><span class="o">.</span><span class="n">School</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;Charter&#39;</span><span class="p">)</span><span class="o">==</span><span class="kc">False</span><span class="p">)</span> <span class="o">&amp;</span>
+         <span class="p">(</span><span class="n">df_long2</span><span class="o">.</span><span class="n">School</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;Prep&#39;</span><span class="p">)</span><span class="o">==</span><span class="kc">False</span><span class="p">)</span> <span class="o">&amp;</span> 
+         <span class="p">(</span><span class="n">df_long2</span><span class="o">.</span><span class="n">School</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;Preparatory&#39;</span><span class="p">)</span><span class="o">==</span><span class="kc">False</span><span class="p">)</span> <span class="o">&amp;</span>
+         <span class="p">(</span><span class="n">df_long2</span><span class="o">.</span><span class="n">School</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;1st College&#39;</span><span class="p">)</span><span class="o">==</span><span class="kc">False</span><span class="p">)</span> <span class="o">&amp;</span> 
+         <span class="p">(</span><span class="n">df_long2</span><span class="o">.</span><span class="n">School</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;Kids&#39;</span><span class="p">)</span><span class="o">==</span><span class="kc">False</span><span class="p">)</span> <span class="o">&amp;</span>
+         <span class="p">(</span><span class="n">df_long2</span><span class="o">.</span><span class="n">School</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;Little College&#39;</span><span class="p">)</span><span class="o">==</span><span class="kc">False</span><span class="p">),</span> <span class="s1">&#39;School_Type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;University/College&#39;</span>
+
+<span class="n">df_long2</span><span class="p">[</span><span class="n">df_long2</span><span class="p">[</span><span class="s1">&#39;School&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;Uni&#39;</span><span class="p">)]</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>School</th>
+      <th>County</th>
+      <th>School_County</th>
+      <th>Individual</th>
+      <th>pos_covid</th>
+      <th>School_Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1718</th>
+      <td>First United Methodist School</td>
+      <td>Okaloosa</td>
+      <td>First United Methodist School (Okaloosa County)</td>
+      <td>Students</td>
+      <td>0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>5646</th>
+      <td>University Of South Florida- St. Petersburg</td>
+      <td>Pinellas</td>
+      <td>University Of South Florida- St. Petersburg (P...</td>
+      <td>Students</td>
+      <td>14</td>
+      <td>University/College</td>
+    </tr>
+    <tr>
+      <th>9222</th>
+      <td>Lynn University</td>
+      <td>Palm Beach</td>
+      <td>Lynn University (Palm Beach County)</td>
+      <td>Teachers</td>
+      <td>0</td>
+      <td>University/College</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Label-High-Schools">Label High Schools<a class="anchor-link" href="#Label-High-Schools"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1">#Label High Schools</span>
+<span class="n">df_long2</span><span class="o">.</span><span class="n">loc</span><span class="p">[((</span><span class="n">df_long2</span><span class="o">.</span><span class="n">School</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;High&#39;</span><span class="p">)</span><span class="o">==</span><span class="kc">True</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">df_long2</span><span class="o">.</span><span class="n">School</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;Hs&#39;</span><span class="p">)</span><span class="o">==</span><span class="kc">True</span><span class="p">))</span> <span class="o">&amp;</span> 
+                       <span class="p">(</span><span class="n">df_long2</span><span class="o">.</span><span class="n">School</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;Middle&#39;</span><span class="p">)</span><span class="o">==</span><span class="kc">False</span><span class="p">)</span> <span class="o">&amp;</span>
+                       <span class="p">(</span><span class="n">df_long2</span><span class="o">.</span><span class="n">School</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;Elementary&#39;</span><span class="p">)</span><span class="o">==</span><span class="kc">False</span><span class="p">)</span> <span class="o">&amp;</span> 
+                       <span class="p">(</span><span class="n">df_long2</span><span class="o">.</span><span class="n">School</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;Adult&#39;</span><span class="p">)</span><span class="o">==</span><span class="kc">False</span><span class="p">),</span><span class="s1">&#39;School_Type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;High School&#39;</span>
+
+<span class="n">df_long2</span><span class="p">[</span><span class="n">df_long2</span><span class="p">[</span><span class="s1">&#39;School&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;High&#39;</span><span class="p">)]</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>School</th>
+      <th>County</th>
+      <th>School_County</th>
+      <th>Individual</th>
+      <th>pos_covid</th>
+      <th>School_Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>21009</th>
+      <td>Lake Highland Preparatory School</td>
+      <td>Orange</td>
+      <td>Lake Highland Preparatory School (Orange County)</td>
+      <td>Unknown</td>
+      <td>2</td>
+      <td>High School</td>
+    </tr>
+    <tr>
+      <th>15033</th>
+      <td>Land O' Lakes High Adult Education</td>
+      <td>Pasco</td>
+      <td>Land O' Lakes High Adult Education (Pasco County)</td>
+      <td>Staff</td>
+      <td>0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>18987</th>
+      <td>Central High School</td>
+      <td>Hernando</td>
+      <td>Central High School (Hernando County)</td>
+      <td>Unknown</td>
+      <td>1</td>
+      <td>High School</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Label-Middle-Schools">Label Middle Schools<a class="anchor-link" href="#Label-Middle-Schools"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1">#Identify Middle Schools</span>
+
+<span class="n">df_long2</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">df_long2</span><span class="o">.</span><span class="n">School</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;High&#39;</span><span class="p">)</span><span class="o">==</span><span class="kc">False</span><span class="p">)</span> <span class="o">&amp;</span> 
+                       <span class="p">(</span><span class="n">df_long2</span><span class="o">.</span><span class="n">School</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;Middle&#39;</span><span class="p">)</span><span class="o">==</span><span class="kc">True</span><span class="p">)</span> <span class="o">&amp;</span>
+                       <span class="p">(</span><span class="n">df_long2</span><span class="o">.</span><span class="n">School</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;Elementary&#39;</span><span class="p">)</span><span class="o">==</span><span class="kc">False</span><span class="p">)</span> <span class="o">&amp;</span> 
+                       <span class="p">(</span><span class="n">df_long2</span><span class="o">.</span><span class="n">School</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;Adult&#39;</span><span class="p">)</span><span class="o">==</span><span class="kc">False</span><span class="p">),</span><span class="s1">&#39;School_Type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Middle School&#39;</span>
+
+<span class="n">df_long2</span><span class="p">[</span><span class="n">df_long2</span><span class="p">[</span><span class="s1">&#39;School&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;Middle&#39;</span><span class="p">)]</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>School</th>
+      <th>County</th>
+      <th>School_County</th>
+      <th>Individual</th>
+      <th>pos_covid</th>
+      <th>School_Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1526</th>
+      <td>Eisenhower Middle School</td>
+      <td>Hillsborough</td>
+      <td>Eisenhower Middle School (Hillsborough County)</td>
+      <td>Students</td>
+      <td>21</td>
+      <td>Middle School</td>
+    </tr>
+    <tr>
+      <th>16696</th>
+      <td>Ruben Dario Middle School</td>
+      <td>Dade</td>
+      <td>Ruben Dario Middle School (Dade County)</td>
+      <td>Staff</td>
+      <td>0</td>
+      <td>Middle School</td>
+    </tr>
+    <tr>
+      <th>16010</th>
+      <td>Osceola Middle School</td>
+      <td>Marion</td>
+      <td>Osceola Middle School (Marion County)</td>
+      <td>Staff</td>
+      <td>6</td>
+      <td>Middle School</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Label-Elementary">Label Elementary<a class="anchor-link" href="#Label-Elementary"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1">#identify Elementary Schools</span>
+<span class="c1">#some elementary schools have &#39;University&#39; or &#39;College&#39; in their names</span>
+
+<span class="n">df_long2</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">df_long2</span><span class="o">.</span><span class="n">School</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;High&#39;</span><span class="p">)</span><span class="o">==</span><span class="kc">False</span><span class="p">)</span> <span class="o">&amp;</span> 
+                       <span class="p">(</span><span class="n">df_long2</span><span class="o">.</span><span class="n">School</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;Middle&#39;</span><span class="p">)</span><span class="o">==</span><span class="kc">False</span><span class="p">)</span> <span class="o">&amp;</span>
+                       <span class="p">(</span><span class="n">df_long2</span><span class="o">.</span><span class="n">School</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;Elementary&#39;</span><span class="p">)</span><span class="o">==</span><span class="kc">True</span><span class="p">)</span> <span class="o">&amp;</span> 
+                       <span class="p">(</span><span class="n">df_long2</span><span class="o">.</span><span class="n">School</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;Adult&#39;</span><span class="p">)</span><span class="o">==</span><span class="kc">False</span><span class="p">),</span><span class="s1">&#39;School_Type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Elementary School&quot;</span>
+
+<span class="n">df_long2</span><span class="p">[</span><span class="n">df_long2</span><span class="p">[</span><span class="s1">&#39;School&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;Elem&#39;</span><span class="p">)]</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>School</th>
+      <th>County</th>
+      <th>School_County</th>
+      <th>Individual</th>
+      <th>pos_covid</th>
+      <th>School_Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1591</th>
+      <td>Estates Elementary School</td>
+      <td>Collier</td>
+      <td>Estates Elementary School (Collier County)</td>
+      <td>Students</td>
+      <td>25</td>
+      <td>Elementary School</td>
+    </tr>
+    <tr>
+      <th>3460</th>
+      <td>Molino Park Elementary</td>
+      <td>Escambia</td>
+      <td>Molino Park Elementary (Escambia County)</td>
+      <td>Students</td>
+      <td>4</td>
+      <td>Elementary School</td>
+    </tr>
+    <tr>
+      <th>20557</th>
+      <td>Howard Drive Elementary School</td>
+      <td>Dade</td>
+      <td>Howard Drive Elementary School (Dade County)</td>
+      <td>Unknown</td>
+      <td>2</td>
+      <td>Elementary School</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Label-unknown-schools-a-'Other'">Label unknown schools a 'Other'<a class="anchor-link" href="#Label-unknown-schools-a-'Other'"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">df_long2</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_long2</span><span class="o">.</span><span class="n">School_Type</span><span class="o">.</span><span class="n">isna</span><span class="p">(),</span><span class="s1">&#39;School_Type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;No Label&#39;</span>
+<span class="n">df_long2</span><span class="p">[</span><span class="n">df_long2</span><span class="p">[</span><span class="s1">&#39;School&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;Hs&#39;</span><span class="p">)]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>School</th>
+      <th>County</th>
+      <th>School_County</th>
+      <th>Individual</th>
+      <th>pos_covid</th>
+      <th>School_Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>565</th>
+      <td>Brandon Hs</td>
+      <td>Hillsborough</td>
+      <td>Brandon Hs (Hillsborough County)</td>
+      <td>Students</td>
+      <td>1</td>
+      <td>High School</td>
+    </tr>
+    <tr>
+      <th>2629</th>
+      <td>Jp Taravella Hs</td>
+      <td>Broward</td>
+      <td>Jp Taravella Hs (Broward County)</td>
+      <td>Students</td>
+      <td>0</td>
+      <td>High School</td>
+    </tr>
+    <tr>
+      <th>6629</th>
+      <td>Brandon Hs</td>
+      <td>Hillsborough</td>
+      <td>Brandon Hs (Hillsborough County)</td>
+      <td>Teachers</td>
+      <td>0</td>
+      <td>High School</td>
+    </tr>
+    <tr>
+      <th>8693</th>
+      <td>Jp Taravella Hs</td>
+      <td>Broward</td>
+      <td>Jp Taravella Hs (Broward County)</td>
+      <td>Teachers</td>
+      <td>0</td>
+      <td>High School</td>
+    </tr>
+    <tr>
+      <th>12693</th>
+      <td>Brandon Hs</td>
+      <td>Hillsborough</td>
+      <td>Brandon Hs (Hillsborough County)</td>
+      <td>Staff</td>
+      <td>0</td>
+      <td>High School</td>
+    </tr>
+    <tr>
+      <th>14757</th>
+      <td>Jp Taravella Hs</td>
+      <td>Broward</td>
+      <td>Jp Taravella Hs (Broward County)</td>
+      <td>Staff</td>
+      <td>0</td>
+      <td>High School</td>
+    </tr>
+    <tr>
+      <th>18757</th>
+      <td>Brandon Hs</td>
+      <td>Hillsborough</td>
+      <td>Brandon Hs (Hillsborough County)</td>
+      <td>Unknown</td>
+      <td>0</td>
+      <td>High School</td>
+    </tr>
+    <tr>
+      <th>20821</th>
+      <td>Jp Taravella Hs</td>
+      <td>Broward</td>
+      <td>Jp Taravella Hs (Broward County)</td>
+      <td>Unknown</td>
+      <td>1</td>
+      <td>High School</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Change-dtype-of-pos_covid-to-'int'">Change dtype of pos_covid to 'int'<a class="anchor-link" href="#Change-dtype-of-pos_covid-to-'int'"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1">#Change dtype of pos_covid to &#39;int&#39;</span>
+<span class="n">df_long2</span><span class="o">.</span><span class="n">pos_covid</span> <span class="o">=</span> <span class="n">df_long2</span><span class="o">.</span><span class="n">pos_covid</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span>
+<span class="n">df_long2</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Output" data-close="Show Output"></summary>
+        <p>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 24256 entries, 0 to 24255
+Data columns (total 6 columns):
+ #   Column         Non-Null Count  Dtype 
+---  ------         --------------  ----- 
+ 0   School         24256 non-null  object
+ 1   County         24256 non-null  object
+ 2   School_County  24256 non-null  object
+ 3   Individual     24256 non-null  object
+ 4   pos_covid      24256 non-null  int64 
+ 5   School_Type    24256 non-null  object
+dtypes: int64(1), object(5)
+memory usage: 1.1+ MB
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+</p>
+    </details>
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Data-Analysis"><strong>Data Analysis</strong><a class="anchor-link" href="#Data-Analysis"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Groupby-school-type">Groupby school type<a class="anchor-link" href="#Groupby-school-type"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1">#grouby school type</span>
+<span class="n">df_long2</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;School_Type&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>School</th>
+      <th>County</th>
+      <th>School_County</th>
+      <th>Individual</th>
+      <th>pos_covid</th>
+    </tr>
+    <tr>
+      <th>School_Type</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Elementary School</th>
+      <td>6748</td>
+      <td>6748</td>
+      <td>6748</td>
+      <td>6748</td>
+      <td>6748</td>
+    </tr>
+    <tr>
+      <th>High School</th>
+      <td>2536</td>
+      <td>2536</td>
+      <td>2536</td>
+      <td>2536</td>
+      <td>2536</td>
+    </tr>
+    <tr>
+      <th>Middle School</th>
+      <td>2236</td>
+      <td>2236</td>
+      <td>2236</td>
+      <td>2236</td>
+      <td>2236</td>
+    </tr>
+    <tr>
+      <th>No Label</th>
+      <td>11564</td>
+      <td>11564</td>
+      <td>11564</td>
+      <td>11564</td>
+      <td>11564</td>
+    </tr>
+    <tr>
+      <th>University/College</th>
+      <td>1172</td>
+      <td>1172</td>
+      <td>1172</td>
+      <td>1172</td>
+      <td>1172</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Groupby-School-Type-and-Individuals">Groupby School Type and Individuals<a class="anchor-link" href="#Groupby-School-Type-and-Individuals"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">df_long2</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;School_Type&#39;</span><span class="p">,</span><span class="s1">&#39;Individual&#39;</span><span class="p">])[</span><span class="s1">&#39;pos_covid&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>School_Type</th>
+      <th>Individual</th>
+      <th>pos_covid</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Elementary School</td>
+      <td>Staff</td>
+      <td>1978</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Elementary School</td>
+      <td>Students</td>
+      <td>23831</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Elementary School</td>
+      <td>Teachers</td>
+      <td>3300</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Elementary School</td>
+      <td>Unknown</td>
+      <td>3763</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>High School</td>
+      <td>Staff</td>
+      <td>1161</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>High School</td>
+      <td>Students</td>
+      <td>29353</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>High School</td>
+      <td>Teachers</td>
+      <td>1491</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>High School</td>
+      <td>Unknown</td>
+      <td>1962</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Middle School</td>
+      <td>Staff</td>
+      <td>720</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Middle School</td>
+      <td>Students</td>
+      <td>13081</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Middle School</td>
+      <td>Teachers</td>
+      <td>1057</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Middle School</td>
+      <td>Unknown</td>
+      <td>1248</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>No Label</td>
+      <td>Staff</td>
+      <td>1680</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>No Label</td>
+      <td>Students</td>
+      <td>25826</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>No Label</td>
+      <td>Teachers</td>
+      <td>2515</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>No Label</td>
+      <td>Unknown</td>
+      <td>3307</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>University/College</td>
+      <td>Staff</td>
+      <td>1308</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>University/College</td>
+      <td>Students</td>
+      <td>19201</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>University/College</td>
+      <td>Teachers</td>
+      <td>286</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>University/College</td>
+      <td>Unknown</td>
+      <td>1313</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Groupby-County-and-Positive-Covid-Cases">Groupby County and Positive Covid Cases<a class="anchor-link" href="#Groupby-County-and-Positive-Covid-Cases"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># groupby county and postive covid cases</span>
+<span class="n">df_long2</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;County&#39;</span><span class="p">)[</span><span class="s1">&#39;pos_covid&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;pos_covid&#39;</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>County</th>
+      <th>pos_covid</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>12</th>
+      <td>Dade</td>
+      <td>16672</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Broward</td>
+      <td>10523</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>Hillsborough</td>
+      <td>10268</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>Palm Beach</td>
+      <td>8801</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>Orange</td>
+      <td>8610</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>Leon</td>
+      <td>6139</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>Lee</td>
+      <td>5588</td>
+    </tr>
+    <tr>
+      <th>52</th>
+      <td>Polk</td>
+      <td>5524</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Duval</td>
+      <td>4996</td>
+    </tr>
+    <tr>
+      <th>51</th>
+      <td>Pinellas</td>
+      <td>4712</td>
+    </tr>
+    <tr>
+      <th>50</th>
+      <td>Pasco</td>
+      <td>4541</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>Alachua</td>
+      <td>4504</td>
+    </tr>
+    <tr>
+      <th>63</th>
+      <td>Volusia</td>
+      <td>3450</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Brevard</td>
+      <td>3137</td>
+    </tr>
+    <tr>
+      <th>56</th>
+      <td>Seminole</td>
+      <td>2675</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Groupby-Select-County-and-Individuals">Groupby Select County and Individuals<a class="anchor-link" href="#Groupby-Select-County-and-Individuals"> </a></h3><p>County Selected = 'Orange' county</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1">#collapse</span>
+<span class="c1"># groupby one county and individuals</span>
+<span class="n">var</span> <span class="o">=</span> <span class="s1">&#39;Orange&#39;</span>
+<span class="n">sel_county</span> <span class="o">=</span> <span class="n">df_long2</span><span class="p">[</span><span class="n">df_long2</span><span class="p">[</span><span class="s1">&#39;County&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">var</span><span class="p">]</span>
+<span class="n">sel_county</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;County&#39;</span><span class="p">,</span><span class="s1">&#39;Individual&#39;</span><span class="p">])[</span><span class="s1">&#39;pos_covid&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>County</th>
+      <th>Individual</th>
+      <th>pos_covid</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Orange</td>
+      <td>Staff</td>
+      <td>239</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Orange</td>
+      <td>Students</td>
+      <td>6976</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Orange</td>
+      <td>Teachers</td>
+      <td>229</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Orange</td>
+      <td>Unknown</td>
+      <td>1166</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Export-Data-to-Excel-Format">Export Data to Excel Format<a class="anchor-link" href="#Export-Data-to-Excel-Format"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">df_long2</span> <span class="o">=</span> <span class="n">df_long2</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;County&#39;</span><span class="p">,</span><span class="s1">&#39;School&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df_long2</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="s1">&#39;Florida_Schools_COVID19_Cases_2020_2021.xls&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="drusho/"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/pandas/2021/07/14/_07_09_FL_Schools_Covid19_2021.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p></p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/drusho" title="drusho"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://www.linkedin.com/in/davidrusho" title="davidrusho"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg></a></li><li><a rel="me" href="https://twitter.com/drusho" title="drusho"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
