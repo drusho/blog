@@ -175,29 +175,21 @@ window.onload = wrap_img;
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="What-is-Reddit?"><strong>What is Reddit?</strong><a class="anchor-link" href="#What-is-Reddit?"> </a></h4><h5><p align="left"><img src="https://raw.githubusercontent.com/drusho/eda_reddit_politics/main/assets/reddit_logo.png" width="300" />&lt;/h5&gt;
-<p>&lt;/p&gt;</p>
-<p>Reddit is an American social news aggregation, web content rating, and discussion website. Registered members submit content to the site such as links, text posts, images, and videos, which are then voted up or down by other members.</p>
+<h4 id="What-is-Reddit?"><strong>What is Reddit?</strong><a class="anchor-link" href="#What-is-Reddit?"> </a></h4><h5><img src="https://raw.githubusercontent.com/drusho/eda_reddit_politics/main/assets/reddit_logo.png" width="300" /><a class="anchor-link" href="#"> </a></h5><p>Reddit is an American social news aggregation, web content rating, and discussion website. Registered members submit content to the site such as links, text posts, images, and videos, which are then voted up or down by other members.</p>
 <p><br />
 <br /></p>
-<h4 id="Subreddit"><strong>Subreddit</strong><a class="anchor-link" href="#Subreddit"> </a></h4><h5><p align="left"><img src="https://raw.githubusercontent.com/drusho/eda_reddit_politics/main/assets/reddit_politics.jpg" width="300" />&lt;/h5&gt;
-<p>&lt;/p&gt;</p>
-<p>Posts are organized by subject into user-created boards called "communities" or "subreddits", which cover a variety of topics such as news, politics, religion, science, movies, video games, music, books, sports, fitness, cooking, pets, and image-sharing.</p>
+<h4 id="Subreddit"><strong>Subreddit</strong><a class="anchor-link" href="#Subreddit"> </a></h4><h5><img src="https://raw.githubusercontent.com/drusho/eda_reddit_politics/main/assets/reddit_politics.jpg" width="300" /><a class="anchor-link" href="#"> </a></h5><p>Posts are organized by subject into user-created boards called "communities" or "subreddits", which cover a variety of topics such as news, politics, religion, science, movies, video games, music, books, sports, fitness, cooking, pets, and image-sharing.</p>
 <p><br />
 <br /></p>
-<h4 id="Upvoting-and-Downvoting"><strong>Upvoting and Downvoting</strong><a class="anchor-link" href="#Upvoting-and-Downvoting"> </a></h4><h5><p align="left"><img src="https://raw.githubusercontent.com/drusho/eda_reddit_politics/main/assets/upvote_downvote.png" height="50" />&lt;/h5&gt;
-<p>&lt;/p&gt;</p>
-<p>Submissions with more up-votes appear towards the top of their subreddit and, if they receive enough up-votes, ultimately on the site's front page</p>
+<h4 id="Upvoting-and-Downvoting"><strong>Upvoting and Downvoting</strong><a class="anchor-link" href="#Upvoting-and-Downvoting"> </a></h4><h5><img src="https://raw.githubusercontent.com/drusho/eda_reddit_politics/main/assets/upvote_downvote.png" height="50" /><a class="anchor-link" href="#"> </a></h5><p>Submissions with more up-votes appear towards the top of their subreddit and, if they receive enough up-votes, ultimately on the site's front page</p>
 <p><br />
 <br /></p>
-<h4 id="Subreddit-Tabs"><strong>Subreddit Tabs</strong><a class="anchor-link" href="#Subreddit-Tabs"> </a></h4><h5><p align="left"><img src="https://raw.githubusercontent.com/drusho/eda_reddit_politics/main/assets/subreddit_tabs.png" height="50" />&lt;/h5&gt;
-<p>&lt;/p&gt;</p>
-<p>At the top of each page on Reddit, you will see a selection of tabs marked Hot, New, Rising, Controversial, Top, Gilded, and Wiki.</p>
+<h4 id="Subreddit-Tabs"><strong>Subreddit Tabs</strong><a class="anchor-link" href="#Subreddit-Tabs"> </a></h4><h5><img src="https://raw.githubusercontent.com/drusho/eda_reddit_politics/main/assets/subreddit_tabs.png" height="50" /><a class="anchor-link" href="#"> </a></h5><p>At the top of each page on Reddit, you will see a selection of tabs marked Hot, New, Rising, Controversial, Top, Gilded, and Wiki.</p>
 <p>Hot posts are the posts that have been getting the most upvotes and comments recently on that subreddit. This is the tab that will be used for this notebook.</p>
 
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Project-Goals">Project Goals<a class="anchor-link" href="#Project-Goals"> </a></h3><p>This notebook will focus on 'Hot' subreddit tab posts due to their focus on upvotes and recent comments.  Data from /r/politics will be scrapped using python library <em>Praw</em>.  Analysis will include determining top posts for this subreddit and understanding what factors contributed to their ranking beyond most upvotes and comments.  Such as the correlation between comments and points, word frequency and semantic analysis of post titles</p>
@@ -213,13 +205,13 @@ window.onload = wrap_img;
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Correlation-of-Post-Score-and-Number-of-Comments"><strong>Correlation of Post Score and Number of Comments</strong><a class="anchor-link" href="#Correlation-of-Post-Score-and-Number-of-Comments"> </a></h4><h5><p align="left"><img src="https://raw.githubusercontent.com/drusho/eda_reddit_politics/main/reports/figures/Correlation%20of%20Dataframe%20(Heatmap).png" width="300" /></p><a class="anchor-link" href="#"> </a></h5><p>A heatmap that was ran through Seaborn showed there was a very positive correlation between the number of comments and the score of a posts (0.89).</p>
+<h4 id="Correlation-of-Post-Score-and-Number-of-Comments"><strong>Correlation of Post Score and Number of Comments</strong><a class="anchor-link" href="#Correlation-of-Post-Score-and-Number-of-Comments"> </a></h4><h5><img src="https://raw.githubusercontent.com/drusho/eda_reddit_politics/main/reports/figures/Correlation%20of%20Dataframe%20(Heatmap).png" width="300" /><a class="anchor-link" href="#"> </a></h5><p>A heatmap that was ran through Seaborn showed there was a very positive correlation between the number of comments and the score of a posts (0.89).</p>
 <p><br />
 <br /></p>
-<h4 id="Word-Frequency-of-Post-Titles"><strong>Word Frequency of Post Titles</strong><a class="anchor-link" href="#Word-Frequency-of-Post-Titles"> </a></h4><h5><p align="left"><img src="https://raw.githubusercontent.com/drusho/eda_reddit_politics/main/reports/figures/Word%20Frequency%20of%20Post%20Titles%20(Wordcloud).png" height="200" /></p><a class="anchor-link" href="#"> </a></h5><p>Word frequency showed that <em>Biden</em> and <em>Trump</em> were the most popular key words, followed by <em>GOP</em>.</p>
+<h4 id="Word-Frequency-of-Post-Titles"><strong>Word Frequency of Post Titles</strong><a class="anchor-link" href="#Word-Frequency-of-Post-Titles"> </a></h4><h5><img src="https://raw.githubusercontent.com/drusho/eda_reddit_politics/main/reports/figures/Word%20Frequency%20of%20Post%20Titles%20(Wordcloud).png" height="200" /><a class="anchor-link" href="#"> </a></h5><p>Word frequency showed that <em>Biden</em> and <em>Trump</em> were the most popular key words, followed by <em>GOP</em>.</p>
 <p><br />
 <br /></p>
-<h4 id="Sentiment-Analysis"><strong>Sentiment Analysis</strong><a class="anchor-link" href="#Sentiment-Analysis"> </a></h4><h5><p align="left"><img src="https://raw.githubusercontent.com/drusho/eda_reddit_politics/main/reports/figures/Sentiment%20of%20Post%20Titles%20(Histogram%20Plot).png" height="200" /></p></h5>
+<h4 id="Sentiment-Analysis"><strong>Sentiment Analysis</strong><a class="anchor-link" href="#Sentiment-Analysis"> </a></h4><h5><img src="https://raw.githubusercontent.com/drusho/eda_reddit_politics/main/reports/figures/Sentiment%20of%20Post%20Titles%20(Histogram%20Plot).png" height="200" /></h5>
 <p>The majority of posts in /r/politics were found be <em>neutral</em>, followed by <em>negative</em>.</p>
 
 </div>
@@ -1767,10 +1759,8 @@ Collect Text through APIs and Web Scraping</a></p>
 </div>
 </div>
 </div>
-&lt;/div&gt;
- 
+</div>
 
-</p></h5></p></h5></p></h5></p></h5></div></div></div></div>
 
 
   </div><!-- from https://github.com/utterance/utterances -->
