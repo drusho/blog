@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>https://drusho.github.io/api/nlp/pandas/plotly/texthero/praw/reddit/2021/07/05/reddit-politics-eda.html</loc>
+<lastmod>2021-07-05T00:00:00-05:00</lastmod>
+</url>
+<url>
 <loc>https://drusho.github.io/pandas/data%20cleaning/2021/07/15/_06_25_firework_part_1_cleaning.html</loc>
 <lastmod>2021-07-15T00:00:00-05:00</lastmod>
 </url>
