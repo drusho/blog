@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Data Analysis of Youtube Tech Channels | Rusho Analytics</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Data Analysis of Youtube Tech Channels" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Analyzing Web Scraped Data Obtained with Selenium" />
+<meta property="og:description" content="Analyzing Web Scraped Data Obtained with Selenium" />
+<link rel="canonical" href="https://drusho.github.io/selenium/web%20scrapping/pandas/2021/07/17/webscrapping-youtube.html" />
+<meta property="og:url" content="https://drusho.github.io/selenium/web%20scrapping/pandas/2021/07/17/webscrapping-youtube.html" />
+<meta property="og:site_name" content="Rusho Analytics" />
+<meta property="og:image" content="https://drusho.github.io/images/thumbnails/header_youtube_web.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-07-17T00:00:00-05:00" />
+<script type="application/ld+json">
+{"url":"https://drusho.github.io/selenium/web%20scrapping/pandas/2021/07/17/webscrapping-youtube.html","@type":"BlogPosting","headline":"Data Analysis of Youtube Tech Channels","dateModified":"2021-07-17T00:00:00-05:00","datePublished":"2021-07-17T00:00:00-05:00","image":"https://drusho.github.io/images/thumbnails/header_youtube_web.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://drusho.github.io/selenium/web%20scrapping/pandas/2021/07/17/webscrapping-youtube.html"},"description":"Analyzing Web Scraped Data Obtained with Selenium","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://drusho.github.io/feed.xml" title="Rusho Analytics" /><!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PQV3VQXZM1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PQV3VQXZM1');
+</script>
+
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Rusho Analytics</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a><a class="page-link" href="/dashboards/">Dashboards</a><a class="page-link" href="/">Home</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Data Analysis of Youtube Tech Channels</h1><p class="page-description">Analyzing Web Scraped Data Obtained with Selenium</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-07-17T00:00:00-05:00" itemprop="datePublished">
+        Jul 17, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      5 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#Selenium">Selenium</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#Web Scrapping">Web Scrapping</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#Pandas">Pandas</a>
+        
+      
+      </p>
+    
+
+    
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2021-07-17-webscrapping-youtube.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://colab.research.google.com/github/drusho/drusho.github.io/blob/master/_notebooks/2021-07-17-webscrapping-youtube.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" /></a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><br /></p>
+<p><strong>Notebook Created by David Rusho</strong></p>
+<ul>
+<li><p><a href="https://drusho.github.io"><img src="https://img.shields.io/badge/Github_Blog-%23ffa64d.svg?&amp;style=for-the-badge&amp;logo=&amp;logoColor=" /></a></p>
+</li>
+<li><p><a href="https://github.com/drusho/webscrape_youtube"><img src="https://img.shields.io/badge/github-%23181717.svg?&amp;style=for-the-badge&amp;logo=github&amp;logoColor=white" /></a></p>
+</li>
+<li><p><a href="https://public.tableau.com/app/profile/drusho/"><img src="https://img.shields.io/badge/tableau-%23ff4d4d.svg?&amp;style=for-the-badge&amp;logo=tableau&amp;logoColor=white" /></a></p>
+</li>
+<li><p><a href="https://linkedin.com/in/davidrusho"><img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&amp;style=for-the-badge&amp;logo=linkedin&amp;logoColor=white" /></a></p>
+</li>
+<li><p><a href="https://twitter.com/drusho"><img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&amp;logo=twitter&amp;logoColor=white" /></a></p>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="About-the-Data">About the Data<a class="anchor-link" href="#About-the-Data"> </a></h2><p>Web scraping was performed on the <em>Top 10 Tech Channels</em> on Youtube using <em><a href="https://selenium-python.readthedocs.io/">Selenium</a></em> (an automated browser (driver) controlled using python, which is often used in web scraping and web testing).  The youtube channels to were scrapped were determined using a <strong><a href="https://blog.bit.ai/top-tech-youtubers/">Top 10 Tech Youtubers</a></strong> list from blog.bit.ai.  Scraping included:</p>
+<ul>
+<li>Channel names</li>
+<li>Number of subscribers per channel</li>
+<li>Data from most popular videos per channel included:<ul>
+<li>Video titles</li>
+<li>Posting date</li>
+<li>Number of views</li>
+</ul>
+</li>
+</ul>
+<p>The average number of videos per channel was around 200.  In total, the data from 2000 videos was scrapped.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Data-Cleaning">Data Cleaning<a class="anchor-link" href="#Data-Cleaning"> </a></h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">yt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;youtube_video_scrap.csv&#39;</span><span class="p">,</span><span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;channel_join_date&#39;</span><span class="p">])</span>
+<span class="n">yt</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Unnamed: 0</th>
+      <th>channel_name</th>
+      <th>subscribers</th>
+      <th>title</th>
+      <th>views</th>
+      <th>post_date</th>
+      <th>channel_join_date</th>
+      <th>channel_views</th>
+      <th>channel_description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>iJustine</td>
+      <td>6.89M subscribers</td>
+      <td>Black Eyed Peas - I gotta Feeling (Parody)</td>
+      <td>18M views</td>
+      <td>11 years ago</td>
+      <td>NaT</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>iJustine</td>
+      <td>6.89M subscribers</td>
+      <td>Cake Decorating Challenge with Ro | Nerdy Numm...</td>
+      <td>12M views</td>
+      <td>5 years ago</td>
+      <td>NaT</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>iJustine</td>
+      <td>6.89M subscribers</td>
+      <td>The Voice of Siri!</td>
+      <td>11M views</td>
+      <td>5 years ago</td>
+      <td>NaT</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>iJustine</td>
+      <td>6.89M subscribers</td>
+      <td>Ugliest iPhone Cases Ever?</td>
+      <td>9.4M views</td>
+      <td>3 years ago</td>
+      <td>NaT</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>iJustine</td>
+      <td>6.89M subscribers</td>
+      <td>Making a mini cake with Ro!</td>
+      <td>9.1M views</td>
+      <td>3 years ago</td>
+      <td>NaT</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">yt</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;channel_name&#39;</span><span class="p">],</span> <span class="n">value_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;subscribers&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">,</span><span class="s1">&#39;views&#39;</span><span class="p">,</span><span class="s1">&#39;post_date&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>channel_name</th>
+      <th>variable</th>
+      <th>value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>iJustine</td>
+      <td>subscribers</td>
+      <td>6.89M subscribers</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>iJustine</td>
+      <td>subscribers</td>
+      <td>6.89M subscribers</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>iJustine</td>
+      <td>subscribers</td>
+      <td>6.89M subscribers</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>iJustine</td>
+      <td>subscribers</td>
+      <td>6.89M subscribers</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>iJustine</td>
+      <td>subscribers</td>
+      <td>6.89M subscribers</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>8030</th>
+      <td>Marques Brownlee</td>
+      <td>post_date</td>
+      <td>3 years ago</td>
+    </tr>
+    <tr>
+      <th>8031</th>
+      <td>Marques Brownlee</td>
+      <td>post_date</td>
+      <td>8 months ago</td>
+    </tr>
+    <tr>
+      <th>8032</th>
+      <td>Marques Brownlee</td>
+      <td>post_date</td>
+      <td>8 months ago</td>
+    </tr>
+    <tr>
+      <th>8033</th>
+      <td>Marques Brownlee</td>
+      <td>post_date</td>
+      <td>3 months ago</td>
+    </tr>
+    <tr>
+      <th>8034</th>
+      <td>Marques Brownlee</td>
+      <td>post_date</td>
+      <td>1 year ago</td>
+    </tr>
+  </tbody>
+</table>
+<p>7994 rows × 3 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">channel_details</span> <span class="o">=</span> <span class="n">yt</span><span class="p">[</span><span class="n">yt</span><span class="o">.</span><span class="n">channel_join_date</span><span class="o">.</span><span class="n">notna</span><span class="p">()]</span>
+<span class="n">channel_details</span> <span class="o">=</span> <span class="n">channel_details</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Unnamed: 0&#39;</span><span class="p">,</span><span class="s1">&#39;subscribers&#39;</span><span class="p">,</span><span class="s1">&#39;title&#39;</span><span class="p">,</span><span class="s1">&#39;views&#39;</span><span class="p">,</span><span class="s1">&#39;post_date&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">channel_details</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>channel_name</th>
+      <th>channel_join_date</th>
+      <th>channel_views</th>
+      <th>channel_description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>iJustine</td>
+      <td>2006-05-07</td>
+      <td>1,288,833,680 views</td>
+      <td>Tech, video games, failed cooking attempts, vl...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Android Authority</td>
+      <td>2011-04-03</td>
+      <td>767,831,088 views</td>
+      <td>Your source for the best phones, streaming, ap...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Mrwhosetheboss</td>
+      <td>2011-04-20</td>
+      <td>1,207,247,023 views</td>
+      <td>My name is Arun Maini. I'm a 25 year old Econo...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Jon Rettinger</td>
+      <td>2007-06-07</td>
+      <td>574,893,891 views</td>
+      <td>Welcome to the video home of Jon Rettinger, fo...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Jonathan Morrison</td>
+      <td>2010-03-24</td>
+      <td>430,629,457 views</td>
+      <td>High quality videos blending tech + aesthetic,...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">video_details</span> <span class="o">=</span> <span class="n">yt</span><span class="p">[</span><span class="n">yt</span><span class="o">.</span><span class="n">channel_join_date</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span>
+<span class="n">video_details</span> <span class="o">=</span> <span class="n">video_details</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Unnamed: 0&#39;</span><span class="p">,</span><span class="s1">&#39;channel_join_date&#39;</span><span class="p">,</span><span class="s1">&#39;channel_views&#39;</span><span class="p">,</span><span class="s1">&#39;channel_description&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">video_details</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>channel_name</th>
+      <th>subscribers</th>
+      <th>title</th>
+      <th>views</th>
+      <th>post_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>iJustine</td>
+      <td>6.89M subscribers</td>
+      <td>Black Eyed Peas - I gotta Feeling (Parody)</td>
+      <td>18M views</td>
+      <td>11 years ago</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>iJustine</td>
+      <td>6.89M subscribers</td>
+      <td>Cake Decorating Challenge with Ro | Nerdy Numm...</td>
+      <td>12M views</td>
+      <td>5 years ago</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>iJustine</td>
+      <td>6.89M subscribers</td>
+      <td>The Voice of Siri!</td>
+      <td>11M views</td>
+      <td>5 years ago</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>iJustine</td>
+      <td>6.89M subscribers</td>
+      <td>Ugliest iPhone Cases Ever?</td>
+      <td>9.4M views</td>
+      <td>3 years ago</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>iJustine</td>
+      <td>6.89M subscribers</td>
+      <td>Making a mini cake with Ro!</td>
+      <td>9.1M views</td>
+      <td>3 years ago</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">merged</span> <span class="o">=</span> <span class="n">channel_details</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">video_details</span><span class="p">)</span>
+<span class="n">merged</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>channel_name</th>
+      <th>channel_join_date</th>
+      <th>channel_views</th>
+      <th>channel_description</th>
+      <th>subscribers</th>
+      <th>title</th>
+      <th>views</th>
+      <th>post_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>iJustine</td>
+      <td>2006-05-07</td>
+      <td>1,288,833,680 views</td>
+      <td>Tech, video games, failed cooking attempts, vl...</td>
+      <td>6.89M subscribers</td>
+      <td>Black Eyed Peas - I gotta Feeling (Parody)</td>
+      <td>18M views</td>
+      <td>11 years ago</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>iJustine</td>
+      <td>2006-05-07</td>
+      <td>1,288,833,680 views</td>
+      <td>Tech, video games, failed cooking attempts, vl...</td>
+      <td>6.89M subscribers</td>
+      <td>Cake Decorating Challenge with Ro | Nerdy Numm...</td>
+      <td>12M views</td>
+      <td>5 years ago</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>iJustine</td>
+      <td>2006-05-07</td>
+      <td>1,288,833,680 views</td>
+      <td>Tech, video games, failed cooking attempts, vl...</td>
+      <td>6.89M subscribers</td>
+      <td>The Voice of Siri!</td>
+      <td>11M views</td>
+      <td>5 years ago</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>iJustine</td>
+      <td>2006-05-07</td>
+      <td>1,288,833,680 views</td>
+      <td>Tech, video games, failed cooking attempts, vl...</td>
+      <td>6.89M subscribers</td>
+      <td>Ugliest iPhone Cases Ever?</td>
+      <td>9.4M views</td>
+      <td>3 years ago</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>iJustine</td>
+      <td>2006-05-07</td>
+      <td>1,288,833,680 views</td>
+      <td>Tech, video games, failed cooking attempts, vl...</td>
+      <td>6.89M subscribers</td>
+      <td>Making a mini cake with Ro!</td>
+      <td>9.1M views</td>
+      <td>3 years ago</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">merged</span><span class="o">.</span><span class="n">subscribers</span> <span class="o">=</span> <span class="n">merged</span><span class="o">.</span><span class="n">subscribers</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;M subscribers&#39;</span><span class="p">,</span><span class="s1">&#39;000000&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span>
+<span class="n">merged</span><span class="o">.</span><span class="n">views</span> <span class="o">=</span> <span class="n">merged</span><span class="o">.</span><span class="n">views</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;M views&#39;</span><span class="p">,</span><span class="s1">&#39;000000&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;K views&#39;</span><span class="p">,</span><span class="s1">&#39;000&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;1 year ago&#39;</span><span class="p">,</span><span class="s1">&#39;0&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span>
+<span class="n">merged</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Int64Index: 1999 entries, 0 to 1998
+Data columns (total 8 columns):
+ #   Column               Non-Null Count  Dtype         
+---  ------               --------------  -----         
+ 0   channel_name         1999 non-null   object        
+ 1   channel_join_date    1999 non-null   datetime64[ns]
+ 2   channel_views        1999 non-null   object        
+ 3   channel_description  1999 non-null   object        
+ 4   subscribers          1999 non-null   int64         
+ 5   title                1999 non-null   object        
+ 6   views                1999 non-null   int64         
+ 7   post_date            1997 non-null   object        
+dtypes: datetime64[ns](1), int64(2), object(5)
+memory usage: 140.6+ KB
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">merged</span><span class="p">[</span><span class="s1">&#39;post_date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">merged</span><span class="p">[</span><span class="s1">&#39;post_date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">merged</span><span class="o">.</span><span class="n">channel_views</span> <span class="o">=</span> <span class="n">merged</span><span class="o">.</span><span class="n">channel_views</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;views&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span>
+<span class="n">merged</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>channel_name</th>
+      <th>channel_join_date</th>
+      <th>channel_views</th>
+      <th>channel_description</th>
+      <th>subscribers</th>
+      <th>title</th>
+      <th>views</th>
+      <th>post_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>iJustine</td>
+      <td>2006-05-07</td>
+      <td>1288833680</td>
+      <td>Tech, video games, failed cooking attempts, vl...</td>
+      <td>689000000</td>
+      <td>Black Eyed Peas - I gotta Feeling (Parody)</td>
+      <td>18000000</td>
+      <td>11 years ago</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>iJustine</td>
+      <td>2006-05-07</td>
+      <td>1288833680</td>
+      <td>Tech, video games, failed cooking attempts, vl...</td>
+      <td>689000000</td>
+      <td>Cake Decorating Challenge with Ro | Nerdy Numm...</td>
+      <td>12000000</td>
+      <td>5 years ago</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>iJustine</td>
+      <td>2006-05-07</td>
+      <td>1288833680</td>
+      <td>Tech, video games, failed cooking attempts, vl...</td>
+      <td>689000000</td>
+      <td>The Voice of Siri!</td>
+      <td>11000000</td>
+      <td>5 years ago</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Data-Analysis">Data Analysis<a class="anchor-link" href="#Data-Analysis"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Top-10-Videos-by-Views">Top 10 Videos by Views<a class="anchor-link" href="#Top-10-Videos-by-Views"> </a></h3><p>Discoveries so far:</p>
+<ul>
+<li><p>Majority of these vidoes are over a year old.  Meaning that as time goes by more video views will be acquired.</p>
+</li>
+<li><p>Two videos list a dollar amount in the title.</p>
+</li>
+<li><p>Marques Brownlee labels some videos (ex: "Dope Tech")</p>
+</li>
+<li><p>Unbox Therapy dominates videos by views list, 8 of 10 videos belong to this channel alone.</p>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">merged</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;title&#39;</span><span class="p">,</span><span class="s1">&#39;channel_name&#39;</span><span class="p">,</span><span class="s1">&#39;post_date&#39;</span><span class="p">])[</span><span class="s1">&#39;views&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>title</th>
+      <th>channel_name</th>
+      <th>post_date</th>
+      <th>views</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2020 iPad Pro Review: It's... A Computer?!</td>
+      <td>Marques Brownlee</td>
+      <td>1 year ago</td>
+      <td>99000000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>The Secret Android Button</td>
+      <td>Unbox Therapy</td>
+      <td>5 years ago</td>
+      <td>98000000</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Dope Tech: Self-Lacing Nike Mag!</td>
+      <td>Marques Brownlee</td>
+      <td>4 years ago</td>
+      <td>98000000</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>The FASTEST gaming PC money can buy</td>
+      <td>Linus Tech Tips</td>
+      <td>2 years ago</td>
+      <td>98000000</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Fortnite on an INSANE $20,000 Gaming PC</td>
+      <td>Unbox Therapy</td>
+      <td>3 years ago</td>
+      <td>98000000</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>A Keyboard Made Of Glass?</td>
+      <td>Unbox Therapy</td>
+      <td>5 years ago</td>
+      <td>98000000</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>iPhone 12 - The iPhone is New Again</td>
+      <td>Unbox Therapy</td>
+      <td>9 months ago</td>
+      <td>98000000</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>$1000 Earphones! (Shure SE846 Unboxing &amp; Test)</td>
+      <td>Unbox Therapy</td>
+      <td>7 years ago</td>
+      <td>97000000</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>This is the iPhone SE 2</td>
+      <td>Unbox Therapy</td>
+      <td>1 year ago</td>
+      <td>97000000</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Human Headphones Just Changed The Game</td>
+      <td>Unbox Therapy</td>
+      <td>1 year ago</td>
+      <td>97000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="drusho/"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/selenium/web%20scrapping/pandas/2021/07/17/webscrapping-youtube.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p></p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/drusho" title="drusho"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://www.linkedin.com/in/davidrusho" title="davidrusho"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg></a></li><li><a rel="me" href="https://twitter.com/drusho" title="drusho"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
