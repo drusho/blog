@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      3 min read
+      5 min read
     
 </span></p>
 
@@ -143,18 +143,33 @@ window.onload = wrap_img;
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="About-the-Data">About the Data<a class="anchor-link" href="#About-the-Data"> </a></h2><p>Web scraping was performed on the <em>Top 10 Tech Channels</em> on Youtube using <em><a href="https://selenium-python.readthedocs.io/">Selenium</a></em> (an automated browser (driver) controlled using python, which is often used in web scraping and web testing).  The youtube channels to were scrapped were determined using a <strong><a href="https://blog.bit.ai/top-tech-youtubers/">Top 10 Tech Youtubers</a></strong> list from blog.bit.ai.  Scraping included:</p>
+<h2 id="About-the-Data">About the Data<a class="anchor-link" href="#About-the-Data"> </a></h2><p>Web scraping was performed on the <em>Top 10 Tech Channels</em> on Youtube using <em><a href="https://selenium-python.readthedocs.io/">Selenium</a></em> (an automated browser (driver) controlled using python, which is often used in web scraping and web testing).  Web scrapped Youtube channels were determined using a <strong><a href="https://blog.bit.ai/top-tech-youtubers/">Top 10 Tech Youtubers</a></strong> list from blog.bit.ai.  Scraping included:</p>
 <ul>
-<li>Channel names</li>
-<li>Number of subscribers per channel</li>
-<li>Data from most popular videos per channel included:<ul>
-<li>Video titles</li>
-<li>Posting date</li>
-<li>Number of views</li>
+<li><p>General data for each channel.</p>
+<ul>
+<li>ex. join date, name, no. of subscribers</li>
+</ul>
+</li>
+<li><p>Data from most popular videos per channel</p>
+<ul>
+<li>ex. video titles, views</li>
+</ul>
+</li>
+<li><p>Data specific to each video.</p>
+<ul>
+<li>ex. post date, no. of upvotes, no. comments</li>
 </ul>
 </li>
 </ul>
+<p><br /></p>
 <p>The average number of videos per channel was around 200.  In total, the data from 2000 videos was scrapped.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Raw-Dataframe-Sample">Raw Dataframe Sample<a class="anchor-link" href="#Raw-Dataframe-Sample"> </a></h3><p>Data from Youtube Channels' main pages (Video and About)</p>
 
 </div>
 </div>
@@ -162,18 +177,21 @@ window.onload = wrap_img;
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-python"><pre><span></span><span class="n">yt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;youtube_video_scrap.csv&#39;</span><span class="p">,</span><span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;channel_join_date&#39;</span><span class="p">])</span>
+<div class=" highlight hl-python"><pre><span></span><span class="n">yt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;yt_channel_scrap.csv&#39;</span><span class="p">,</span><span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;channel_join_date&#39;</span><span class="p">])</span>
 <span class="n">yt</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -205,6 +223,7 @@ window.onload = wrap_img;
       <th>title</th>
       <th>views</th>
       <th>post_date</th>
+      <th>url</th>
       <th>channel_join_date</th>
       <th>channel_views</th>
       <th>channel_description</th>
@@ -219,6 +238,7 @@ window.onload = wrap_img;
       <td>Black Eyed Peas - I gotta Feeling (Parody)</td>
       <td>18M views</td>
       <td>11 years ago</td>
+      <td>https://www.youtube.com/watch?v=iPgaTmsYTT8</td>
       <td>NaT</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -231,42 +251,7 @@ window.onload = wrap_img;
       <td>Cake Decorating Challenge with Ro | Nerdy Numm...</td>
       <td>12M views</td>
       <td>5 years ago</td>
-      <td>NaT</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>2</td>
-      <td>iJustine</td>
-      <td>6.89M subscribers</td>
-      <td>The Voice of Siri!</td>
-      <td>11M views</td>
-      <td>5 years ago</td>
-      <td>NaT</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>3</td>
-      <td>iJustine</td>
-      <td>6.89M subscribers</td>
-      <td>Ugliest iPhone Cases Ever?</td>
-      <td>9.4M views</td>
-      <td>3 years ago</td>
-      <td>NaT</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>4</td>
-      <td>iJustine</td>
-      <td>6.89M subscribers</td>
-      <td>Making a mini cake with Ro!</td>
-      <td>9.1M views</td>
-      <td>3 years ago</td>
+      <td>https://www.youtube.com/watch?v=y7xZ-kJDgvM</td>
       <td>NaT</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -284,15 +269,103 @@ window.onload = wrap_img;
 </div>
     
 
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">merged</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;url_x&#39;</span><span class="p">),</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">merged</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;url_y&#39;</span><span class="p">:</span><span class="s1">&#39;url&#39;</span><span class="p">},</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">merged</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>channel_name</th>
+      <th>channel_join_date</th>
+      <th>channel_views</th>
+      <th>channel_description</th>
+      <th>subscribers</th>
+      <th>title</th>
+      <th>views</th>
+      <th>url</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1601</th>
+      <td>UrAvgConsumer</td>
+      <td>2012-01-01</td>
+      <td>430,378,637 views</td>
+      <td>Just your average guy who loves tech and givin...</td>
+      <td>3.11M subscribers</td>
+      <td>The ULTIMATE Gamer's Paradise! (Room Tour)</td>
+      <td>5.9M views</td>
+      <td>https://www.youtube.com/watch?v=3HTc9xJHbU0</td>
+    </tr>
+    <tr>
+      <th>666</th>
+      <td>Jon Rettinger</td>
+      <td>2007-06-07</td>
+      <td>574,947,199 views</td>
+      <td>Welcome to the video home of Jon Rettinger, fo...</td>
+      <td>1.59M subscribers</td>
+      <td>Galaxy S8 Two Months Later: Was It a Mistake?</td>
+      <td>1M views</td>
+      <td>https://www.youtube.com/watch?v=75ZXRi2XyZ0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Data-Analysis">Data Analysis<a class="anchor-link" href="#Data-Analysis"> </a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Dataframe-Sample">Dataframe Sample<a class="anchor-link" href="#Dataframe-Sample"> </a></h3>
+<h3 id="Cleaned-Dataframe-Sample">Cleaned Dataframe Sample<a class="anchor-link" href="#Cleaned-Dataframe-Sample"> </a></h3><p><em>*Data from Youtube Channels' main pages (Video and About)</em></p>
+<p><br /></p>
+<p>Changes to columns include:</p>
+<ul>
+<li><strong>_channel_join<em>date</em></strong> → date format</li>
+<li><strong>_channel<em>views</em></strong>, <strong><em>subscribers</em></strong>, and <strong><em>views</em></strong> →  number formats</li>
+</ul>
+
 </div>
 </div>
 </div>
@@ -305,8 +378,9 @@ window.onload = wrap_img;
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-python"><pre><span></span><span class="c1"># Sampe of dataframe</span>
-<span class="n">merged</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># channel views to dtype</span>
+<span class="n">merged</span><span class="o">.</span><span class="n">channel_views</span> <span class="o">=</span> <span class="n">merged</span><span class="o">.</span><span class="n">channel_views</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;views&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span>
+<span class="n">merged</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -346,42 +420,31 @@ window.onload = wrap_img;
       <th>subscribers</th>
       <th>title</th>
       <th>views</th>
-      <th>post_date</th>
+      <th>url</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>609</th>
-      <td>Jon Rettinger</td>
-      <td>2007-06-07</td>
-      <td>574893891</td>
-      <td>Welcome to the video home of Jon Rettinger, fo...</td>
-      <td>159000000</td>
-      <td>Xbox 360 vs. PS3: Round 4 (CPU)</td>
-      <td>2000000</td>
-      <td>11 years ago</td>
+      <th>0</th>
+      <td>iJustine</td>
+      <td>2006-05-07</td>
+      <td>1288987476</td>
+      <td>Tech, video games, failed cooking attempts, vl...</td>
+      <td>689000000</td>
+      <td>Black Eyed Peas - I gotta Feeling (Parody)</td>
+      <td>18000000</td>
+      <td>https://www.youtube.com/watch?v=iPgaTmsYTT8</td>
     </tr>
     <tr>
-      <th>1409</th>
-      <td>Linus Tech Tips</td>
-      <td>2008-11-24</td>
-      <td>4932592261</td>
-      <td>Tech can be complicated; we try to make it eas...</td>
-      <td>137000000</td>
-      <td>Upgrading Our WORST Gaming Rigs</td>
-      <td>10000000</td>
-      <td>2 years ago</td>
-    </tr>
-    <tr>
-      <th>994</th>
-      <td>Jonathan Morrison</td>
-      <td>2010-03-24</td>
-      <td>430629457</td>
-      <td>High quality videos blending tech + aesthetic,...</td>
-      <td>264000000</td>
-      <td>DIY Nintendo Switch Gaming Desk + Setup!</td>
-      <td>628000</td>
-      <td>4 years ago</td>
+      <th>1</th>
+      <td>iJustine</td>
+      <td>2006-05-07</td>
+      <td>1288987476</td>
+      <td>Tech, video games, failed cooking attempts, vl...</td>
+      <td>689000000</td>
+      <td>Cake Decorating Challenge with Ro | Nerdy Numm...</td>
+      <td>12000000</td>
+      <td>https://www.youtube.com/watch?v=y7xZ-kJDgvM</td>
     </tr>
   </tbody>
 </table>
@@ -398,7 +461,8 @@ window.onload = wrap_img;
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="List-of-Youtube-Channels-in-Dataframe">List of Youtube Channels in Dataframe<a class="anchor-link" href="#List-of-Youtube-Channels-in-Dataframe"> </a></h3>
+<h2 id="Import-Videos-Data">Import Videos Data<a class="anchor-link" href="#Import-Videos-Data"> </a></h2><p>Specific data from 2000 youtube videos</p>
+
 </div>
 </div>
 </div>
@@ -411,8 +475,121 @@ window.onload = wrap_img;
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-python"><pre><span></span><span class="c1"># List of Video Channels</span>
-<span class="n">merged</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;channel_name&#39;</span><span class="p">)[</span><span class="s1">&#39;channel_name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Video Count&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># import videos </span>
+<span class="n">df_videos</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;yt_videos_scrap_big_data.csv&#39;</span><span class="p">,</span><span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Publish Date&#39;</span><span class="p">,</span><span class="s1">&#39;Upload_date&#39;</span><span class="p">])</span>
+<span class="n">df_videos</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Unnamed: 0&#39;</span><span class="p">,</span><span class="s1">&#39;Duration&#39;</span><span class="p">,</span><span class="s1">&#39;Channel Name&#39;</span><span class="p">,</span><span class="s1">&#39;Title&#39;</span><span class="p">],</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df_videos</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>url</th>
+      <th>Partial Description</th>
+      <th>Publish Date</th>
+      <th>Upload_date</th>
+      <th>Genre</th>
+      <th>Width</th>
+      <th>Height</th>
+      <th>Likes</th>
+      <th>Comments</th>
+      <th>Interaction Count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>401</th>
+      <td>https://www.youtube.com/watch?v=iXKvwPjCGnY</td>
+      <td>The cursed wallpaper that crashes Android phon...</td>
+      <td>2020-06-04</td>
+      <td>2020-06-04</td>
+      <td>Science &amp; Technology</td>
+      <td>1280.0</td>
+      <td>720.0</td>
+      <td>831K</td>
+      <td>54,129 Comments</td>
+      <td>15688251</td>
+    </tr>
+    <tr>
+      <th>735</th>
+      <td>https://www.youtube.com/watch?v=cER36crkkVw</td>
+      <td>Other iPhone 4 Videos:iPhone 4 Unboxing: http:...</td>
+      <td>2010-07-06</td>
+      <td>2010-07-06</td>
+      <td>Science &amp; Technology</td>
+      <td>1280.0</td>
+      <td>720.0</td>
+      <td>2K</td>
+      <td>1,086 Comments</td>
+      <td>568777</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Data-Cleaning-Complete">Data Cleaning Complete<a class="anchor-link" href="#Data-Cleaning-Complete"> </a></h2><p>Sample of fully cleaned and merged dataframe</p>
+<p>Dataframes from Channel and all Videos pages merged.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># merge df2 </span>
+<span class="n">vc_merged</span> <span class="o">=</span> <span class="n">merged</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_videos</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;url&#39;</span><span class="p">)</span> 
+<span class="n">vc_merged</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+    <span class="s1">&#39;Partial Description&#39;</span><span class="p">:</span><span class="s1">&#39;video_desc&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Publish Date&#39;</span><span class="p">:</span><span class="s1">&#39;publish_date&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Upload_date&#39;</span><span class="p">:</span><span class="s1">&#39;upload_date&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Interaction Count&#39;</span><span class="p">:</span><span class="s1">&#39;interact_count&#39;</span>
+    <span class="p">},</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">vc_merged</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -446,59 +623,220 @@ window.onload = wrap_img;
     <tr style="text-align: right;">
       <th></th>
       <th>channel_name</th>
-      <th>Video Count</th>
+      <th>channel_join_date</th>
+      <th>channel_views</th>
+      <th>channel_description</th>
+      <th>subscribers</th>
+      <th>title</th>
+      <th>views</th>
+      <th>url</th>
+      <th>video_desc</th>
+      <th>publish_date</th>
+      <th>upload_date</th>
+      <th>Genre</th>
+      <th>Width</th>
+      <th>Height</th>
+      <th>Likes</th>
+      <th>Comments</th>
+      <th>interact_count</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>Android Authority</td>
-      <td>200</td>
+      <td>iJustine</td>
+      <td>2006-05-07</td>
+      <td>1288987476</td>
+      <td>Tech, video games, failed cooking attempts, vl...</td>
+      <td>689000000</td>
+      <td>Black Eyed Peas - I gotta Feeling (Parody)</td>
+      <td>18000000</td>
+      <td>https://www.youtube.com/watch?v=iPgaTmsYTT8</td>
+      <td>Thanks for watching! Don't forget to subscribe...</td>
+      <td>2009-07-30</td>
+      <td>2009-07-30</td>
+      <td>Comedy</td>
+      <td>1280</td>
+      <td>720</td>
+      <td>102000</td>
+      <td>23437</td>
+      <td>18198670</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>Austin Evans</td>
-      <td>200</td>
+      <td>iJustine</td>
+      <td>2006-05-07</td>
+      <td>1288987476</td>
+      <td>Tech, video games, failed cooking attempts, vl...</td>
+      <td>689000000</td>
+      <td>Cake Decorating Challenge with Ro | Nerdy Numm...</td>
+      <td>12000000</td>
+      <td>https://www.youtube.com/watch?v=y7xZ-kJDgvM</td>
+      <td>Thanks for watching! Don't forget to subscribe...</td>
+      <td>2016-02-18</td>
+      <td>2016-02-18</td>
+      <td>Howto &amp; Style</td>
+      <td>1280</td>
+      <td>720</td>
+      <td>99000</td>
+      <td>8421</td>
+      <td>12395700</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Data-Analysis">Data Analysis<a class="anchor-link" href="#Data-Analysis"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="List-of-Youtube-Channels-in-Dataframe">List of Youtube Channels in Dataframe<a class="anchor-link" href="#List-of-Youtube-Channels-in-Dataframe"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># List of Video Channels</span>
+<span class="n">vc_merged</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;channel_join_date&#39;</span><span class="p">,</span><span class="s1">&#39;channel_name&#39;</span><span class="p">,</span><span class="s1">&#39;channel_views&#39;</span><span class="p">,</span><span class="s1">&#39;channel_description&#39;</span><span class="p">])[</span><span class="s1">&#39;subscribers&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>channel_join_date</th>
+      <th>channel_name</th>
+      <th>channel_views</th>
+      <th>channel_description</th>
+      <th>subscribers</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2006-05-07</td>
+      <td>iJustine</td>
+      <td>1288987476</td>
+      <td>Tech, video games, failed cooking attempts, vl...</td>
+      <td>689000000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2007-06-07</td>
+      <td>Jon Rettinger</td>
+      <td>574947199</td>
+      <td>Welcome to the video home of Jon Rettinger, fo...</td>
+      <td>159000000</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>Jon Rettinger</td>
-      <td>200</td>
+      <td>2007-08-04</td>
+      <td>Austin Evans</td>
+      <td>1118911675</td>
+      <td>The best of technology from gaming PCs to smar...</td>
+      <td>507000000</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>Jonathan Morrison</td>
-      <td>199</td>
+      <td>2008-03-21</td>
+      <td>Marques Brownlee</td>
+      <td>2597028774</td>
+      <td>MKBHD: Quality Tech Videos | YouTuber | Geek |...</td>
+      <td>143000000</td>
     </tr>
     <tr>
       <th>4</th>
+      <td>2008-11-24</td>
       <td>Linus Tech Tips</td>
-      <td>200</td>
+      <td>4934741560</td>
+      <td>Tech can be complicated; we try to make it eas...</td>
+      <td>137000000</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>Marques Brownlee</td>
-      <td>200</td>
+      <td>2010-03-24</td>
+      <td>Jonathan Morrison</td>
+      <td>430639061</td>
+      <td>High quality videos blending tech + aesthetic,...</td>
+      <td>264000000</td>
     </tr>
     <tr>
       <th>6</th>
-      <td>Mrwhosetheboss</td>
-      <td>200</td>
+      <td>2010-12-21</td>
+      <td>Unbox Therapy</td>
+      <td>4091676835</td>
+      <td>Where products get naked.\n\nHere you will fin...</td>
+      <td>18000000</td>
     </tr>
     <tr>
       <th>7</th>
-      <td>Unbox Therapy</td>
-      <td>200</td>
+      <td>2011-04-03</td>
+      <td>Android Authority</td>
+      <td>767860795</td>
+      <td>Your source for the best phones, streaming, ap...</td>
+      <td>336000000</td>
     </tr>
     <tr>
       <th>8</th>
-      <td>UrAvgConsumer</td>
-      <td>200</td>
+      <td>2011-04-20</td>
+      <td>Mrwhosetheboss</td>
+      <td>1208148200</td>
+      <td>My name is Arun Maini. I'm a 25 year old Econo...</td>
+      <td>771000000</td>
     </tr>
     <tr>
       <th>9</th>
-      <td>iJustine</td>
-      <td>200</td>
+      <td>2012-01-01</td>
+      <td>UrAvgConsumer</td>
+      <td>430378637</td>
+      <td>Just your average guy who loves tech and givin...</td>
+      <td>311000000</td>
     </tr>
   </tbody>
 </table>
@@ -540,7 +878,7 @@ window.onload = wrap_img;
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-python"><pre><span></span><span class="c1"># Top 10 Videos by Views</span>
-<span class="n">merged</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;title&#39;</span><span class="p">,</span><span class="s1">&#39;channel_name&#39;</span><span class="p">,</span><span class="s1">&#39;post_date&#39;</span><span class="p">])[</span><span class="s1">&#39;views&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">vc_merged</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;title&#39;</span><span class="p">,</span><span class="s1">&#39;channel_name&#39;</span><span class="p">,</span><span class="s1">&#39;publish_date&#39;</span><span class="p">])[</span><span class="s1">&#39;views&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -575,7 +913,7 @@ window.onload = wrap_img;
       <th></th>
       <th>title</th>
       <th>channel_name</th>
-      <th>post_date</th>
+      <th>publish_date</th>
       <th>views</th>
     </tr>
   </thead>
@@ -584,70 +922,70 @@ window.onload = wrap_img;
       <th>0</th>
       <td>2020 iPad Pro Review: It's... A Computer?!</td>
       <td>Marques Brownlee</td>
-      <td>1 year ago</td>
+      <td>2020-03-24</td>
       <td>99000000</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>The Secret Android Button</td>
+      <td>A Keyboard Made Of Glass?</td>
       <td>Unbox Therapy</td>
-      <td>5 years ago</td>
+      <td>2016-04-09</td>
       <td>98000000</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>Dope Tech: Self-Lacing Nike Mag!</td>
-      <td>Marques Brownlee</td>
-      <td>4 years ago</td>
+      <td>iPhone 12 - The iPhone is New Again</td>
+      <td>Unbox Therapy</td>
+      <td>2020-10-13</td>
       <td>98000000</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>The FASTEST gaming PC money can buy</td>
-      <td>Linus Tech Tips</td>
-      <td>2 years ago</td>
+      <td>The Secret Android Button</td>
+      <td>Unbox Therapy</td>
+      <td>2016-04-13</td>
       <td>98000000</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>Fortnite on an INSANE $20,000 Gaming PC</td>
-      <td>Unbox Therapy</td>
-      <td>3 years ago</td>
+      <td>The FASTEST gaming PC money can buy</td>
+      <td>Linus Tech Tips</td>
+      <td>2018-12-27</td>
       <td>98000000</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>A Keyboard Made Of Glass?</td>
+      <td>Fortnite on an INSANE $20,000 Gaming PC</td>
       <td>Unbox Therapy</td>
-      <td>5 years ago</td>
+      <td>2018-03-18</td>
       <td>98000000</td>
     </tr>
     <tr>
       <th>6</th>
-      <td>iPhone 12 - The iPhone is New Again</td>
-      <td>Unbox Therapy</td>
-      <td>9 months ago</td>
+      <td>Dope Tech: Self-Lacing Nike Mag!</td>
+      <td>Marques Brownlee</td>
+      <td>2016-10-07</td>
       <td>98000000</td>
     </tr>
     <tr>
       <th>7</th>
-      <td>$1000 Earphones! (Shure SE846 Unboxing &amp; Test)</td>
+      <td>This is the iPhone SE 2</td>
       <td>Unbox Therapy</td>
-      <td>7 years ago</td>
+      <td>2020-04-15</td>
       <td>97000000</td>
     </tr>
     <tr>
       <th>8</th>
-      <td>This is the iPhone SE 2</td>
+      <td>Human Headphones Just Changed The Game</td>
       <td>Unbox Therapy</td>
-      <td>1 year ago</td>
+      <td>2019-08-30</td>
       <td>97000000</td>
     </tr>
     <tr>
       <th>9</th>
-      <td>Human Headphones Just Changed The Game</td>
+      <td>$1000 Earphones! (Shure SE846 Unboxing &amp; Test)</td>
       <td>Unbox Therapy</td>
-      <td>1 year ago</td>
+      <td>2014-06-23</td>
       <td>97000000</td>
     </tr>
   </tbody>
@@ -663,6 +1001,267 @@ window.onload = wrap_img;
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Total-Views-by-Channel">Total Views by Channel<a class="anchor-link" href="#Total-Views-by-Channel"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># Total Views by Channel</span>
+
+<span class="n">merged</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;channel_name&#39;</span><span class="p">,</span><span class="s1">&#39;subscribers&#39;</span><span class="p">])[</span><span class="s1">&#39;views&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>channel_name</th>
+      <th>subscribers</th>
+      <th>views</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Unbox Therapy</td>
+      <td>18000000</td>
+      <td>10357000000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Linus Tech Tips</td>
+      <td>137000000</td>
+      <td>9891000000</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Marques Brownlee</td>
+      <td>143000000</td>
+      <td>9863000000</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Mrwhosetheboss</td>
+      <td>771000000</td>
+      <td>6816000000</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Austin Evans</td>
+      <td>506000000</td>
+      <td>5040000000</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>iJustine</td>
+      <td>689000000</td>
+      <td>5016000000</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Android Authority</td>
+      <td>336000000</td>
+      <td>1590710000</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>UrAvgConsumer</td>
+      <td>311000000</td>
+      <td>1500726000</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Jonathan Morrison</td>
+      <td>264000000</td>
+      <td>1340206000</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Jon Rettinger</td>
+      <td>159000000</td>
+      <td>1051486000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Channels-Grouped-By-Date-They-Joined-Youtube">Channels Grouped By Date They Joined Youtube<a class="anchor-link" href="#Channels-Grouped-By-Date-They-Joined-Youtube"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">merged</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;channel_name&#39;</span><span class="p">)[</span><span class="s1">&#39;channel_join_date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>channel_name</th>
+      <th>channel_join_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>iJustine</td>
+      <td>2006-05-07</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Jon Rettinger</td>
+      <td>2007-06-07</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Austin Evans</td>
+      <td>2007-08-04</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Marques Brownlee</td>
+      <td>2008-03-21</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Linus Tech Tips</td>
+      <td>2008-11-24</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Jonathan Morrison</td>
+      <td>2010-03-24</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Unbox Therapy</td>
+      <td>2010-12-21</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Android Authority</td>
+      <td>2011-04-03</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Mrwhosetheboss</td>
+      <td>2011-04-20</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>UrAvgConsumer</td>
+      <td>2012-01-01</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Resources">Resources<a class="anchor-link" href="#Resources"> </a></h2><ul>
+<li><p><a href="https://towardsdatascience.com/top-25-selenium-functions-that-will-make-you-pro-in-web-scraping-5c937e027244">Top 25 Selenium Functions That Will Make You Pro In Web Scraping</a></p>
+</li>
+<li><p><a href="https://medium.com/daily-programming-tips/how-to-build-a-web-scraper-or-bot-in-python-using-selenium-2815f20023f7">How to build a Web Scraper or Bot in Python using Selenium</a></p>
+</li>
+<li><p><a href="https://medium.com/velotio-perspectives/web-scraping-introduction-best-practices-caveats-9cbf4acc8d0f">Web Scraping: Introduction, Best Practices &amp; Caveats</a></p>
+</li>
+<li><p><a href="https://towardsdatascience.com/web-scraping-job-postings-from-indeed-com-using-selenium-5ae58d155daf">Web Scraping Job Postings from Indeed.com using Selenium</a></p>
+</li>
+</ul>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=pUUhvJvs-R4">How I Use Selenium to Automate the Web With Python. Pt1 -  John Watson Rooney</a></li>
+</ul>
+
+</div>
+</div>
+</div>
 </div>
 
 
