@@ -4,12 +4,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Analysis of Top 10 Youtube Tech Channels | Rusho Analytics</title>
+<title>Analyzing the Top 10 Youtube Tech Channels | Rusho Analytics</title>
 <meta name="generator" content="Jekyll v4.1.1" />
-<meta property="og:title" content="Analysis of Top 10 Youtube Tech Channels" />
+<meta property="og:title" content="Analyzing the Top 10 Youtube Tech Channels" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Using Selenium to Web Scrape Youtube Videos" />
-<meta property="og:description" content="Using Selenium to Web Scrape Youtube Videos" />
+<meta name="description" content="Using Selenium to Scrape Data from Youtube" />
+<meta property="og:description" content="Using Selenium to Scrape Data from Youtube" />
 <link rel="canonical" href="https://drusho.github.io/selenium/web%20scrapping/pandas/2021/07/20/webscrapping-youtube.html" />
 <meta property="og:url" content="https://drusho.github.io/selenium/web%20scrapping/pandas/2021/07/20/webscrapping-youtube.html" />
 <meta property="og:site_name" content="Rusho Analytics" />
@@ -17,7 +17,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-07-20T00:00:00-05:00" />
 <script type="application/ld+json">
-{"url":"https://drusho.github.io/selenium/web%20scrapping/pandas/2021/07/20/webscrapping-youtube.html","@type":"BlogPosting","headline":"Analysis of Top 10 Youtube Tech Channels","dateModified":"2021-07-20T00:00:00-05:00","datePublished":"2021-07-20T00:00:00-05:00","image":"https://drusho.github.io/images/thumbnails/header_youtube_web.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://drusho.github.io/selenium/web%20scrapping/pandas/2021/07/20/webscrapping-youtube.html"},"description":"Using Selenium to Web Scrape Youtube Videos","@context":"https://schema.org"}</script>
+{"url":"https://drusho.github.io/selenium/web%20scrapping/pandas/2021/07/20/webscrapping-youtube.html","@type":"BlogPosting","headline":"Analyzing the Top 10 Youtube Tech Channels","dateModified":"2021-07-20T00:00:00-05:00","datePublished":"2021-07-20T00:00:00-05:00","image":"https://drusho.github.io/images/thumbnails/header_youtube_web.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://drusho.github.io/selenium/web%20scrapping/pandas/2021/07/20/webscrapping-youtube.html"},"description":"Using Selenium to Scrape Data from Youtube","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://drusho.github.io/feed.xml" title="Rusho Analytics" /><!-- the google_analytics_id gets auto inserted from the config file -->
 
@@ -87,7 +87,7 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Analysis of Top 10 Youtube Tech Channels</h1><p class="page-description">Using Selenium to Web Scrape Youtube Videos</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-07-20T00:00:00-05:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">Analyzing the Top 10 Youtube Tech Channels</h1><p class="page-description">Using Selenium to Scrape Data from Youtube</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-07-20T00:00:00-05:00" itemprop="datePublished">
         Jul 20, 2021
       </time>
        • <span class="read-time" title="Estimated read time">
@@ -137,6 +137,15 @@ window.onload = wrap_img;
 <p><br /></p>
 <p><strong>Notebook Created by David Rusho</strong></p>
 <p><a href="https://drusho.github.io">Github Blog</a> | <a href="https://github.com/drusho/webscrape_youtube">Github</a> | <a href="https://public.tableau.com/app/profile/drusho/">Tableau</a> | <a href="https://linkedin.com/in/davidrusho">Linkedin</a></p>
+<p><br /></p>
+<p><em>*This notebook contains hidden cells when viewed in blog posts in order to increase readability.</em></p>
+<p><em>Visit the links below for more detailed code.</em></p>
+<ul>
+<li><p><a href="https://colab.research.google.com/drive/1UxpBBsypGqUj7816zyvGNhJcPfaxBP_c?usp=sharing">Google Colab Notebook</a>: <strong>All code</strong> related to data cleaning and data analaysis.</p>
+</li>
+<li><p><a href="https://github.com/drusho/webscrape_youtube/tree/main/code">Github - Youtube Webscrapping</a>:  <strong>All code</strong> related to web scrapping and data collection.</p>
+</li>
+</ul>
 
 </div>
 </div>
@@ -169,8 +178,7 @@ window.onload = wrap_img;
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction"> </a></h2><p>_*Note: View this notebook in <a href="https://colab.research.google.com/drive/1UxpBBsypGqUj7816zyvGNhJcPfaxBP_c?usp=sharing">Google Colab</a> to view more detailed code on data cleaning procedures or visit my <a href="https://github.com/drusho/webscrape_youtube">github</a> to view the code related to webscrapping and data collection._</p>
-
+<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction"> </a></h2>
 </div>
 </div>
 </div>
@@ -181,96 +189,6 @@ window.onload = wrap_img;
 </div>
 </div>
 </div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-python"><pre><span></span><span class="c1"># channel views to dtype</span>
-<span class="n">merged</span><span class="o">.</span><span class="n">channel_views</span> <span class="o">=</span> <span class="n">merged</span><span class="o">.</span><span class="n">channel_views</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;views&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span>
-<span class="n">merged</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-</p>
-    </details>
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>channel_name</th>
-      <th>channel_join_date</th>
-      <th>channel_views</th>
-      <th>channel_description</th>
-      <th>subscribers</th>
-      <th>title</th>
-      <th>views</th>
-      <th>url</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>iJustine</td>
-      <td>2006-05-07</td>
-      <td>1288987476</td>
-      <td>Tech, video games, failed cooking attempts, vl...</td>
-      <td>689000000</td>
-      <td>Black Eyed Peas - I gotta Feeling (Parody)</td>
-      <td>18000000</td>
-      <td>https://www.youtube.com/watch?v=iPgaTmsYTT8</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>iJustine</td>
-      <td>2006-05-07</td>
-      <td>1288987476</td>
-      <td>Tech, video games, failed cooking attempts, vl...</td>
-      <td>689000000</td>
-      <td>Cake Decorating Challenge with Ro | Nerdy Numm...</td>
-      <td>12000000</td>
-      <td>https://www.youtube.com/watch?v=y7xZ-kJDgvM</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Cleaned-Dataframe">Cleaned Dataframe<a class="anchor-link" href="#Cleaned-Dataframe"> </a></h2><p>Sample of fully cleaned and merged dataframe</p>
@@ -292,9 +210,16 @@ window.onload = wrap_img;
 <span class="n">vc_merged</span> <span class="o">=</span> <span class="n">merged</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_videos</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;url&#39;</span><span class="p">)</span> 
 <span class="n">vc_merged</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span>
     <span class="s1">&#39;Partial Description&#39;</span><span class="p">:</span><span class="s1">&#39;video_desc&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Publish Date&#39;</span><span class="p">:</span><span class="s1">&#39;publish_date&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Upload_date&#39;</span><span class="p">:</span><span class="s1">&#39;upload_date&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Interaction Count&#39;</span><span class="p">:</span><span class="s1">&#39;interact_count&#39;</span>
+    <span class="s1">&#39;Publish Date&#39;</span><span class="p">:</span><span class="s1">&#39;video_publish_date&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Upload_date&#39;</span><span class="p">:</span><span class="s1">&#39;video_upload_date&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Interaction Count&#39;</span><span class="p">:</span><span class="s1">&#39;video_interactations&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Genre&#39;</span><span class="p">:</span><span class="s1">&#39;video_genre&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Width&#39;</span><span class="p">:</span><span class="s1">&#39;video_width&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Height&#39;</span><span class="p">:</span><span class="s1">&#39;video_height&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Comments&#39;</span><span class="p">:</span><span class="s1">&#39;video_comments&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;views&#39;</span><span class="p">:</span><span class="s1">&#39;video_views&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;title&#39;</span><span class="p">:</span><span class="s1">&#39;video_title&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;url&#39;</span><span class="p">:</span><span class="s1">&#39;video_url&#39;</span>
     <span class="p">},</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="n">vc_merged</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
@@ -335,18 +260,18 @@ window.onload = wrap_img;
       <th>channel_views</th>
       <th>channel_description</th>
       <th>subscribers</th>
-      <th>title</th>
-      <th>views</th>
-      <th>url</th>
+      <th>video_title</th>
+      <th>video_views</th>
+      <th>video_url</th>
       <th>video_desc</th>
-      <th>publish_date</th>
-      <th>upload_date</th>
-      <th>Genre</th>
-      <th>Width</th>
-      <th>Height</th>
+      <th>video_publish_date</th>
+      <th>video_upload_date</th>
+      <th>video_genre</th>
+      <th>video_width</th>
+      <th>video_height</th>
       <th>Likes</th>
-      <th>Comments</th>
-      <th>interact_count</th>
+      <th>video_comments</th>
+      <th>video_interactations</th>
     </tr>
   </thead>
   <tbody>
@@ -405,13 +330,96 @@ window.onload = wrap_img;
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Column-Descriptions">Column Descriptions<a class="anchor-link" href="#Column-Descriptions"> </a></h3><table>
+<thead><tr>
+<th style="text-align:left">Column Name</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">channel_name</td>
+<td style="text-align:left">Name of Youtube Channel</td>
+</tr>
+<tr>
+<td style="text-align:left">channel_join_date</td>
+<td style="text-align:left">Date Channel was created</td>
+</tr>
+<tr>
+<td style="text-align:left">channel_views</td>
+<td style="text-align:left">Total views the channel has received</td>
+</tr>
+<tr>
+<td style="text-align:left">channel_description</td>
+<td style="text-align:left">Description of Youtube Channel</td>
+</tr>
+<tr>
+<td style="text-align:left">subscribers</td>
+<td style="text-align:left">Number of channel subscribers</td>
+</tr>
+<tr>
+<td style="text-align:left">video_title</td>
+<td style="text-align:left">Video title</td>
+</tr>
+<tr>
+<td style="text-align:left">video_views</td>
+<td style="text-align:left">Total views for vidoe</td>
+</tr>
+<tr>
+<td style="text-align:left">video_url</td>
+<td style="text-align:left">Video url</td>
+</tr>
+<tr>
+<td style="text-align:left">video_desc</td>
+<td style="text-align:left">Description of video</td>
+</tr>
+<tr>
+<td style="text-align:left">video_publish_date</td>
+<td style="text-align:left">Date video was published</td>
+</tr>
+<tr>
+<td style="text-align:left">video_upload_date</td>
+<td style="text-align:left">Date video was uploaded</td>
+</tr>
+<tr>
+<td style="text-align:left">video_genre</td>
+<td style="text-align:left">Genre of video</td>
+</tr>
+<tr>
+<td style="text-align:left">video_width</td>
+<td style="text-align:left">Width of video</td>
+</tr>
+<tr>
+<td style="text-align:left">video_height</td>
+<td style="text-align:left">Height of video</td>
+</tr>
+<tr>
+<td style="text-align:left">video_likes</td>
+<td style="text-align:left">Total likes for video</td>
+</tr>
+<tr>
+<td style="text-align:left">video_comments</td>
+<td style="text-align:left">Total comments for video</td>
+</tr>
+<tr>
+<td style="text-align:left">video_interactions</td>
+<td style="text-align:left">Number of interactions video has received</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Data-Analysis">Data Analysis<a class="anchor-link" href="#Data-Analysis"> </a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="List-of-Youtube-Channels-in-Dataframe">List of Youtube Channels in Dataframe<a class="anchor-link" href="#List-of-Youtube-Channels-in-Dataframe"> </a></h3>
+<h3 id="List-of-Youtube-Channels">List of Youtube Channels<a class="anchor-link" href="#List-of-Youtube-Channels"> </a></h3>
 </div>
 </div>
 </div>
@@ -425,7 +433,22 @@ window.onload = wrap_img;
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-python"><pre><span></span><span class="c1"># List of Video Channels</span>
-<span class="n">vc_merged</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;channel_join_date&#39;</span><span class="p">,</span><span class="s1">&#39;channel_name&#39;</span><span class="p">,</span><span class="s1">&#39;channel_views&#39;</span><span class="p">,</span><span class="s1">&#39;channel_description&#39;</span><span class="p">])[</span><span class="s1">&#39;subscribers&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">yt_chan</span> <span class="o">=</span> <span class="n">vc_merged</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;channel_join_date&#39;</span><span class="p">,</span><span class="s1">&#39;channel_name&#39;</span><span class="p">,</span><span class="s1">&#39;channel_views&#39;</span><span class="p">])[</span><span class="s1">&#39;subscribers&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="c1"># rename columns to increase readability</span>
+<span class="n">yt_chan</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+    <span class="s1">&#39;channel_name&#39;</span><span class="p">:</span><span class="s1">&#39;Channel&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;channel_join_date&#39;</span><span class="p">:</span><span class="s1">&#39;Join Date&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;subscribers&#39;</span><span class="p">:</span><span class="s1">&#39;Subscribers&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;channel_views&#39;</span><span class="p">:</span><span class="s1">&#39;Views&#39;</span><span class="p">,</span>
+    <span class="p">},</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># style dateframe to highlight highest values</span>
+<span class="n">yt_chan</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">formatter</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Subscribers&#39;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{:,}</span><span class="s2">&quot;</span><span class="p">,</span>
+                                 <span class="s1">&#39;Views&#39;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{:,}</span><span class="s2">&quot;</span><span class="p">,</span>
+                                 <span class="s1">&#39;Join Date&#39;</span><span class="p">:</span> <span class="s2">&quot;{:%Y-%m-</span><span class="si">%d</span><span class="s2">}&quot;</span><span class="p">})</span><span class="o">.</span><span class="n">background_gradient</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Views&#39;</span><span class="p">,</span>
+                                                                                          <span class="s1">&#39;Subscribers&#39;</span><span class="p">],</span> 
+                                                                                  <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Wistia&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">hide_index</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -440,115 +463,120 @@ window.onload = wrap_img;
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>channel_join_date</th>
-      <th>channel_name</th>
-      <th>channel_views</th>
-      <th>channel_description</th>
-      <th>subscribers</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>2006-05-07</td>
-      <td>iJustine</td>
-      <td>1288987476</td>
-      <td>Tech, video games, failed cooking attempts, vl...</td>
-      <td>689000000</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2007-06-07</td>
-      <td>Jon Rettinger</td>
-      <td>574947199</td>
-      <td>Welcome to the video home of Jon Rettinger, fo...</td>
-      <td>159000000</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>2007-08-04</td>
-      <td>Austin Evans</td>
-      <td>1118911675</td>
-      <td>The best of technology from gaming PCs to smar...</td>
-      <td>507000000</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>2008-03-21</td>
-      <td>Marques Brownlee</td>
-      <td>2597028774</td>
-      <td>MKBHD: Quality Tech Videos | YouTuber | Geek |...</td>
-      <td>143000000</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>2008-11-24</td>
-      <td>Linus Tech Tips</td>
-      <td>4934741560</td>
-      <td>Tech can be complicated; we try to make it eas...</td>
-      <td>137000000</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>2010-03-24</td>
-      <td>Jonathan Morrison</td>
-      <td>430639061</td>
-      <td>High quality videos blending tech + aesthetic,...</td>
-      <td>264000000</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>2010-12-21</td>
-      <td>Unbox Therapy</td>
-      <td>4091676835</td>
-      <td>Where products get naked.\n\nHere you will fin...</td>
-      <td>18000000</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>2011-04-03</td>
-      <td>Android Authority</td>
-      <td>767860795</td>
-      <td>Your source for the best phones, streaming, ap...</td>
-      <td>336000000</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>2011-04-20</td>
-      <td>Mrwhosetheboss</td>
-      <td>1208148200</td>
-      <td>My name is Arun Maini. I'm a 25 year old Econo...</td>
-      <td>771000000</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>2012-01-01</td>
-      <td>UrAvgConsumer</td>
-      <td>430378637</td>
-      <td>Just your average guy who loves tech and givin...</td>
-      <td>311000000</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+<style type="text/css">
+#T_909c87b4_e979_11eb_9141_0242ac1c0002row0_col2{
+            background-color:  #f8ee32;
+            color:  #000000;
+        }#T_909c87b4_e979_11eb_9141_0242ac1c0002row0_col3{
+            background-color:  #fd8d00;
+            color:  #000000;
+        }#T_909c87b4_e979_11eb_9141_0242ac1c0002row1_col2{
+            background-color:  #e7fc6e;
+            color:  #000000;
+        }#T_909c87b4_e979_11eb_9141_0242ac1c0002row1_col3{
+            background-color:  #f8ee33;
+            color:  #000000;
+        }#T_909c87b4_e979_11eb_9141_0242ac1c0002row2_col2{
+            background-color:  #f5f13f;
+            color:  #000000;
+        }#T_909c87b4_e979_11eb_9141_0242ac1c0002row2_col3{
+            background-color:  #ffab00;
+            color:  #000000;
+        }#T_909c87b4_e979_11eb_9141_0242ac1c0002row3_col2{
+            background-color:  #ffc002;
+            color:  #000000;
+        }#T_909c87b4_e979_11eb_9141_0242ac1c0002row3_col3{
+            background-color:  #f6f03b;
+            color:  #000000;
+        }#T_909c87b4_e979_11eb_9141_0242ac1c0002row4_col2,#T_909c87b4_e979_11eb_9141_0242ac1c0002row8_col3{
+            background-color:  #fc7f00;
+            color:  #000000;
+        }#T_909c87b4_e979_11eb_9141_0242ac1c0002row4_col3{
+            background-color:  #f5f13e;
+            color:  #000000;
+        }#T_909c87b4_e979_11eb_9141_0242ac1c0002row5_col2,#T_909c87b4_e979_11eb_9141_0242ac1c0002row6_col3,#T_909c87b4_e979_11eb_9141_0242ac1c0002row9_col2{
+            background-color:  #e4ff7a;
+            color:  #000000;
+        }#T_909c87b4_e979_11eb_9141_0242ac1c0002row5_col3{
+            background-color:  #ffdb12;
+            color:  #000000;
+        }#T_909c87b4_e979_11eb_9141_0242ac1c0002row6_col2{
+            background-color:  #fe9700;
+            color:  #000000;
+        }#T_909c87b4_e979_11eb_9141_0242ac1c0002row7_col2{
+            background-color:  #ecf85d;
+            color:  #000000;
+        }#T_909c87b4_e979_11eb_9141_0242ac1c0002row7_col3{
+            background-color:  #ffca08;
+            color:  #000000;
+        }#T_909c87b4_e979_11eb_9141_0242ac1c0002row8_col2{
+            background-color:  #f7ef38;
+            color:  #000000;
+        }#T_909c87b4_e979_11eb_9141_0242ac1c0002row9_col3{
+            background-color:  #ffd00c;
+            color:  #000000;
+        }</style><table id="T_909c87b4_e979_11eb_9141_0242ac1c0002"><thead>    <tr>        <th class="col_heading level0 col0">Join Date</th>        <th class="col_heading level0 col1">Channel</th>        <th class="col_heading level0 col2">Views</th>        <th class="col_heading level0 col3">Subscribers</th>    </tr></thead><tbody>
+                <tr>
+                                <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row0_col0" class="data row0 col0">2006-05-07</td>
+                        <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row0_col1" class="data row0 col1">iJustine</td>
+                        <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row0_col2" class="data row0 col2">1,288,987,476</td>
+                        <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row0_col3" class="data row0 col3">689,000,000</td>
+            </tr>
+            <tr>
+                                <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row1_col0" class="data row1 col0">2007-06-07</td>
+                        <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row1_col1" class="data row1 col1">Jon Rettinger</td>
+                        <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row1_col2" class="data row1 col2">574,947,199</td>
+                        <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row1_col3" class="data row1 col3">159,000,000</td>
+            </tr>
+            <tr>
+                                <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row2_col0" class="data row2 col0">2007-08-04</td>
+                        <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row2_col1" class="data row2 col1">Austin Evans</td>
+                        <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row2_col2" class="data row2 col2">1,118,911,675</td>
+                        <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row2_col3" class="data row2 col3">507,000,000</td>
+            </tr>
+            <tr>
+                                <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row3_col0" class="data row3 col0">2008-03-21</td>
+                        <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row3_col1" class="data row3 col1">Marques Brownlee</td>
+                        <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row3_col2" class="data row3 col2">2,597,028,774</td>
+                        <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row3_col3" class="data row3 col3">143,000,000</td>
+            </tr>
+            <tr>
+                                <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row4_col0" class="data row4 col0">2008-11-24</td>
+                        <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row4_col1" class="data row4 col1">Linus Tech Tips</td>
+                        <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row4_col2" class="data row4 col2">4,934,741,560</td>
+                        <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row4_col3" class="data row4 col3">137,000,000</td>
+            </tr>
+            <tr>
+                                <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row5_col0" class="data row5 col0">2010-03-24</td>
+                        <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row5_col1" class="data row5 col1">Jonathan Morrison</td>
+                        <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row5_col2" class="data row5 col2">430,639,061</td>
+                        <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row5_col3" class="data row5 col3">264,000,000</td>
+            </tr>
+            <tr>
+                                <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row6_col0" class="data row6 col0">2010-12-21</td>
+                        <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row6_col1" class="data row6 col1">Unbox Therapy</td>
+                        <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row6_col2" class="data row6 col2">4,091,676,835</td>
+                        <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row6_col3" class="data row6 col3">18,000,000</td>
+            </tr>
+            <tr>
+                                <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row7_col0" class="data row7 col0">2011-04-03</td>
+                        <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row7_col1" class="data row7 col1">Android Authority</td>
+                        <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row7_col2" class="data row7 col2">767,860,795</td>
+                        <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row7_col3" class="data row7 col3">336,000,000</td>
+            </tr>
+            <tr>
+                                <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row8_col0" class="data row8 col0">2011-04-20</td>
+                        <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row8_col1" class="data row8 col1">Mrwhosetheboss</td>
+                        <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row8_col2" class="data row8 col2">1,208,148,200</td>
+                        <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row8_col3" class="data row8 col3">771,000,000</td>
+            </tr>
+            <tr>
+                                <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row9_col0" class="data row9 col0">2012-01-01</td>
+                        <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row9_col1" class="data row9 col1">UrAvgConsumer</td>
+                        <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row9_col2" class="data row9 col2">430,378,637</td>
+                        <td id="T_909c87b4_e979_11eb_9141_0242ac1c0002row9_col3" class="data row9 col3">311,000,000</td>
+            </tr>
+    </tbody></table>
 </div>
 
 </div>
@@ -586,7 +614,21 @@ window.onload = wrap_img;
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-python"><pre><span></span><span class="c1"># Top 10 Videos by Views</span>
-<span class="n">vc_merged</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;title&#39;</span><span class="p">,</span><span class="s1">&#39;channel_name&#39;</span><span class="p">,</span><span class="s1">&#39;publish_date&#39;</span><span class="p">])[</span><span class="s1">&#39;views&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">top_chan</span> <span class="o">=</span> <span class="n">vc_merged</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;video_title&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;channel_name&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;video_publish_date&#39;</span><span class="p">])[</span><span class="s1">&#39;video_views&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="c1"># rename columns to increase readability</span>
+<span class="n">top_chan</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+    <span class="s1">&#39;channel_name&#39;</span><span class="p">:</span><span class="s1">&#39;Channel&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;video_publish_date&#39;</span><span class="p">:</span><span class="s1">&#39;Publish Date&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;video_views&#39;</span><span class="p">:</span><span class="s1">&#39;Views&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;video_title&#39;</span><span class="p">:</span><span class="s1">&#39;Title&#39;</span><span class="p">,</span>
+    <span class="p">},</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">top_chan</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">formatter</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Views&#39;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{:,}</span><span class="s2">&quot;</span><span class="p">,</span>
+                                 <span class="s1">&#39;Publish Date&#39;</span><span class="p">:</span> <span class="s2">&quot;{:%Y-%m-</span><span class="si">%d</span><span class="s2">}&quot;</span><span class="p">})</span><span class="o">.</span><span class="n">background_gradient</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Views&#39;</span><span class="p">,</span>
+                                                                                                   <span class="s1">&#39;Publish Date&#39;</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Wistia&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">hide_index</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -601,104 +643,102 @@ window.onload = wrap_img;
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>title</th>
-      <th>channel_name</th>
-      <th>publish_date</th>
-      <th>views</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>2020 iPad Pro Review: It's... A Computer?!</td>
-      <td>Marques Brownlee</td>
-      <td>2020-03-24</td>
-      <td>99000000</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>A Keyboard Made Of Glass?</td>
-      <td>Unbox Therapy</td>
-      <td>2016-04-09</td>
-      <td>98000000</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>iPhone 12 - The iPhone is New Again</td>
-      <td>Unbox Therapy</td>
-      <td>2020-10-13</td>
-      <td>98000000</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>The Secret Android Button</td>
-      <td>Unbox Therapy</td>
-      <td>2016-04-13</td>
-      <td>98000000</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>The FASTEST gaming PC money can buy</td>
-      <td>Linus Tech Tips</td>
-      <td>2018-12-27</td>
-      <td>98000000</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>Fortnite on an INSANE $20,000 Gaming PC</td>
-      <td>Unbox Therapy</td>
-      <td>2018-03-18</td>
-      <td>98000000</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>Dope Tech: Self-Lacing Nike Mag!</td>
-      <td>Marques Brownlee</td>
-      <td>2016-10-07</td>
-      <td>98000000</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>This is the iPhone SE 2</td>
-      <td>Unbox Therapy</td>
-      <td>2020-04-15</td>
-      <td>97000000</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>Human Headphones Just Changed The Game</td>
-      <td>Unbox Therapy</td>
-      <td>2019-08-30</td>
-      <td>97000000</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>$1000 Earphones! (Shure SE846 Unboxing &amp; Test)</td>
-      <td>Unbox Therapy</td>
-      <td>2014-06-23</td>
-      <td>97000000</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+<style type="text/css">
+#T_6386e106_e97a_11eb_9141_0242ac1c0002row0_col2{
+            background-color:  #fd8a00;
+            color:  #000000;
+        }#T_6386e106_e97a_11eb_9141_0242ac1c0002row0_col3,#T_6386e106_e97a_11eb_9141_0242ac1c0002row2_col2{
+            background-color:  #fc7f00;
+            color:  #000000;
+        }#T_6386e106_e97a_11eb_9141_0242ac1c0002row1_col2{
+            background-color:  #ffe217;
+            color:  #000000;
+        }#T_6386e106_e97a_11eb_9141_0242ac1c0002row1_col3,#T_6386e106_e97a_11eb_9141_0242ac1c0002row2_col3,#T_6386e106_e97a_11eb_9141_0242ac1c0002row3_col3,#T_6386e106_e97a_11eb_9141_0242ac1c0002row4_col3,#T_6386e106_e97a_11eb_9141_0242ac1c0002row5_col3,#T_6386e106_e97a_11eb_9141_0242ac1c0002row6_col3{
+            background-color:  #ffbd00;
+            color:  #000000;
+        }#T_6386e106_e97a_11eb_9141_0242ac1c0002row3_col2{
+            background-color:  #ffe216;
+            color:  #000000;
+        }#T_6386e106_e97a_11eb_9141_0242ac1c0002row4_col2{
+            background-color:  #ffa400;
+            color:  #000000;
+        }#T_6386e106_e97a_11eb_9141_0242ac1c0002row5_col2{
+            background-color:  #ffb200;
+            color:  #000000;
+        }#T_6386e106_e97a_11eb_9141_0242ac1c0002row6_col2{
+            background-color:  #ffd40e;
+            color:  #000000;
+        }#T_6386e106_e97a_11eb_9141_0242ac1c0002row7_col2{
+            background-color:  #fd8900;
+            color:  #000000;
+        }#T_6386e106_e97a_11eb_9141_0242ac1c0002row7_col3,#T_6386e106_e97a_11eb_9141_0242ac1c0002row8_col3,#T_6386e106_e97a_11eb_9141_0242ac1c0002row9_col2,#T_6386e106_e97a_11eb_9141_0242ac1c0002row9_col3{
+            background-color:  #e4ff7a;
+            color:  #000000;
+        }#T_6386e106_e97a_11eb_9141_0242ac1c0002row8_col2{
+            background-color:  #fe9600;
+            color:  #000000;
+        }</style><table id="T_6386e106_e97a_11eb_9141_0242ac1c0002"><thead>    <tr>        <th class="col_heading level0 col0">Title</th>        <th class="col_heading level0 col1">Channel</th>        <th class="col_heading level0 col2">Publish Date</th>        <th class="col_heading level0 col3">Views</th>    </tr></thead><tbody>
+                <tr>
+                                <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row0_col0" class="data row0 col0">2020 iPad Pro Review: It's... A Computer?!</td>
+                        <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row0_col1" class="data row0 col1">Marques Brownlee</td>
+                        <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row0_col2" class="data row0 col2">2020-03-24</td>
+                        <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row0_col3" class="data row0 col3">99,000,000</td>
+            </tr>
+            <tr>
+                                <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row1_col0" class="data row1 col0">A Keyboard Made Of Glass?</td>
+                        <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row1_col1" class="data row1 col1">Unbox Therapy</td>
+                        <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row1_col2" class="data row1 col2">2016-04-09</td>
+                        <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row1_col3" class="data row1 col3">98,000,000</td>
+            </tr>
+            <tr>
+                                <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row2_col0" class="data row2 col0">iPhone 12 - The iPhone is New Again</td>
+                        <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row2_col1" class="data row2 col1">Unbox Therapy</td>
+                        <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row2_col2" class="data row2 col2">2020-10-13</td>
+                        <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row2_col3" class="data row2 col3">98,000,000</td>
+            </tr>
+            <tr>
+                                <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row3_col0" class="data row3 col0">The Secret Android Button</td>
+                        <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row3_col1" class="data row3 col1">Unbox Therapy</td>
+                        <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row3_col2" class="data row3 col2">2016-04-13</td>
+                        <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row3_col3" class="data row3 col3">98,000,000</td>
+            </tr>
+            <tr>
+                                <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row4_col0" class="data row4 col0">The FASTEST gaming PC money can buy</td>
+                        <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row4_col1" class="data row4 col1">Linus Tech Tips</td>
+                        <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row4_col2" class="data row4 col2">2018-12-27</td>
+                        <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row4_col3" class="data row4 col3">98,000,000</td>
+            </tr>
+            <tr>
+                                <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row5_col0" class="data row5 col0">Fortnite on an INSANE $20,000 Gaming PC</td>
+                        <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row5_col1" class="data row5 col1">Unbox Therapy</td>
+                        <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row5_col2" class="data row5 col2">2018-03-18</td>
+                        <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row5_col3" class="data row5 col3">98,000,000</td>
+            </tr>
+            <tr>
+                                <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row6_col0" class="data row6 col0">Dope Tech: Self-Lacing Nike Mag!</td>
+                        <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row6_col1" class="data row6 col1">Marques Brownlee</td>
+                        <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row6_col2" class="data row6 col2">2016-10-07</td>
+                        <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row6_col3" class="data row6 col3">98,000,000</td>
+            </tr>
+            <tr>
+                                <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row7_col0" class="data row7 col0">This is the iPhone SE 2</td>
+                        <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row7_col1" class="data row7 col1">Unbox Therapy</td>
+                        <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row7_col2" class="data row7 col2">2020-04-15</td>
+                        <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row7_col3" class="data row7 col3">97,000,000</td>
+            </tr>
+            <tr>
+                                <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row8_col0" class="data row8 col0">Human Headphones Just Changed The Game</td>
+                        <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row8_col1" class="data row8 col1">Unbox Therapy</td>
+                        <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row8_col2" class="data row8 col2">2019-08-30</td>
+                        <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row8_col3" class="data row8 col3">97,000,000</td>
+            </tr>
+            <tr>
+                                <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row9_col0" class="data row9 col0">$1000 Earphones! (Shure SE846 Unboxing &amp; Test)</td>
+                        <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row9_col1" class="data row9 col1">Unbox Therapy</td>
+                        <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row9_col2" class="data row9 col2">2014-06-23</td>
+                        <td id="T_6386e106_e97a_11eb_9141_0242ac1c0002row9_col3" class="data row9 col3">97,000,000</td>
+            </tr>
+    </tbody></table>
 </div>
 
 </div>
@@ -726,7 +766,17 @@ window.onload = wrap_img;
     <div class="input_area">
 <div class=" highlight hl-python"><pre><span></span><span class="c1"># Total Views by Channel</span>
 
-<span class="n">merged</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;channel_name&#39;</span><span class="p">,</span><span class="s1">&#39;subscribers&#39;</span><span class="p">])[</span><span class="s1">&#39;views&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">chan_views</span> <span class="o">=</span> <span class="n">vc_merged</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;channel_name&#39;</span><span class="p">,</span><span class="s1">&#39;subscribers&#39;</span><span class="p">])[</span><span class="s1">&#39;video_views&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="c1"># rename columns to increase readability</span>
+<span class="n">chan_views</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+    <span class="s1">&#39;channel_name&#39;</span><span class="p">:</span><span class="s1">&#39;Channel&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;subscribers&#39;</span><span class="p">:</span><span class="s1">&#39;Subscribers&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;video_views&#39;</span><span class="p">:</span><span class="s1">&#39;Views&#39;</span><span class="p">,</span>
+    <span class="p">},</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">chan_views</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">formatter</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Views&#39;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{:,}</span><span class="s2">&quot;</span><span class="p">,</span>
+                                 <span class="s1">&#39;Subscribers&#39;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{:,}</span><span class="s2">&quot;</span><span class="p">})</span><span class="o">.</span><span class="n">background_gradient</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Views&#39;</span><span class="p">,</span><span class="s1">&#39;Subscribers&#39;</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Wistia&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">hide_index</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -741,209 +791,110 @@ window.onload = wrap_img;
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>channel_name</th>
-      <th>subscribers</th>
-      <th>views</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Unbox Therapy</td>
-      <td>18000000</td>
-      <td>10357000000</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Linus Tech Tips</td>
-      <td>137000000</td>
-      <td>9891000000</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Marques Brownlee</td>
-      <td>143000000</td>
-      <td>9863000000</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Mrwhosetheboss</td>
-      <td>771000000</td>
-      <td>6816000000</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>Austin Evans</td>
-      <td>506000000</td>
-      <td>5040000000</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>iJustine</td>
-      <td>689000000</td>
-      <td>5016000000</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>Android Authority</td>
-      <td>336000000</td>
-      <td>1590710000</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>UrAvgConsumer</td>
-      <td>311000000</td>
-      <td>1500726000</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>Jonathan Morrison</td>
-      <td>264000000</td>
-      <td>1340206000</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>Jon Rettinger</td>
-      <td>159000000</td>
-      <td>1051486000</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Channels-Grouped-By-Date-They-Joined-Youtube">Channels Grouped By Date They Joined Youtube<a class="anchor-link" href="#Channels-Grouped-By-Date-They-Joined-Youtube"> </a></h3>
-</div>
-</div>
-</div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-python"><pre><span></span><span class="n">merged</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;channel_name&#39;</span><span class="p">)[</span><span class="s1">&#39;channel_join_date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-</p>
-    </details>
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>channel_name</th>
-      <th>channel_join_date</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>iJustine</td>
-      <td>2006-05-07</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Jon Rettinger</td>
-      <td>2007-06-07</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Austin Evans</td>
-      <td>2007-08-04</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Marques Brownlee</td>
-      <td>2008-03-21</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>Linus Tech Tips</td>
-      <td>2008-11-24</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>Jonathan Morrison</td>
-      <td>2010-03-24</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>Unbox Therapy</td>
-      <td>2010-12-21</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>Android Authority</td>
-      <td>2011-04-03</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>Mrwhosetheboss</td>
-      <td>2011-04-20</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>UrAvgConsumer</td>
-      <td>2012-01-01</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+<style type="text/css">
+#T_95b15ca6_e97a_11eb_9141_0242ac1c0002row0_col1,#T_95b15ca6_e97a_11eb_9141_0242ac1c0002row9_col2{
+            background-color:  #e4ff7a;
+            color:  #000000;
+        }#T_95b15ca6_e97a_11eb_9141_0242ac1c0002row0_col2,#T_95b15ca6_e97a_11eb_9141_0242ac1c0002row3_col1{
+            background-color:  #fc7f00;
+            color:  #000000;
+        }#T_95b15ca6_e97a_11eb_9141_0242ac1c0002row1_col1{
+            background-color:  #f5f13e;
+            color:  #000000;
+        }#T_95b15ca6_e97a_11eb_9141_0242ac1c0002row1_col2{
+            background-color:  #fd8500;
+            color:  #000000;
+        }#T_95b15ca6_e97a_11eb_9141_0242ac1c0002row2_col1{
+            background-color:  #f6f03b;
+            color:  #000000;
+        }#T_95b15ca6_e97a_11eb_9141_0242ac1c0002row2_col2{
+            background-color:  #fd8600;
+            color:  #000000;
+        }#T_95b15ca6_e97a_11eb_9141_0242ac1c0002row3_col2{
+            background-color:  #ffae00;
+            color:  #000000;
+        }#T_95b15ca6_e97a_11eb_9141_0242ac1c0002row4_col1{
+            background-color:  #ffab00;
+            color:  #000000;
+        }#T_95b15ca6_e97a_11eb_9141_0242ac1c0002row4_col2,#T_95b15ca6_e97a_11eb_9141_0242ac1c0002row5_col2{
+            background-color:  #ffc908;
+            color:  #000000;
+        }#T_95b15ca6_e97a_11eb_9141_0242ac1c0002row5_col1{
+            background-color:  #fd8d00;
+            color:  #000000;
+        }#T_95b15ca6_e97a_11eb_9141_0242ac1c0002row6_col1{
+            background-color:  #ffca08;
+            color:  #000000;
+        }#T_95b15ca6_e97a_11eb_9141_0242ac1c0002row6_col2{
+            background-color:  #eafa65;
+            color:  #000000;
+        }#T_95b15ca6_e97a_11eb_9141_0242ac1c0002row7_col1{
+            background-color:  #ffd00c;
+            color:  #000000;
+        }#T_95b15ca6_e97a_11eb_9141_0242ac1c0002row7_col2{
+            background-color:  #e9fb68;
+            color:  #000000;
+        }#T_95b15ca6_e97a_11eb_9141_0242ac1c0002row8_col1{
+            background-color:  #ffdb12;
+            color:  #000000;
+        }#T_95b15ca6_e97a_11eb_9141_0242ac1c0002row8_col2{
+            background-color:  #e7fc6f;
+            color:  #000000;
+        }#T_95b15ca6_e97a_11eb_9141_0242ac1c0002row9_col1{
+            background-color:  #f8ee33;
+            color:  #000000;
+        }</style><table id="T_95b15ca6_e97a_11eb_9141_0242ac1c0002"><thead>    <tr>        <th class="col_heading level0 col0">Channel</th>        <th class="col_heading level0 col1">Subscribers</th>        <th class="col_heading level0 col2">Views</th>    </tr></thead><tbody>
+                <tr>
+                                <td id="T_95b15ca6_e97a_11eb_9141_0242ac1c0002row0_col0" class="data row0 col0">Unbox Therapy</td>
+                        <td id="T_95b15ca6_e97a_11eb_9141_0242ac1c0002row0_col1" class="data row0 col1">18,000,000</td>
+                        <td id="T_95b15ca6_e97a_11eb_9141_0242ac1c0002row0_col2" class="data row0 col2">10,357,000,000</td>
+            </tr>
+            <tr>
+                                <td id="T_95b15ca6_e97a_11eb_9141_0242ac1c0002row1_col0" class="data row1 col0">Linus Tech Tips</td>
+                        <td id="T_95b15ca6_e97a_11eb_9141_0242ac1c0002row1_col1" class="data row1 col1">137,000,000</td>
+                        <td id="T_95b15ca6_e97a_11eb_9141_0242ac1c0002row1_col2" class="data row1 col2">9,895,000,000</td>
+            </tr>
+            <tr>
+                                <td id="T_95b15ca6_e97a_11eb_9141_0242ac1c0002row2_col0" class="data row2 col0">Marques Brownlee</td>
+                        <td id="T_95b15ca6_e97a_11eb_9141_0242ac1c0002row2_col1" class="data row2 col1">143,000,000</td>
+                        <td id="T_95b15ca6_e97a_11eb_9141_0242ac1c0002row2_col2" class="data row2 col2">9,864,000,000</td>
+            </tr>
+            <tr>
+                                <td id="T_95b15ca6_e97a_11eb_9141_0242ac1c0002row3_col0" class="data row3 col0">Mrwhosetheboss</td>
+                        <td id="T_95b15ca6_e97a_11eb_9141_0242ac1c0002row3_col1" class="data row3 col1">771,000,000</td>
+                        <td id="T_95b15ca6_e97a_11eb_9141_0242ac1c0002row3_col2" class="data row3 col2">6,870,000,000</td>
+            </tr>
+            <tr>
+                                <td id="T_95b15ca6_e97a_11eb_9141_0242ac1c0002row4_col0" class="data row4 col0">Austin Evans</td>
+                        <td id="T_95b15ca6_e97a_11eb_9141_0242ac1c0002row4_col1" class="data row4 col1">507,000,000</td>
+                        <td id="T_95b15ca6_e97a_11eb_9141_0242ac1c0002row4_col2" class="data row4 col2">5,041,000,000</td>
+            </tr>
+            <tr>
+                                <td id="T_95b15ca6_e97a_11eb_9141_0242ac1c0002row5_col0" class="data row5 col0">iJustine</td>
+                        <td id="T_95b15ca6_e97a_11eb_9141_0242ac1c0002row5_col1" class="data row5 col1">689,000,000</td>
+                        <td id="T_95b15ca6_e97a_11eb_9141_0242ac1c0002row5_col2" class="data row5 col2">5,017,000,000</td>
+            </tr>
+            <tr>
+                                <td id="T_95b15ca6_e97a_11eb_9141_0242ac1c0002row6_col0" class="data row6 col0">Android Authority</td>
+                        <td id="T_95b15ca6_e97a_11eb_9141_0242ac1c0002row6_col1" class="data row6 col1">336,000,000</td>
+                        <td id="T_95b15ca6_e97a_11eb_9141_0242ac1c0002row6_col2" class="data row6 col2">1,590,710,000</td>
+            </tr>
+            <tr>
+                                <td id="T_95b15ca6_e97a_11eb_9141_0242ac1c0002row7_col0" class="data row7 col0">UrAvgConsumer</td>
+                        <td id="T_95b15ca6_e97a_11eb_9141_0242ac1c0002row7_col1" class="data row7 col1">311,000,000</td>
+                        <td id="T_95b15ca6_e97a_11eb_9141_0242ac1c0002row7_col2" class="data row7 col2">1,500,732,000</td>
+            </tr>
+            <tr>
+                                <td id="T_95b15ca6_e97a_11eb_9141_0242ac1c0002row8_col0" class="data row8 col0">Jonathan Morrison</td>
+                        <td id="T_95b15ca6_e97a_11eb_9141_0242ac1c0002row8_col1" class="data row8 col1">264,000,000</td>
+                        <td id="T_95b15ca6_e97a_11eb_9141_0242ac1c0002row8_col2" class="data row8 col2">1,340,207,000</td>
+            </tr>
+            <tr>
+                                <td id="T_95b15ca6_e97a_11eb_9141_0242ac1c0002row9_col0" class="data row9 col0">Jon Rettinger</td>
+                        <td id="T_95b15ca6_e97a_11eb_9141_0242ac1c0002row9_col1" class="data row9 col1">159,000,000</td>
+                        <td id="T_95b15ca6_e97a_11eb_9141_0242ac1c0002row9_col2" class="data row9 col2">1,051,493,000</td>
+            </tr>
+    </tbody></table>
 </div>
 
 </div>
