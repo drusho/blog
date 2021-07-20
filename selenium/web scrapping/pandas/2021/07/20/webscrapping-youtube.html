@@ -4,12 +4,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Web Scrapping Youtube Tech Channels | Rusho Analytics</title>
+<title>Analysis of Top 10 Youtube Tech Channels | Rusho Analytics</title>
 <meta name="generator" content="Jekyll v4.1.1" />
-<meta property="og:title" content="Web Scrapping Youtube Tech Channels" />
+<meta property="og:title" content="Analysis of Top 10 Youtube Tech Channels" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Using Senenium to Analyze Youtube Data" />
-<meta property="og:description" content="Using Senenium to Analyze Youtube Data" />
+<meta name="description" content="Using Selenium to Web Scrape Youtube Videos" />
+<meta property="og:description" content="Using Selenium to Web Scrape Youtube Videos" />
 <link rel="canonical" href="https://drusho.github.io/selenium/web%20scrapping/pandas/2021/07/20/webscrapping-youtube.html" />
 <meta property="og:url" content="https://drusho.github.io/selenium/web%20scrapping/pandas/2021/07/20/webscrapping-youtube.html" />
 <meta property="og:site_name" content="Rusho Analytics" />
@@ -17,7 +17,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-07-20T00:00:00-05:00" />
 <script type="application/ld+json">
-{"url":"https://drusho.github.io/selenium/web%20scrapping/pandas/2021/07/20/webscrapping-youtube.html","@type":"BlogPosting","headline":"Web Scrapping Youtube Tech Channels","dateModified":"2021-07-20T00:00:00-05:00","datePublished":"2021-07-20T00:00:00-05:00","image":"https://drusho.github.io/images/thumbnails/header_youtube_web.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://drusho.github.io/selenium/web%20scrapping/pandas/2021/07/20/webscrapping-youtube.html"},"description":"Using Senenium to Analyze Youtube Data","@context":"https://schema.org"}</script>
+{"url":"https://drusho.github.io/selenium/web%20scrapping/pandas/2021/07/20/webscrapping-youtube.html","@type":"BlogPosting","headline":"Analysis of Top 10 Youtube Tech Channels","dateModified":"2021-07-20T00:00:00-05:00","datePublished":"2021-07-20T00:00:00-05:00","image":"https://drusho.github.io/images/thumbnails/header_youtube_web.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://drusho.github.io/selenium/web%20scrapping/pandas/2021/07/20/webscrapping-youtube.html"},"description":"Using Selenium to Web Scrape Youtube Videos","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://drusho.github.io/feed.xml" title="Rusho Analytics" /><!-- the google_analytics_id gets auto inserted from the config file -->
 
@@ -87,13 +87,13 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Web Scrapping Youtube Tech Channels</h1><p class="page-description">Using Senenium to Analyze Youtube Data</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-07-20T00:00:00-05:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">Analysis of Top 10 Youtube Tech Channels</h1><p class="page-description">Using Selenium to Web Scrape Youtube Videos</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-07-20T00:00:00-05:00" itemprop="datePublished">
         Jul 20, 2021
       </time>
        • <span class="read-time" title="Estimated read time">
     
     
-      5 min read
+      4 min read
     
 </span></p>
 
@@ -174,101 +174,6 @@ window.onload = wrap_img;
 </div>
 </div>
 </div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-python"><pre><span></span><span class="n">yt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;yt_channel_scrap.csv&#39;</span><span class="p">,</span><span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;channel_join_date&#39;</span><span class="p">])</span>
-<span class="n">yt</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-</p>
-    </details>
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Unnamed: 0</th>
-      <th>channel_name</th>
-      <th>subscribers</th>
-      <th>title</th>
-      <th>views</th>
-      <th>post_date</th>
-      <th>url</th>
-      <th>channel_join_date</th>
-      <th>channel_views</th>
-      <th>channel_description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>0</td>
-      <td>iJustine</td>
-      <td>6.89M subscribers</td>
-      <td>Black Eyed Peas - I gotta Feeling (Parody)</td>
-      <td>18M views</td>
-      <td>11 years ago</td>
-      <td>https://www.youtube.com/watch?v=iPgaTmsYTT8</td>
-      <td>NaT</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>1</td>
-      <td>iJustine</td>
-      <td>6.89M subscribers</td>
-      <td>Cake Decorating Challenge with Ro | Nerdy Numm...</td>
-      <td>12M views</td>
-      <td>5 years ago</td>
-      <td>https://www.youtube.com/watch?v=y7xZ-kJDgvM</td>
-      <td>NaT</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Cleaned-Dataframe-Sample">Cleaned Dataframe Sample<a class="anchor-link" href="#Cleaned-Dataframe-Sample"> </a></h4><p><em>*Data from Youtube Channels' main pages (Video and About)</em></p>
