@@ -82,17 +82,6 @@
   
 
   
-      ,"page3": {
-          "title": "Home",
-          "content": "Home .",
-          "url": "/blog/_pages/home.html",
-          "relUrl": "/_pages/home.html",
-          "date": ""
-      }
-      
-  
-
-  
 
   
   
@@ -114,7 +103,7 @@
   
 
   
-      ,"page12": {
+      ,"page11": {
           "title": "",
           "content": "Sitemap: {{ “sitemap.xml” | absolute_url }} | .",
           "url": "/blog/robots.txt",
