@@ -62,7 +62,7 @@
   
       ,"page1": {
           "title": "",
-          "content": "About Mainsite .",
+          "content": ". layout: page . title: About . permalink: “https://drusho.github.io/about” . othersite: http://drusho.io/blog/About . — . About Mainsite .",
           "url": "/blog/_pages/about.html",
           "relUrl": "/_pages/about.html",
           "date": ""
@@ -71,17 +71,6 @@
   
 
   
-      ,"page2": {
-          "title": "Dashboards",
-          "content": ". Tableau . . World COVID-19 Tracking Dashboard (12/2019 - 06/2020) . | US Firework Injuries (2016-2021) Dashboard | Florida Schools (2020-2021) COVID-19 Dashboard |",
-          "url": "/blog/dashboards/",
-          "relUrl": "/dashboards/",
-          "date": ""
-      }
-      
-  
-
-  
 
   
   
@@ -103,7 +92,7 @@
   
 
   
-      ,"page11": {
+      ,"page10": {
           "title": "",
           "content": "Sitemap: {{ “sitemap.xml” | absolute_url }} | .",
           "url": "/blog/robots.txt",
