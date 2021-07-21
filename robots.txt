@@ -1,1 +1,1 @@
-Sitemap: /blog/sitemap.xml
+Sitemap: https://drusho.github.io/blog/blog/sitemap.xml
