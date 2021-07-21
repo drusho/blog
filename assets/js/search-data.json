@@ -60,17 +60,6 @@
   
 
   
-      ,"page1": {
-          "title": "",
-          "content": ". layout: page . title: About . permalink: “https://drusho.github.io/about” . othersite: http://drusho.io/blog/About . — . About Mainsite .",
-          "url": "/blog/_pages/about.html",
-          "relUrl": "/_pages/about.html",
-          "date": ""
-      }
-      
-  
-
-  
 
   
   
@@ -92,7 +81,7 @@
   
 
   
-      ,"page10": {
+      ,"page9": {
           "title": "",
           "content": "Sitemap: {{ “sitemap.xml” | absolute_url }} | .",
           "url": "/blog/robots.txt",
