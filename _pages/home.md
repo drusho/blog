@@ -1,7 +1,8 @@
 ---
-layout: page
+# layout: page
 title: Home
 external_url: https://drusho.github.io
+external_site: drusho.io
 ---
 
 
