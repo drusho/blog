@@ -1,4 +1,4 @@
-<header class="site-header" style="background-color: #92A2BA; font-weight: bold;">
+<header class="site-header">
   <div class="wrapper">
     {%- assign default_paths = site.pages | map: "path" -%}
     {%- assign page_paths = site.header_pages | default: default_paths -%}
@@ -9,7 +9,7 @@ the next line is your 'home' link for the blog (has your name by default, i chan
 you could put your extra link next to it like this:
 -->
     <a class="site-title" rel="author" href="{{ "/" | relative_url }}">Home</a>
-    <a class="site-title" href="http://drusho.github.io">Home Site</a>
+    <a class="site-title" href="http://drusho.github.io">Home</a>
 
     {%- if titles_size > 0 -%}
       <nav class="site-nav">
@@ -35,7 +35,9 @@ or after the {%- endfor -%}
             {%- endif -%}
           {%- endfor -%}
 
-          <a class="page-link" href="http://drusho.github.io">MY MAIN GITHUB.IO SITE</a>
+          <a class="page-link" href="http://drusho.github.io/about">About</a>
+          <!-- <a class="page-link" href="http://drusho.github.io/dashboard">Dashboards</a> -->
+          <a class="page-link" href="http://drusho.github.io/blog">Blog</a>
 
         </div>
       </nav>
