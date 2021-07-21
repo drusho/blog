@@ -8,8 +8,8 @@
 <meta name="generator" content="Jekyll v4.1.1" />
 <meta property="og:title" content="Analyzing Youtube Tech Channels" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Using Data Collected from Selenium" />
-<meta property="og:description" content="Using Data Collected from Selenium" />
+<meta name="description" content="Using Selenium to Web Scrap Youtube" />
+<meta property="og:description" content="Using Selenium to Web Scrap Youtube" />
 <link rel="canonical" href="https://drusho.github.io/selenium/web%20scrapping/pandas/2021/07/20/webscrapping-youtube-blog.html" />
 <meta property="og:url" content="https://drusho.github.io/selenium/web%20scrapping/pandas/2021/07/20/webscrapping-youtube-blog.html" />
 <meta property="og:site_name" content="Rusho Analytics" />
@@ -17,7 +17,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-07-20T00:00:00-05:00" />
 <script type="application/ld+json">
-{"url":"https://drusho.github.io/selenium/web%20scrapping/pandas/2021/07/20/webscrapping-youtube-blog.html","@type":"BlogPosting","headline":"Analyzing Youtube Tech Channels","dateModified":"2021-07-20T00:00:00-05:00","datePublished":"2021-07-20T00:00:00-05:00","image":"https://drusho.github.io/images/thumbnails/header_youtube_web.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://drusho.github.io/selenium/web%20scrapping/pandas/2021/07/20/webscrapping-youtube-blog.html"},"description":"Using Data Collected from Selenium","@context":"https://schema.org"}</script>
+{"url":"https://drusho.github.io/selenium/web%20scrapping/pandas/2021/07/20/webscrapping-youtube-blog.html","@type":"BlogPosting","headline":"Analyzing Youtube Tech Channels","dateModified":"2021-07-20T00:00:00-05:00","datePublished":"2021-07-20T00:00:00-05:00","image":"https://drusho.github.io/images/thumbnails/header_youtube_web.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://drusho.github.io/selenium/web%20scrapping/pandas/2021/07/20/webscrapping-youtube-blog.html"},"description":"Using Selenium to Web Scrap Youtube","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://drusho.github.io/feed.xml" title="Rusho Analytics" /><!-- the google_analytics_id gets auto inserted from the config file -->
 
@@ -87,7 +87,7 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Analyzing Youtube Tech Channels</h1><p class="page-description">Using Data Collected from Selenium</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-07-20T00:00:00-05:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">Analyzing Youtube Tech Channels</h1><p class="page-description">Using Selenium to Web Scrap Youtube</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-07-20T00:00:00-05:00" itemprop="datePublished">
         Jul 20, 2021
       </time>
        • <span class="read-time" title="Estimated read time">
@@ -118,31 +118,29 @@ window.onload = wrap_img;
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
 <li class="toc-entry toc-h2"><a href="#About-the-Data">About the Data </a></li>
-<li class="toc-entry toc-h2"><a href="#Introduction">Introduction </a>
+<li class="toc-entry toc-h2"><a href="#Introduction">Introduction </a></li>
+<li class="toc-entry toc-h2"><a href="#Collecting-and-Cleaning-Data">Collecting and Cleaning Data </a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#Web-Scrapping-Youtube-Channels">Web Scrapping Youtube Channels </a></li>
 <li class="toc-entry toc-h3"><a href="#Web-Scrapping-Youtube-Videos">Web Scrapping Youtube Videos </a></li>
 <li class="toc-entry toc-h3"><a href="#Importing-and-Cleaning-the-Data">Importing and Cleaning the Data </a></li>
 <li class="toc-entry toc-h3"><a href="#Data-Cleaning-Complete">Data Cleaning Complete </a></li>
-<li class="toc-entry toc-h3"><a href="#Data-Analysis">Data Analysis </a>
-<ul>
-<li class="toc-entry toc-h4"><a href="#Channels-Ordered-by-Join-Date">Channels Ordered by Join Date </a></li>
-<li class="toc-entry toc-h4"><a href="#Top-10-Most-Viewed-Videos">Top 10 Most Viewed Videos </a></li>
-<li class="toc-entry toc-h4"><a href="#Channels-Grouped-by-Total-Video-Views">Channels Grouped by Total Video Views </a></li>
-<li class="toc-entry toc-h4"><a href="#Top-10-Liked-Videos">Top 10 Liked Videos </a></li>
 </ul>
 </li>
+<li class="toc-entry toc-h2"><a href="#Data-Analysis">Data Analysis </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Channels-Ordered-by-Join-Date">Channels Ordered by Join Date </a></li>
+<li class="toc-entry toc-h3"><a href="#Top-10-Most-Viewed-Videos">Top 10 Most Viewed Videos </a></li>
+<li class="toc-entry toc-h3"><a href="#Channels-Grouped-by-Total-Video-Views">Channels Grouped by Total Video Views </a></li>
+<li class="toc-entry toc-h3"><a href="#Top-10-Liked-Videos">Top 10 Liked Videos </a></li>
 <li class="toc-entry toc-h3"><a href="#Top-Video-Likes-Over-Time-(Scatter-Plot)">Top Video Likes Over Time (Scatter Plot) </a></li>
 <li class="toc-entry toc-h3"><a href="#Frequency-of-Words-in-Video-Titles-(Word-Wall---Youtube-Logo)">Frequency of Words in Video Titles (Word Wall - Youtube Logo) </a></li>
 <li class="toc-entry toc-h3"><a href="#Frequency-of-Nouns-in-Vidoe-Titles-(Bar-Chart)">Frequency of Nouns in Vidoe Titles (Bar Chart) </a></li>
-<li class="toc-entry toc-h3"><a href="#Frequency-of-Superlatives-in-Titles-(Bar-Chart)">Frequency of Superlatives in Titles (Bar Chart) </a>
-<ul>
-<li class="toc-entry toc-h4"><a href="#Correlations">Correlations </a></li>
+<li class="toc-entry toc-h3"><a href="#Frequency-of-Superlatives-in-Titles-(Bar-Chart)">Frequency of Superlatives in Titles (Bar Chart) </a></li>
+<li class="toc-entry toc-h3"><a href="#Correlations">Correlations </a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h3"><a href="#Conclusion">Conclusion </a></li>
-</ul>
-</li>
+<li class="toc-entry toc-h2"><a href="#Conclusion">Conclusion </a></li>
 <li class="toc-entry toc-h2"><a href="#Resources">Resources </a></li>
 </ul><!--
 #################################################
@@ -196,6 +194,15 @@ window.onload = wrap_img;
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Introduction">
 <a class="anchor" href="#Introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction<a class="anchor-link" href="#Introduction"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Collecting-and-Cleaning-Data">
+<a class="anchor" href="#Collecting-and-Cleaning-Data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Collecting and Cleaning Data<a class="anchor-link" href="#Collecting-and-Cleaning-Data"> </a>
 </h2>
 </div>
 </div>
@@ -810,18 +817,18 @@ Example: iJustine Channel has 6.89 <strong>M</strong> Subscribers.
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Data-Analysis">
+<h2 id="Data-Analysis">
 <a class="anchor" href="#Data-Analysis" aria-hidden="true"><span class="octicon octicon-link"></span></a>Data Analysis<a class="anchor-link" href="#Data-Analysis"> </a>
-</h3>
+</h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Channels-Ordered-by-Join-Date">
+<h3 id="Channels-Ordered-by-Join-Date">
 <a class="anchor" href="#Channels-Ordered-by-Join-Date" aria-hidden="true"><span class="octicon octicon-link"></span></a>Channels Ordered by Join Date<a class="anchor-link" href="#Channels-Ordered-by-Join-Date"> </a>
-</h4>
+</h3>
 <p></p>
 <div class="flash">
     <svg class="octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info" viewbox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"></path></svg>
@@ -1004,9 +1011,9 @@ Example: iJustine Channel has 6.89 <strong>M</strong> Subscribers.
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Top-10-Most-Viewed-Videos">
+<h3 id="Top-10-Most-Viewed-Videos">
 <a class="anchor" href="#Top-10-Most-Viewed-Videos" aria-hidden="true"><span class="octicon octicon-link"></span></a>Top 10 Most Viewed Videos<a class="anchor-link" href="#Top-10-Most-Viewed-Videos"> </a>
-</h4>
+</h3>
 </div>
 </div>
 </div>
@@ -1168,9 +1175,9 @@ Example: iJustine Channel has 6.89 <strong>M</strong> Subscribers.
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Channels-Grouped-by-Total-Video-Views">
+<h3 id="Channels-Grouped-by-Total-Video-Views">
 <a class="anchor" href="#Channels-Grouped-by-Total-Video-Views" aria-hidden="true"><span class="octicon octicon-link"></span></a>Channels Grouped by Total Video Views<a class="anchor-link" href="#Channels-Grouped-by-Total-Video-Views"> </a>
-</h4>
+</h3>
 <p>Sum of all videos for each channel.</p>
 
 </div>
@@ -1336,9 +1343,9 @@ Example: iJustine Channel has 6.89 <strong>M</strong> Subscribers.
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Top-10-Liked-Videos">
+<h3 id="Top-10-Liked-Videos">
 <a class="anchor" href="#Top-10-Liked-Videos" aria-hidden="true"><span class="octicon octicon-link"></span></a>Top 10 Liked Videos<a class="anchor-link" href="#Top-10-Liked-Videos"> </a>
-</h4>
+</h3>
 </div>
 </div>
 </div>
@@ -1555,9 +1562,9 @@ Example: iJustine Channel has 6.89 <strong>M</strong> Subscribers.
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Correlations">
+<h3 id="Correlations">
 <a class="anchor" href="#Correlations" aria-hidden="true"><span class="octicon octicon-link"></span></a>Correlations<a class="anchor-link" href="#Correlations"> </a>
-</h4>
+</h3>
 </div>
 </div>
 </div>
@@ -1721,9 +1728,9 @@ Example: iJustine Channel has 6.89 <strong>M</strong> Subscribers.
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Conclusion">
+<h2 id="Conclusion">
 <a class="anchor" href="#Conclusion" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusion<a class="anchor-link" href="#Conclusion"> </a>
-</h3>
+</h2>
 <ul>
 <li>Video Comment numbers have very little correlation to any data that was obtained in this project.</li>
 </ul>
