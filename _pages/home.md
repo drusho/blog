@@ -1,6 +1,6 @@
 ---
-# layout: page
-# title: Home
+layout: page
+title: Home
 # permalink: "https://drusho.github.io"
 mainsite: http://drusho.io
 ---
