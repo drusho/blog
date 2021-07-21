@@ -3,10 +3,10 @@
 # title: About
 # permalink: "https://drusho.github.io/about"
 
-othersite: http://drusho.io/blog/About
----
+# othersite: http://drusho.io/blog/About
+# ---
 
-<a href="{{page.othersite}}">About Mainsite</a>
+# <a href="{{page.othersite}}">About Mainsite</a>
 
 
 <!-- My name is David Rusho.  I have a passion for using data to tell stories and discover meaningful insights. I started programming almost accidentally while looking for methods to automate repetitive tasks at work.  I am an advanced spreadsheet formulas user and found that transitioning to writing code in python was a natural next step in my data science journey.
