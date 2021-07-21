@@ -1,6 +1,6 @@
 ---
 layout: page
 title: Home
-permalink: //
+permalink: "https://drusho.github.io"
 ---
 
