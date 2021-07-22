@@ -25,6 +25,7 @@ you could put your extra link next to it like this:
         <div class="trigger">
           <a class="page-link" href="http://drusho.github.io/blog">Blog</a>
           <a class="page-link" href="http://drusho.github.io/dashboards">Dashboards</a>
+          <a class="page-link" href="http://drusho.github.io/">Home</a>
           {%- for path in page_paths -%}
             {%- assign my_page = site.pages | where: "path", path | first -%}
             {%- if my_page.title -%}
