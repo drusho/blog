@@ -1,0 +1,1721 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Web Scrapping Youtube with Selenium | Rusho Analytics</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Web Scrapping Youtube with Selenium" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Analyzing the Top 10 Youtube Tech Channels" />
+<meta property="og:description" content="Analyzing the Top 10 Youtube Tech Channels" />
+<link rel="canonical" href="https://drusho.github.io/blog/blog/selenium/web%20scrapping/pandas/youtube/python/2021/07/21/_07_20_webscrapping_youtube_blog.html" />
+<meta property="og:url" content="https://drusho.github.io/blog/blog/selenium/web%20scrapping/pandas/youtube/python/2021/07/21/_07_20_webscrapping_youtube_blog.html" />
+<meta property="og:site_name" content="Rusho Analytics" />
+<meta property="og:image" content="https://drusho.github.io/blog/blog/images/thumbnails/header_youtube_web.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-07-21T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:image" content="https://drusho.github.io/blog/blog/images/thumbnails/header_youtube_web.png" />
+<meta property="twitter:title" content="Web Scrapping Youtube with Selenium" />
+<meta name="twitter:site" content="@drusho" />
+<script type="application/ld+json">
+{"url":"https://drusho.github.io/blog/blog/selenium/web%20scrapping/pandas/youtube/python/2021/07/21/_07_20_webscrapping_youtube_blog.html","@type":"BlogPosting","headline":"Web Scrapping Youtube with Selenium","dateModified":"2021-07-21T00:00:00-05:00","datePublished":"2021-07-21T00:00:00-05:00","image":"https://drusho.github.io/blog/blog/images/thumbnails/header_youtube_web.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://drusho.github.io/blog/blog/selenium/web%20scrapping/pandas/youtube/python/2021/07/21/_07_20_webscrapping_youtube_blog.html"},"description":"Analyzing the Top 10 Youtube Tech Channels","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://drusho.github.io/blog/blog/feed.xml" title="Rusho Analytics" /><!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PQV3VQXZM1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PQV3VQXZM1');
+</script>
+
+
+<link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+  <div class="wrapper"><!--
+the next line is your 'home' link for the blog (has your name by default, i changed it to say home)
+you could put your extra link next to it like this:
+-->
+    <!-- <a class="site-title" rel="author" href="/blog/">Rusho Analytics</a> -->
+    <a class="site-title" href="http://drusho.github.io/blog">Rusho Analytics</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="blah blah blah"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger">
+          <a class="page-link" href="http://drusho.github.io/">Home</a>
+          <a class="page-link" href="http://drusho.github.io/blog">Blog</a>
+          <a class="page-link" href="http://drusho.github.io/dashboards">Dashboards</a><!--
+these are your page links on the right hand side
+you could add your extra link here, either beforeor after theor after theor after theor after theor after theor after theor after theor after theor after theor after the-->
+            <a class="page-link" href="/blog/search/">Search</a><!--
+these are your page links on the right hand side
+you could add your extra link here, either beforeor after theor after theor after theor after theor after theor after theor after theor after theor after theor after the-->
+            <a class="page-link" href="/blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Web Scrapping Youtube with Selenium</h1><p class="page-description">Analyzing the Top 10 Youtube Tech Channels </p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-07-21T00:00:00-05:00" itemprop="datePublished">
+        Jul 21, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      11 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/blog/categories/#Selenium">Selenium</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#Web Scrapping">Web Scrapping</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#Pandas">Pandas</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#Youtube">Youtube</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#Python">Python</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/drusho/blog/tree/master/_notebooks/2021_07_20_webscrapping_youtube_blog.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/blog/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/drusho/blog/blob/master/_notebooks/2021_07_20_webscrapping_youtube_blog.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/blog/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2021_07_20_webscrapping_youtube_blog.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><br />
+<div class="flash">
+    <svg class="octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"></path></svg>
+    <strong>Note: </strong><strong>Notebook Created by David Rusho</strong>
+</div></p>
+<ul>
+<li><a href="https://drusho.github.io/blog">Github Blog</a> | <a href="https://public.tableau.com/app/profile/drusho/">Tableau</a> | <a href="https://linkedin.com/in/davidrusho">Linkedin</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="About-the-Data">About the Data<a class="anchor-link" href="#About-the-Data"> </a></h2><p>Web scraping was performed on the <em>Top 10 Tech Channels</em> on Youtube using <em><a href="https://selenium-python.readthedocs.io/">Selenium</a></em> (an automated browser (driver) controlled using python, which is often used in web scraping and web testing).  These channels were selected using a <strong><a href="https://blog.bit.ai/top-tech-youtubers/">Top 10 Tech Youtubers</a></strong> list from blog.bit.ai.</p>
+<p>Data from 2,000 videos was scrapped, which equals about 200 of most popular videos per channel.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Collecting-and-Cleaning-Data">Collecting and Cleaning Data<a class="anchor-link" href="#Collecting-and-Cleaning-Data"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Web-Scrapping-Youtube-Channels">Web Scrapping Youtube Channels<a class="anchor-link" href="#Web-Scrapping-Youtube-Channels"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">selenium</span> <span class="kn">import</span> <span class="n">webdriver</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.common.keys</span> <span class="kn">import</span> <span class="n">Keys</span>
+
+<span class="c1"># Chrome driver location (for M1 macbook air)</span>
+<span class="n">DRIVER_PATH</span> <span class="o">=</span> <span class="s2">&quot;/opt/homebrew/bin/chromedriver&quot;</span>
+
+<span class="c1"># activate driver</span>
+<span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Chrome</span><span class="p">(</span><span class="n">executable_path</span><span class="o">=</span><span class="n">DRIVER_PATH</span><span class="p">)</span>
+
+
+<span class="c1"># Scroll to bottom of page</span>
+<span class="k">def</span> <span class="nf">scroll_page</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">7</span><span class="p">):</span>
+        <span class="n">html</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_tag_name</span><span class="p">(</span><span class="s2">&quot;html&quot;</span><span class="p">)</span>
+        <span class="n">html</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">Keys</span><span class="o">.</span><span class="n">END</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">scrap_videos</span><span class="p">():</span>
+    <span class="n">scroll_page</span><span class="p">()</span>
+
+    <span class="n">chan_xpath</span> <span class="o">=</span> <span class="s1">&#39;//*[@id=&quot;channel-name&quot;]&#39;</span>
+    <span class="n">subs_xpath</span> <span class="o">=</span> <span class="s1">&#39;//*[@id=&quot;subscriber-count&quot;]&#39;</span>
+    <span class="n">videos_class</span> <span class="o">=</span> <span class="s2">&quot;style-scope ytd-grid-video-renderer&quot;</span>
+    <span class="n">views_xpath</span> <span class="o">=</span> <span class="s1">&#39;.//*[@id=&quot;metadata-line&quot;]/span[1]&#39;</span>
+    <span class="n">post_date_xpath</span> <span class="o">=</span> <span class="s1">&#39;.//*[@id=&quot;metadata-line&quot;]/span[2]&#39;</span>
+
+    <span class="n">title_xpath</span> <span class="o">=</span> <span class="s1">&#39;.//*[@id=&quot;video-title&quot;]&#39;</span>
+
+    <span class="c1"># Scrap Channel Name</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">channel_name</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="n">chan_xpath</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">Exception</span><span class="p">,):</span>
+        <span class="k">pass</span>
+
+    <span class="c1"># Scrap Number of Subscribers</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">subscribers</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="n">subs_xpath</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">Exception</span><span class="p">,):</span>
+        <span class="k">pass</span>
+
+    <span class="c1"># Reassign variable to recalculate all videos</span>
+    <span class="n">videos</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_elements_by_class_name</span><span class="p">(</span><span class="n">videos_class</span><span class="p">)</span>
+
+    <span class="c1"># Loop through all videos</span>
+    <span class="k">for</span> <span class="n">video</span> <span class="ow">in</span> <span class="n">videos</span><span class="p">:</span>
+
+        <span class="c1"># grab title if available</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="n">video</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="n">title_xpath</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">Exception</span><span class="p">,):</span>
+            <span class="k">pass</span>
+
+        <span class="c1"># grab url if available</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="n">video</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="n">title_xpath</span><span class="p">)</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s2">&quot;href&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">Exception</span><span class="p">,):</span>
+            <span class="k">pass</span>
+
+        <span class="c1"># grab views if available</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">views</span> <span class="o">=</span> <span class="n">video</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="n">views_xpath</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">Exception</span><span class="p">,):</span>
+            <span class="k">pass</span>
+
+        <span class="c1"># grab post date if available</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">post_date</span> <span class="o">=</span> <span class="n">video</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="n">post_date_xpath</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">Exception</span><span class="p">,):</span>
+            <span class="k">pass</span>
+
+        <span class="n">video_items</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;channel_name&quot;</span><span class="p">:</span> <span class="n">channel_name</span><span class="p">,</span>
+            <span class="s2">&quot;subscribers&quot;</span><span class="p">:</span> <span class="n">subscribers</span><span class="p">,</span>
+            <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span>
+            <span class="s2">&quot;views&quot;</span><span class="p">:</span> <span class="n">views</span><span class="p">,</span>
+            <span class="s2">&quot;post_date&quot;</span><span class="p">:</span> <span class="n">post_date</span><span class="p">,</span>
+            <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="n">vid_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">video_items</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">vid_list</span>
+
+
+<span class="c1"># scrap Channel About section</span>
+<span class="k">def</span> <span class="nf">scrap_about</span><span class="p">():</span>
+
+    <span class="n">chan_name_xp</span> <span class="o">=</span> <span class="s1">&#39;//*[@id=&quot;channel-name&quot;]&#39;</span>
+    <span class="n">chan_join</span> <span class="o">=</span> <span class="s1">&#39;.//*[@id=&quot;right-column&quot;]/yt-formatted-string[2]/span[2]&#39;</span>
+    <span class="n">chan_views</span> <span class="o">=</span> <span class="s1">&#39;.//*[@id=&quot;right-column&quot;]/yt-formatted-string[3]&#39;</span>
+    <span class="n">chan_desc</span> <span class="o">=</span> <span class="s1">&#39;.//*[@id=&quot;description&quot;]&#39;</span>
+
+    <span class="c1"># Scrap Channel Name</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">channel_name</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="n">chan_name_xp</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">Exception</span><span class="p">,):</span>
+        <span class="k">pass</span>
+
+    <span class="c1"># Scrap Channel Join Date (about)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">channel_join</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="n">chan_join</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">Exception</span><span class="p">,):</span>
+        <span class="k">pass</span>
+
+    <span class="c1"># Scrap Channel Views (about)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">channel_views</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="n">chan_views</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">Exception</span><span class="p">,):</span>
+        <span class="k">pass</span>
+
+    <span class="c1"># Scrap Channel Description (about)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">channel_description</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="n">chan_desc</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">Exception</span><span class="p">,):</span>
+        <span class="k">pass</span>
+
+    <span class="n">about_items</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;channel_name&quot;</span><span class="p">:</span> <span class="n">channel_name</span><span class="p">,</span>
+        <span class="s2">&quot;channel_join_date&quot;</span><span class="p">:</span> <span class="n">channel_join</span><span class="p">,</span>
+        <span class="s2">&quot;channel_views&quot;</span><span class="p">:</span> <span class="n">channel_views</span><span class="p">,</span>
+        <span class="s2">&quot;channel_description&quot;</span><span class="p">:</span> <span class="n">channel_description</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">vid_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">about_items</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">vid_list</span>
+
+
+<span class="c1"># top youtubers based off &#39;https://blog.bit.ai&#39;</span>
+<span class="n">top_youtubers</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;ijustine&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;AndroidAuthority&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Mrwhosetheboss&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TechnoBuffalo&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TLD&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;austinevans&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;unboxtherapy&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;LinusTechTips&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;UrAvgConsumer&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mkbhd&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1"># empty list to hold video details</span>
+<span class="n">vid_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># url of most videos sorted by most popular</span>
+<span class="k">for</span> <span class="n">youtuber</span> <span class="ow">in</span> <span class="n">top_youtubers</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;processing </span><span class="si">{</span><span class="n">youtuber</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://www.youtube.com/</span><span class="si">{</span><span class="n">youtuber</span><span class="si">}</span><span class="s2">/videos?view=0&amp;sort=p&amp;flow=grid&quot;</span>
+    <span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">scroll_page</span><span class="p">()</span>
+    <span class="n">vid_list</span> <span class="o">=</span> <span class="n">scrap_videos</span><span class="p">()</span>
+    <span class="n">about_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://www.youtube.com/</span><span class="si">{</span><span class="n">youtuber</span><span class="si">}</span><span class="s2">/about&quot;</span>
+    <span class="n">about</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">about_url</span><span class="p">)</span>
+    <span class="n">driver</span><span class="o">.</span><span class="n">implicitly_wait</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">about_items</span> <span class="o">=</span> <span class="n">scrap_about</span><span class="p">()</span>
+
+<span class="c1"># Close Chrome browser</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+
+<span class="c1"># create pandas df for video info</span>
+<span class="n">df_channel</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">vid_list</span><span class="p">)</span>
+
+<span class="c1"># export df to csv</span>
+<span class="n">df_channel</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;yt_channel_scrap.csv&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Web-Scrapping-Youtube-Videos">Web Scrapping Youtube Videos<a class="anchor-link" href="#Web-Scrapping-Youtube-Videos"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.chrome.options</span> <span class="kn">import</span> <span class="n">Options</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.support.wait</span> <span class="kn">import</span> <span class="n">WebDriverWait</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.support</span> <span class="kn">import</span> <span class="n">expected_conditions</span> <span class="k">as</span> <span class="n">EC</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.common.by</span> <span class="kn">import</span> <span class="n">By</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">requests</span> <span class="kn">import</span> <span class="n">options</span>
+<span class="kn">from</span> <span class="nn">selenium</span> <span class="kn">import</span> <span class="n">webdriver</span>
+
+
+<span class="c1"># driver options (size and headless)</span>
+<span class="n">options</span> <span class="o">=</span> <span class="n">Options</span><span class="p">()</span>
+<span class="n">options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--headless&quot;</span><span class="p">)</span>
+<span class="n">options</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--window-size=1920x1080&quot;</span><span class="p">)</span>
+
+<span class="c1"># Chrome driver location (for M1 macbook air)</span>
+<span class="n">DRIVER_PATH</span> <span class="o">=</span> <span class="s2">&quot;/opt/homebrew/bin/chromedriver&quot;</span>
+
+<span class="c1"># activate driver</span>
+<span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Chrome</span><span class="p">(</span><span class="n">executable_path</span><span class="o">=</span><span class="n">DRIVER_PATH</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">)</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&quot;window.scrollTo(0, document.body.scrollHeight);&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># partial video description</span>
+<span class="k">def</span> <span class="nf">par_description</span><span class="p">():</span>
+    <span class="n">vid_desc</span> <span class="o">=</span> <span class="s2">&quot;//div[@class=&#39;watch-main-col&#39;]/meta[@itemprop=&#39;description&#39;]&quot;</span>
+    <span class="n">elems</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_elements_by_xpath</span><span class="p">(</span><span class="n">vid_desc</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">elems</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">elem</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s2">&quot;content&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># publish_date</span>
+<span class="k">def</span> <span class="nf">publish</span><span class="p">():</span>
+    <span class="n">pub_date</span> <span class="o">=</span> <span class="s2">&quot;//div[@class=&#39;watch-main-col&#39;]/meta[@itemprop=&#39;datePublished&#39;]&quot;</span>
+    <span class="n">elems</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_elements_by_xpath</span><span class="p">(</span><span class="n">pub_date</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">elems</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">elem</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s2">&quot;content&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># upload_date</span>
+<span class="k">def</span> <span class="nf">upload</span><span class="p">():</span>
+    <span class="n">upload_date</span> <span class="o">=</span> <span class="s2">&quot;//div[@class=&#39;watch-main-col&#39;]/meta[@itemprop=&#39;uploadDate&#39;]&quot;</span>
+    <span class="n">elems</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_elements_by_xpath</span><span class="p">(</span><span class="n">upload_date</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">elems</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">elem</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s2">&quot;content&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># genre</span>
+<span class="k">def</span> <span class="nf">genre</span><span class="p">():</span>
+    <span class="n">genre</span> <span class="o">=</span> <span class="s2">&quot;//div[@class=&#39;watch-main-col&#39;]/meta[@itemprop=&#39;genre&#39;]&quot;</span>
+    <span class="n">elems</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_elements_by_xpath</span><span class="p">(</span><span class="n">genre</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">elems</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">elem</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s2">&quot;content&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># video_width</span>
+<span class="k">def</span> <span class="nf">width</span><span class="p">():</span>
+    <span class="n">v_width</span> <span class="o">=</span> <span class="s2">&quot;//div[@class=&#39;watch-main-col&#39;]/meta[@itemprop=&#39;width&#39;]&quot;</span>
+    <span class="n">elems</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_elements_by_xpath</span><span class="p">(</span><span class="n">v_width</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">elems</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">elem</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s2">&quot;content&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># video_height</span>
+<span class="k">def</span> <span class="nf">height</span><span class="p">():</span>
+    <span class="n">v_height</span> <span class="o">=</span> <span class="s2">&quot;//div[@class=&#39;watch-main-col&#39;]/meta[@itemprop=&#39;height&#39;]&quot;</span>
+    <span class="n">elems</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_elements_by_xpath</span><span class="p">(</span><span class="n">v_height</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">elems</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">elem</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s2">&quot;content&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># Interaction Count</span>
+<span class="k">def</span> <span class="nf">interactions</span><span class="p">():</span>
+    <span class="n">interactions</span> <span class="o">=</span> <span class="s2">&quot;//div[@class=&#39;watch-main-col&#39;]/meta[@itemprop=&#39;interactionCount&#39;]&quot;</span>
+    <span class="n">elems</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_elements_by_xpath</span><span class="p">(</span><span class="n">interactions</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">elems</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">elem</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s2">&quot;content&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># Video_title</span>
+<span class="k">def</span> <span class="nf">video_title</span><span class="p">():</span>
+    <span class="n">video_title</span> <span class="o">=</span> <span class="s2">&quot;//div[@class=&#39;watch-main-col&#39;]/meta[@itemprop=&#39;name&#39;]&quot;</span>
+    <span class="n">elems</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_elements_by_xpath</span><span class="p">(</span><span class="n">video_title</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">elems</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">elem</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s2">&quot;content&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># Channel_name</span>
+<span class="k">def</span> <span class="nf">channel_name</span><span class="p">():</span>
+    <span class="n">channel_name</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;//div[@class=&#39;watch-main-col&#39;]/span[@itemprop=&#39;author&#39;]/link[@itemprop=&#39;name&#39;]&quot;</span>
+    <span class="p">)</span>
+    <span class="n">elems</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_elements_by_xpath</span><span class="p">(</span><span class="n">channel_name</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">elems</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">elem</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s2">&quot;content&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># Number Likes</span>
+<span class="k">def</span> <span class="nf">likes</span><span class="p">():</span>
+    <span class="n">likes_xpath</span> <span class="o">=</span> <span class="s2">&quot;(//div[@id=&#39;top-level-buttons-computed&#39;]//*[contains(@aria-label,&#39; likes&#39;)])[last()]&quot;</span>
+    <span class="k">return</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="n">likes_xpath</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+
+
+<span class="c1"># Total Comments</span>
+<span class="k">def</span> <span class="nf">comments</span><span class="p">():</span>
+    <span class="c1"># Move Page to display comments</span>
+    <span class="c1"># set scroll pause time</span>
+    <span class="n">SCROLL_PAUSE_TIME</span> <span class="o">=</span> <span class="mf">0.5</span>
+
+    <span class="c1"># scroll to page bottom</span>
+    <span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&quot;window.scrollTo(0, 1080)&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Wait for page load</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">SCROLL_PAUSE_TIME</span><span class="p">)</span>
+
+    <span class="c1"># scroll to page bottom</span>
+    <span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&quot;window.scrollTo(300, 1080)&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Wait to load page</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">SCROLL_PAUSE_TIME</span><span class="p">)</span>
+
+    <span class="n">com</span> <span class="o">=</span> <span class="n">WebDriverWait</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">until</span><span class="p">(</span>
+        <span class="n">EC</span><span class="o">.</span><span class="n">presence_of_element_located</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="s1">&#39;//*[@id=&quot;count&quot;]/yt-formatted-string&#39;</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">com</span><span class="o">.</span><span class="n">text</span>
+
+
+<span class="c1"># import csv of youtube channels data</span>
+<span class="n">df_channels</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s2">&quot;yt_channel_scrap.csv&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># new df of channel names and urls</span>
+<span class="n">df_videos</span> <span class="o">=</span> <span class="n">df_channels</span><span class="p">[[</span><span class="s2">&quot;channel_name&quot;</span><span class="p">,</span> <span class="s2">&quot;url&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+
+<span class="c1"># isolate video urls to a list</span>
+<span class="n">url_list</span> <span class="o">=</span> <span class="n">df_videos</span><span class="o">.</span><span class="n">url</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+
+<span class="n">vid_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">url_fails_ls</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="c1"># # launch driver(s)</span>
+<span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">url_list</span><span class="p">:</span>
+    <span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">subscribe_button</span> <span class="o">=</span> <span class="s1">&#39;//*[@id=&quot;subscribe-button&quot;]&#39;</span>
+    <span class="n">WebDriverWait</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span><span class="o">.</span><span class="n">until</span><span class="p">(</span>
+        <span class="n">EC</span><span class="o">.</span><span class="n">presence_of_element_located</span><span class="p">((</span><span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="n">subscribe_button</span><span class="p">))</span>
+    <span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">comments_num</span> <span class="o">=</span> <span class="n">comments</span><span class="p">()</span>
+        <span class="n">likes_num</span> <span class="o">=</span> <span class="n">likes</span><span class="p">()</span>
+        <span class="n">chan_name</span> <span class="o">=</span> <span class="n">channel_name</span><span class="p">()</span>
+        <span class="n">v_duration</span> <span class="o">=</span> <span class="n">duration</span><span class="p">()</span>
+        <span class="n">p_description</span> <span class="o">=</span> <span class="n">par_description</span><span class="p">()</span>
+        <span class="n">publish_date</span> <span class="o">=</span> <span class="n">publish</span><span class="p">()</span>
+        <span class="n">upload_date</span> <span class="o">=</span> <span class="n">upload</span><span class="p">()</span>
+        <span class="n">v_genre</span> <span class="o">=</span> <span class="n">genre</span><span class="p">()</span>
+        <span class="n">v_width</span> <span class="o">=</span> <span class="n">width</span><span class="p">()</span>
+        <span class="n">v_height</span> <span class="o">=</span> <span class="n">height</span><span class="p">()</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">video_title</span><span class="p">()</span>
+        <span class="n">interaction_count</span> <span class="o">=</span> <span class="n">interactions</span><span class="p">()</span>
+
+    <span class="k">except</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;EXCEPTION RAISED for </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">url_fails_ls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="k">pass</span>
+
+    <span class="n">video_items</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span>  <span class="c1"># primary key</span>
+        <span class="s2">&quot;Channel Name&quot;</span><span class="p">:</span> <span class="n">chan_name</span><span class="p">,</span>
+        <span class="s2">&quot;Title&quot;</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span>
+        <span class="s2">&quot;Duration&quot;</span><span class="p">:</span> <span class="n">v_duration</span><span class="p">,</span>
+        <span class="s2">&quot;Partial Description&quot;</span><span class="p">:</span> <span class="n">p_description</span><span class="p">,</span>
+        <span class="s2">&quot;Publish Date&quot;</span><span class="p">:</span> <span class="n">publish_date</span><span class="p">,</span>
+        <span class="s2">&quot;Upload_date&quot;</span><span class="p">:</span> <span class="n">upload_date</span><span class="p">,</span>
+        <span class="s2">&quot;Genre&quot;</span><span class="p">:</span> <span class="n">v_genre</span><span class="p">,</span>
+        <span class="s2">&quot;Width&quot;</span><span class="p">:</span> <span class="n">v_width</span><span class="p">,</span>
+        <span class="s2">&quot;Height&quot;</span><span class="p">:</span> <span class="n">v_height</span><span class="p">,</span>
+        <span class="s2">&quot;Likes&quot;</span><span class="p">:</span> <span class="n">likes_num</span><span class="p">,</span>
+        <span class="s2">&quot;Comments&quot;</span><span class="p">:</span> <span class="n">comments_num</span><span class="p">,</span>
+        <span class="s2">&quot;Interaction Count&quot;</span><span class="p">:</span> <span class="n">interaction_count</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">vid_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">video_items</span><span class="p">)</span>
+
+    <span class="c1"># print(f&quot;url {count} of {len(url_list)} complete&quot;)</span>
+    <span class="c1"># print every 10th url</span>
+    <span class="k">if</span> <span class="n">count</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;URL </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2"> of </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">url_list</span><span class="p">)</span><span class="si">}</span><span class="s2"> processed.&quot;</span><span class="p">)</span>
+
+<span class="n">driver</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+
+<span class="c1"># # create dfs for video and failed urls</span>
+<span class="n">df_videos</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">vid_list</span><span class="p">)</span>
+
+<span class="c1"># store urls that failed to load in driver</span>
+<span class="n">url_fails_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="n">url_fails_ls</span><span class="p">}</span>
+<span class="n">df_url_fails</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">url_fails_dict</span><span class="p">)</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Driver Quit&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Code Duration: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Videos Processed: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">vid_list</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failures: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">url_fails_ls</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># export df to csv</span>
+<span class="n">df_url_fails</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
+    <span class="s2">&quot;url_fails.csv&quot;</span>
+<span class="p">)</span>
+
+<span class="n">df_videos</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
+    <span class="s2">&quot;yt_videos_scrap.csv&quot;</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Importing-and-Cleaning-the-Data">Importing and Cleaning the Data<a class="anchor-link" href="#Importing-and-Cleaning-the-Data"> </a></h3><p><div class="flash">
+    <svg class="octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"></path></svg>
+    <strong>Note: </strong>Code in the cell below comes from <a href="https://colab.research.google.com/drive/1urQPIhLlr8U8LRB2pHQHkSuLyae60nly?usp=sharing">this notebook</a> I created to originally clean and merge the data.
+</div></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># load channel csv</span>
+<span class="n">yt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;yt_channel_scrap.csv&quot;</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;channel_join_date&quot;</span><span class="p">])</span>
+
+<span class="c1"># create df of Channel details</span>
+<span class="n">channel_details</span> <span class="o">=</span> <span class="n">yt</span><span class="p">[</span><span class="n">yt</span><span class="o">.</span><span class="n">channel_join_date</span><span class="o">.</span><span class="n">notna</span><span class="p">()]</span>
+<span class="n">channel_details</span> <span class="o">=</span> <span class="n">channel_details</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Unnamed: 0&quot;</span><span class="p">,</span> <span class="s2">&quot;subscribers&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;views&quot;</span><span class="p">,</span> <span class="s2">&quot;post_date&quot;</span><span class="p">]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># create df Video details</span>
+<span class="n">video_details</span> <span class="o">=</span> <span class="n">yt</span><span class="p">[</span><span class="n">yt</span><span class="o">.</span><span class="n">channel_join_date</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span>
+<span class="n">video_details</span> <span class="o">=</span> <span class="n">video_details</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span>
+        <span class="s2">&quot;Unnamed: 0&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;channel_join_date&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;channel_views&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;channel_description&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;post_date&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># merge dfs</span>
+<span class="n">merged</span> <span class="o">=</span> <span class="n">channel_details</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">video_details</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;channel_name&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># drop 2nd url column and rename remaining url col</span>
+<span class="n">merged</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;url_x&quot;</span><span class="p">),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">merged</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;url_y&quot;</span><span class="p">:</span> <span class="s2">&quot;url&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># dtypes to float for views and subscribers</span>
+<span class="n">merged</span><span class="o">.</span><span class="n">subscribers</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">merged</span><span class="o">.</span><span class="n">subscribers</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;M subscribers&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float&quot;</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000000</span>
+<span class="p">)</span>
+
+<span class="c1"># modify views col dtype to float</span>
+<span class="k">def</span> <span class="nf">fix_views</span><span class="p">(</span><span class="n">col</span><span class="p">):</span>
+    <span class="k">if</span> <span class="s2">&quot;M&quot;</span> <span class="ow">in</span> <span class="n">col</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;M views&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span> <span class="o">*</span> <span class="mi">1000000</span>
+    <span class="k">elif</span> <span class="s2">&quot;K&quot;</span> <span class="ow">in</span> <span class="n">col</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;K views&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span> <span class="o">*</span> <span class="mi">1000</span>
+    <span class="k">elif</span> <span class="s2">&quot;1 year ago&quot;</span> <span class="ow">in</span> <span class="n">col</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+
+<span class="n">merged</span><span class="p">[</span><span class="s2">&quot;views&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">merged</span><span class="p">[</span><span class="s2">&quot;views&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">fix_views</span><span class="p">)</span>
+
+<span class="c1"># Correct channel view column to display num only</span>
+<span class="n">merged</span><span class="p">[</span><span class="s2">&quot;channel_views&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">merged</span><span class="p">[</span><span class="s2">&quot;channel_views&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; views&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;int&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+
+
+<span class="c1"># import Videos csv data</span>
+<span class="n">df_videos</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s2">&quot;yt_videos_scrap_big_data.csv&quot;</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Publish Date&quot;</span><span class="p">,</span> <span class="s2">&quot;Upload_date&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">df_videos</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Unnamed: 0&quot;</span><span class="p">,</span> <span class="s2">&quot;Duration&quot;</span><span class="p">,</span> <span class="s2">&quot;Channel Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Title&quot;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
+
+<span class="c1"># comments dytpe to int</span>
+<span class="n">df_videos</span><span class="p">[</span><span class="s2">&quot;Comments&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">df_videos</span><span class="p">[</span><span class="s2">&quot;Comments&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;Comments&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;int&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="c1"># modify likes col dtype to float</span>
+<span class="k">def</span> <span class="nf">fix_likes</span><span class="p">(</span><span class="n">col</span><span class="p">):</span>
+    <span class="k">if</span> <span class="s2">&quot;M&quot;</span> <span class="ow">in</span> <span class="n">col</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;M&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span> <span class="o">*</span> <span class="mi">1000000</span>
+    <span class="k">elif</span> <span class="s2">&quot;K&quot;</span> <span class="ow">in</span> <span class="n">col</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;K&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span> <span class="o">*</span> <span class="mi">1000</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+
+
+<span class="c1"># Fix Likes Column</span>
+<span class="n">df_videos</span><span class="p">[</span><span class="s2">&quot;Likes&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_videos</span><span class="p">[</span><span class="s2">&quot;Likes&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">fix_likes</span><span class="p">)</span>
+
+
+<span class="c1"># Fix Width and Height, remove &#39;.&#39; and &#39;0&#39; from end of str</span>
+<span class="n">df_videos</span><span class="p">[</span><span class="s2">&quot;Width&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_videos</span><span class="p">[</span><span class="s2">&quot;Width&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;str&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">df_videos</span><span class="p">[</span><span class="s2">&quot;Height&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_videos</span><span class="p">[</span><span class="s2">&quot;Height&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;str&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">vc_merged</span> <span class="o">=</span> <span class="n">merged</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_videos</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;url&quot;</span><span class="p">)</span>
+
+<span class="c1"># rename columns to increase readability in analysis plots and tables</span>
+<span class="n">vc_merged</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;channel_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Channel Name&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;channel_join_date&quot;</span><span class="p">:</span> <span class="s2">&quot;Channel Join Date&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;channel_views&quot;</span><span class="p">:</span> <span class="s2">&quot;Channel Views (M)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;subscribers&quot;</span><span class="p">:</span> <span class="s2">&quot;Subscribers (M)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Interaction Count&quot;</span><span class="p">:</span> <span class="s2">&quot;Interactations (M)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;views&quot;</span><span class="p">:</span> <span class="s2">&quot;Video Views (M)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Partial Description&quot;</span><span class="p">:</span> <span class="s2">&quot;Video Desc&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Publish Date&quot;</span><span class="p">:</span> <span class="s2">&quot;Publish Date&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Upload_date&quot;</span><span class="p">:</span> <span class="s2">&quot;Upload Date&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Genre&quot;</span><span class="p">:</span> <span class="s2">&quot;Video Genre&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Width&quot;</span><span class="p">:</span> <span class="s2">&quot;Width&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Height&quot;</span><span class="p">:</span> <span class="s2">&quot;Height&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Comments&quot;</span><span class="p">:</span> <span class="s2">&quot;Video Comments&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Video Title&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;Video URL&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Data-Cleaning-Complete">Data Cleaning Complete<a class="anchor-link" href="#Data-Cleaning-Complete"> </a></h3><p>Fully cleaned and merged data from Youtubes Channels and all Videos.
+<div class="flash">
+    <svg class="octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"></path></svg>
+    <strong>Note: </strong>The columns <strong>Channel Views (M)</strong>, <strong>Subscribers (M)</strong>, <strong>Video Views (M)</strong>, and <strong>Interactions (M)</strong> are in millions.  
+</div>
+Example: iJustine Channel has 6.89 <strong>M</strong> Subscribers.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Data-Analysis">Data Analysis<a class="anchor-link" href="#Data-Analysis"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Channels-Ordered-by-Join-Date">Channels Ordered by Join Date<a class="anchor-link" href="#Channels-Ordered-by-Join-Date"> </a></h3><p><div class="flash">
+    <svg class="octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"></path></svg>
+    <strong>Note: </strong>Join Date is the date that the Youtube Channel was created.
+</div></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># List of Video Channels</span>
+<span class="n">yt_chan</span> <span class="o">=</span> <span class="n">vc_merged</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Channel Join Date&#39;</span><span class="p">,</span><span class="s1">&#39;Channel Name&#39;</span><span class="p">,</span><span class="s1">&#39;Channel Views (M)&#39;</span><span class="p">])[</span><span class="s1">&#39;Subscribers (M)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="c1"># rename columns to increase readability</span>
+<span class="n">yt_chan</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+    <span class="s1">&#39;Channel Name&#39;</span><span class="p">:</span><span class="s1">&#39;Channel&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Channel Join Date&#39;</span><span class="p">:</span><span class="s1">&#39;Join Date&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Subscribers (M)&#39;</span><span class="p">:</span><span class="s1">&#39;Subscribers&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Channel Views (M)&#39;</span><span class="p">:</span><span class="s1">&#39;Channel Views&#39;</span>
+    <span class="p">},</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># style dateframe to highlight highest values</span>
+<span class="n">yt_chan</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">formatter</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Subscribers&#39;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{:,}</span><span class="s2"> M&quot;</span><span class="p">,</span>
+                                 <span class="s1">&#39;Channel Views&#39;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{:,}</span><span class="s2"> M&quot;</span><span class="p">,</span>
+                                 <span class="s1">&#39;Join Date&#39;</span><span class="p">:</span> <span class="s2">&quot;{:%Y-%m-</span><span class="si">%d</span><span class="s2">}&quot;</span><span class="p">})</span><span class="o">.</span><span class="n">background_gradient</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Channel Views&#39;</span><span class="p">,</span>
+                                                                                          <span class="s1">&#39;Subscribers&#39;</span><span class="p">],</span> 
+                                                                                  <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Wistia&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">hide_index</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<style type="text/css">
+#T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row0_col2{
+            background-color:  #f8ee32;
+            color:  #000000;
+        }#T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row0_col3{
+            background-color:  #ffdc13;
+            color:  #000000;
+        }#T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row1_col2{
+            background-color:  #e7fc6e;
+            color:  #000000;
+        }#T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row1_col3,#T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row5_col2,#T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row9_col2{
+            background-color:  #e4ff7a;
+            color:  #000000;
+        }#T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row2_col2{
+            background-color:  #f5f13f;
+            color:  #000000;
+        }#T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row2_col3{
+            background-color:  #fbec29;
+            color:  #000000;
+        }#T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row3_col2{
+            background-color:  #ffc002;
+            color:  #000000;
+        }#T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row3_col3{
+            background-color:  #ff9d00;
+            color:  #000000;
+        }#T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row4_col2,#T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row6_col3{
+            background-color:  #fc7f00;
+            color:  #000000;
+        }#T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row4_col3{
+            background-color:  #ffa100;
+            color:  #000000;
+        }#T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row5_col3{
+            background-color:  #ebf962;
+            color:  #000000;
+        }#T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row6_col2{
+            background-color:  #fe9700;
+            color:  #000000;
+        }#T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row7_col2{
+            background-color:  #ecf85d;
+            color:  #000000;
+        }#T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row7_col3{
+            background-color:  #eff551;
+            color:  #000000;
+        }#T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row8_col2{
+            background-color:  #f7ef38;
+            color:  #000000;
+        }#T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row8_col3{
+            background-color:  #ffd30d;
+            color:  #000000;
+        }#T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row9_col3{
+            background-color:  #eef757;
+            color:  #000000;
+        }</style><table id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002"><thead>    <tr>        <th class="col_heading level0 col0">Join Date</th>        <th class="col_heading level0 col1">Channel</th>        <th class="col_heading level0 col2">Channel Views</th>        <th class="col_heading level0 col3">Subscribers</th>    </tr></thead><tbody>
+                <tr>
+                                <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row0_col0" class="data row0 col0">2006-05-07</td>
+                        <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row0_col1" class="data row0 col1">iJustine</td>
+                        <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row0_col2" class="data row0 col2">1,288.99 M</td>
+                        <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row0_col3" class="data row0 col3">6.89 M</td>
+            </tr>
+            <tr>
+                                <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row1_col0" class="data row1 col0">2007-06-07</td>
+                        <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row1_col1" class="data row1 col1">Jon Rettinger</td>
+                        <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row1_col2" class="data row1 col2">574.95 M</td>
+                        <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row1_col3" class="data row1 col3">1.59 M</td>
+            </tr>
+            <tr>
+                                <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row2_col0" class="data row2 col0">2007-08-04</td>
+                        <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row2_col1" class="data row2 col1">Austin Evans</td>
+                        <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row2_col2" class="data row2 col2">1,118.91 M</td>
+                        <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row2_col3" class="data row2 col3">5.07 M</td>
+            </tr>
+            <tr>
+                                <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row3_col0" class="data row3 col0">2008-03-21</td>
+                        <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row3_col1" class="data row3 col1">Marques Brownlee</td>
+                        <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row3_col2" class="data row3 col2">2,597.03 M</td>
+                        <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row3_col3" class="data row3 col3">14.3 M</td>
+            </tr>
+            <tr>
+                                <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row4_col0" class="data row4 col0">2008-11-24</td>
+                        <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row4_col1" class="data row4 col1">Linus Tech Tips</td>
+                        <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row4_col2" class="data row4 col2">4,934.74 M</td>
+                        <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row4_col3" class="data row4 col3">13.7 M</td>
+            </tr>
+            <tr>
+                                <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row5_col0" class="data row5 col0">2010-03-24</td>
+                        <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row5_col1" class="data row5 col1">Jonathan Morrison</td>
+                        <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row5_col2" class="data row5 col2">430.64 M</td>
+                        <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row5_col3" class="data row5 col3">2.64 M</td>
+            </tr>
+            <tr>
+                                <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row6_col0" class="data row6 col0">2010-12-21</td>
+                        <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row6_col1" class="data row6 col1">Unbox Therapy</td>
+                        <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row6_col2" class="data row6 col2">4,091.68 M</td>
+                        <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row6_col3" class="data row6 col3">18.0 M</td>
+            </tr>
+            <tr>
+                                <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row7_col0" class="data row7 col0">2011-04-03</td>
+                        <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row7_col1" class="data row7 col1">Android Authority</td>
+                        <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row7_col2" class="data row7 col2">767.86 M</td>
+                        <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row7_col3" class="data row7 col3">3.36 M</td>
+            </tr>
+            <tr>
+                                <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row8_col0" class="data row8 col0">2011-04-20</td>
+                        <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row8_col1" class="data row8 col1">Mrwhosetheboss</td>
+                        <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row8_col2" class="data row8 col2">1,208.15 M</td>
+                        <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row8_col3" class="data row8 col3">7.71 M</td>
+            </tr>
+            <tr>
+                                <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row9_col0" class="data row9 col0">2012-01-01</td>
+                        <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row9_col1" class="data row9 col1">UrAvgConsumer</td>
+                        <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row9_col2" class="data row9 col2">430.38 M</td>
+                        <td id="T_39fcd0c4_e9ad_11eb_8019_0242ac1c0002row9_col3" class="data row9 col3">3.11 M</td>
+            </tr>
+    </tbody></table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Top-10-Most-Viewed-Videos">Top 10 Most Viewed Videos<a class="anchor-link" href="#Top-10-Most-Viewed-Videos"> </a></h3><p><div class="flash">
+    <svg class="octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"></path></svg>
+    <strong>Note: </strong><strong>70%</strong> of the videos in this list are about phones.
+</div></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># Top 10 Videos by Views</span>
+<span class="n">top_chan</span> <span class="o">=</span> <span class="n">vc_merged</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Video Title&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;Channel Name&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;Publish Date&#39;</span><span class="p">])[</span><span class="s1">&#39;Video Views (M)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="c1"># rename columns to increase readability</span>
+<span class="n">top_chan</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+    <span class="s1">&#39;Channel Name&#39;</span><span class="p">:</span><span class="s1">&#39;Channel&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Video Views (M)&#39;</span><span class="p">:</span><span class="s1">&#39;Video Views&#39;</span>
+    <span class="p">},</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">top_chan</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">formatter</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Video Views&#39;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{:,}</span><span class="s2"> M&quot;</span><span class="p">,</span>
+                                 <span class="s1">&#39;Publish Date&#39;</span><span class="p">:</span> <span class="s2">&quot;{:%Y-%m-</span><span class="si">%d</span><span class="s2">}&quot;</span><span class="p">})</span><span class="o">.</span><span class="n">background_gradient</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Video Views&#39;</span><span class="p">,</span>
+                                                                                                   <span class="s1">&#39;Publish Date&#39;</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Wistia&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">hide_index</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<style type="text/css">
+#T_3a0517de_e9ad_11eb_8019_0242ac1c0002row0_col2,#T_3a0517de_e9ad_11eb_8019_0242ac1c0002row9_col3{
+            background-color:  #e4ff7a;
+            color:  #000000;
+        }#T_3a0517de_e9ad_11eb_8019_0242ac1c0002row0_col3,#T_3a0517de_e9ad_11eb_8019_0242ac1c0002row2_col2{
+            background-color:  #fc7f00;
+            color:  #000000;
+        }#T_3a0517de_e9ad_11eb_8019_0242ac1c0002row1_col2,#T_3a0517de_e9ad_11eb_8019_0242ac1c0002row3_col2{
+            background-color:  #fd8700;
+            color:  #000000;
+        }#T_3a0517de_e9ad_11eb_8019_0242ac1c0002row1_col3{
+            background-color:  #f6f03b;
+            color:  #000000;
+        }#T_3a0517de_e9ad_11eb_8019_0242ac1c0002row2_col3,#T_3a0517de_e9ad_11eb_8019_0242ac1c0002row3_col3,#T_3a0517de_e9ad_11eb_8019_0242ac1c0002row4_col3{
+            background-color:  #eafa65;
+            color:  #000000;
+        }#T_3a0517de_e9ad_11eb_8019_0242ac1c0002row4_col2{
+            background-color:  #f7ef38;
+            color:  #000000;
+        }#T_3a0517de_e9ad_11eb_8019_0242ac1c0002row5_col2{
+            background-color:  #ff9f00;
+            color:  #000000;
+        }#T_3a0517de_e9ad_11eb_8019_0242ac1c0002row5_col3,#T_3a0517de_e9ad_11eb_8019_0242ac1c0002row6_col3{
+            background-color:  #e8fc6c;
+            color:  #000000;
+        }#T_3a0517de_e9ad_11eb_8019_0242ac1c0002row6_col2{
+            background-color:  #ff9e00;
+            color:  #000000;
+        }#T_3a0517de_e9ad_11eb_8019_0242ac1c0002row7_col2{
+            background-color:  #ffdf15;
+            color:  #000000;
+        }#T_3a0517de_e9ad_11eb_8019_0242ac1c0002row7_col3,#T_3a0517de_e9ad_11eb_8019_0242ac1c0002row8_col3{
+            background-color:  #e6fe74;
+            color:  #000000;
+        }#T_3a0517de_e9ad_11eb_8019_0242ac1c0002row8_col2{
+            background-color:  #ffd40e;
+            color:  #000000;
+        }#T_3a0517de_e9ad_11eb_8019_0242ac1c0002row9_col2{
+            background-color:  #ffc304;
+            color:  #000000;
+        }</style><table id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002"><thead>    <tr>        <th class="col_heading level0 col0">Video Title</th>        <th class="col_heading level0 col1">Channel</th>        <th class="col_heading level0 col2">Publish Date</th>        <th class="col_heading level0 col3">Video Views</th>    </tr></thead><tbody>
+                <tr>
+                                <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row0_col0" class="data row0 col0">iPhone 6 Plus Bend Test</td>
+                        <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row0_col1" class="data row0 col1">Unbox Therapy</td>
+                        <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row0_col2" class="data row0 col2">2014-09-23</td>
+                        <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row0_col3" class="data row0 col3">73.0 M</td>
+            </tr>
+            <tr>
+                                <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row1_col0" class="data row1 col0">Retro Tech: Game Boy</td>
+                        <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row1_col1" class="data row1 col1">Marques Brownlee</td>
+                        <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row1_col2" class="data row1 col2">2019-04-19</td>
+                        <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row1_col3" class="data row1 col3">28.0 M</td>
+            </tr>
+            <tr>
+                                <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row2_col0" class="data row2 col0">BROKE vs PRO Gaming</td>
+                        <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row2_col1" class="data row2 col1">Austin Evans</td>
+                        <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row2_col2" class="data row2 col2">2019-08-03</td>
+                        <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row2_col3" class="data row2 col3">22.0 M</td>
+            </tr>
+            <tr>
+                                <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row3_col0" class="data row3 col0">Samsung Galaxy Fold Unboxing: Magnets!</td>
+                        <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row3_col1" class="data row3 col1">Marques Brownlee</td>
+                        <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row3_col2" class="data row3 col2">2019-04-16</td>
+                        <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row3_col3" class="data row3 col3">22.0 M</td>
+            </tr>
+            <tr>
+                                <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row4_col0" class="data row4 col0">Turn your Smartphone into a 3D Hologram | 4K</td>
+                        <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row4_col1" class="data row4 col1">Mrwhosetheboss</td>
+                        <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row4_col2" class="data row4 col2">2015-08-01</td>
+                        <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row4_col3" class="data row4 col3">22.0 M</td>
+            </tr>
+            <tr>
+                                <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row5_col0" class="data row5 col0">OnePlus 6 Review: Right On the Money!</td>
+                        <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row5_col1" class="data row5 col1">Marques Brownlee</td>
+                        <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row5_col2" class="data row5 col2">2018-05-25</td>
+                        <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row5_col3" class="data row5 col3">21.0 M</td>
+            </tr>
+            <tr>
+                                <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row6_col0" class="data row6 col0">This Smartphone Changes Everything...</td>
+                        <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row6_col1" class="data row6 col1">Unbox Therapy</td>
+                        <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row6_col2" class="data row6 col2">2018-06-19</td>
+                        <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row6_col3" class="data row6 col3">21.0 M</td>
+            </tr>
+            <tr>
+                                <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row7_col0" class="data row7 col0">The 4 Dollar Android Smartphone</td>
+                        <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row7_col1" class="data row7 col1">Unbox Therapy</td>
+                        <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row7_col2" class="data row7 col2">2016-03-11</td>
+                        <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row7_col3" class="data row7 col3">20.0 M</td>
+            </tr>
+            <tr>
+                                <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row8_col0" class="data row8 col0">This Cup Is Unspillable - What Magic Is This?</td>
+                        <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row8_col1" class="data row8 col1">Unbox Therapy</td>
+                        <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row8_col2" class="data row8 col2">2016-07-03</td>
+                        <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row8_col3" class="data row8 col3">20.0 M</td>
+            </tr>
+            <tr>
+                                <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row9_col0" class="data row9 col0">Unboxing The $20,000 Smartphone</td>
+                        <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row9_col1" class="data row9 col1">Unbox Therapy</td>
+                        <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row9_col2" class="data row9 col2">2016-12-25</td>
+                        <td id="T_3a0517de_e9ad_11eb_8019_0242ac1c0002row9_col3" class="data row9 col3">19.0 M</td>
+            </tr>
+    </tbody></table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Channels-Grouped-by-Total-Video-Views">Channels Grouped by Total Video Views<a class="anchor-link" href="#Channels-Grouped-by-Total-Video-Views"> </a></h3><p>Sum of all videos for each channel.
+<div class="flash">
+    <svg class="octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"></path></svg>
+    <strong>Note: </strong>There is an obvious relationship between <strong>Subscribers</strong> and <strong>Video View</strong> counts.
+</div></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># Total Views by Channel</span>
+
+<span class="n">chan_views</span> <span class="o">=</span> <span class="n">vc_merged</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Channel Name&#39;</span><span class="p">,</span><span class="s1">&#39;Subscribers (M)&#39;</span><span class="p">])[</span><span class="s1">&#39;Video Views (M)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="c1"># rename columns to increase readability</span>
+<span class="n">chan_views</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+    <span class="s1">&#39;Channel Name&#39;</span><span class="p">:</span><span class="s1">&#39;Channel&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Video Views (M)&#39;</span><span class="p">:</span><span class="s1">&#39;Video Views&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Subscribers (M)&#39;</span><span class="p">:</span><span class="s1">&#39;Subscribers&#39;</span>
+    <span class="p">},</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">chan_views</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">formatter</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Video Views&#39;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{:,}</span><span class="s2">&quot;</span><span class="p">,</span>
+                                   <span class="s1">&#39;Video Views&#39;</span><span class="p">:</span><span class="s1">&#39;</span><span class="si">{0:,.0f}</span><span class="s1"> M&#39;</span><span class="p">,</span>
+                                 <span class="s1">&#39;Subscribers&#39;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{:,}</span><span class="s2"> M&quot;</span><span class="p">})</span><span class="o">.</span><span class="n">background_gradient</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Video Views&#39;</span><span class="p">,</span><span class="s1">&#39;Subscribers&#39;</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Wistia&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">hide_index</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<style type="text/css">
+#T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row0_col1,#T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row0_col2{
+            background-color:  #fc7f00;
+            color:  #000000;
+        }#T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row1_col1{
+            background-color:  #ff9d00;
+            color:  #000000;
+        }#T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row1_col2{
+            background-color:  #fe9600;
+            color:  #000000;
+        }#T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row2_col1{
+            background-color:  #ffa100;
+            color:  #000000;
+        }#T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row2_col2{
+            background-color:  #ffa300;
+            color:  #000000;
+        }#T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row3_col1{
+            background-color:  #ffd30d;
+            color:  #000000;
+        }#T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row3_col2{
+            background-color:  #ffc303;
+            color:  #000000;
+        }#T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row4_col1{
+            background-color:  #fbec29;
+            color:  #000000;
+        }#T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row4_col2{
+            background-color:  #ffde14;
+            color:  #000000;
+        }#T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row5_col1{
+            background-color:  #ffdc13;
+            color:  #000000;
+        }#T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row5_col2{
+            background-color:  #ffdf15;
+            color:  #000000;
+        }#T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row6_col1{
+            background-color:  #eff551;
+            color:  #000000;
+        }#T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row6_col2{
+            background-color:  #ecf95f;
+            color:  #000000;
+        }#T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row7_col1{
+            background-color:  #ebf962;
+            color:  #000000;
+        }#T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row7_col2,#T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row8_col2{
+            background-color:  #e8fb6b;
+            color:  #000000;
+        }#T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row8_col1{
+            background-color:  #eef757;
+            color:  #000000;
+        }#T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row9_col1,#T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row9_col2{
+            background-color:  #e4ff7a;
+            color:  #000000;
+        }</style><table id="T_3a0b68be_e9ad_11eb_8019_0242ac1c0002"><thead>    <tr>        <th class="col_heading level0 col0">Channel</th>        <th class="col_heading level0 col1">Subscribers</th>        <th class="col_heading level0 col2">Video Views</th>    </tr></thead><tbody>
+                <tr>
+                                <td id="T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row0_col0" class="data row0 col0">Unbox Therapy</td>
+                        <td id="T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row0_col1" class="data row0 col1">18.0 M</td>
+                        <td id="T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row0_col2" class="data row0 col2">1,522 M</td>
+            </tr>
+            <tr>
+                                <td id="T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row1_col0" class="data row1 col0">Marques Brownlee</td>
+                        <td id="T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row1_col1" class="data row1 col1">14.3 M</td>
+                        <td id="T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row1_col2" class="data row1 col2">1,286 M</td>
+            </tr>
+            <tr>
+                                <td id="T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row2_col0" class="data row2 col0">Linus Tech Tips</td>
+                        <td id="T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row2_col1" class="data row2 col1">13.7 M</td>
+                        <td id="T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row2_col2" class="data row2 col2">1,158 M</td>
+            </tr>
+            <tr>
+                                <td id="T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row3_col0" class="data row3 col0">Mrwhosetheboss</td>
+                        <td id="T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row3_col1" class="data row3 col1">7.71 M</td>
+                        <td id="T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row3_col2" class="data row3 col2">816 M</td>
+            </tr>
+            <tr>
+                                <td id="T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row4_col0" class="data row4 col0">Austin Evans</td>
+                        <td id="T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row4_col1" class="data row4 col1">5.07 M</td>
+                        <td id="T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row4_col2" class="data row4 col2">600 M</td>
+            </tr>
+            <tr>
+                                <td id="T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row5_col0" class="data row5 col0">iJustine</td>
+                        <td id="T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row5_col1" class="data row5 col1">6.89 M</td>
+                        <td id="T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row5_col2" class="data row5 col2">597 M</td>
+            </tr>
+            <tr>
+                                <td id="T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row6_col0" class="data row6 col0">Android Authority</td>
+                        <td id="T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row6_col1" class="data row6 col1">3.36 M</td>
+                        <td id="T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row6_col2" class="data row6 col2">288 M</td>
+            </tr>
+            <tr>
+                                <td id="T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row7_col0" class="data row7 col0">Jonathan Morrison</td>
+                        <td id="T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row7_col1" class="data row7 col1">2.64 M</td>
+                        <td id="T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row7_col2" class="data row7 col2">249 M</td>
+            </tr>
+            <tr>
+                                <td id="T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row8_col0" class="data row8 col0">UrAvgConsumer</td>
+                        <td id="T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row8_col1" class="data row8 col1">3.11 M</td>
+                        <td id="T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row8_col2" class="data row8 col2">249 M</td>
+            </tr>
+            <tr>
+                                <td id="T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row9_col0" class="data row9 col0">Jon Rettinger</td>
+                        <td id="T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row9_col1" class="data row9 col1">1.59 M</td>
+                        <td id="T_3a0b68be_e9ad_11eb_8019_0242ac1c0002row9_col2" class="data row9 col2">193 M</td>
+            </tr>
+    </tbody></table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Top-10-Liked-Videos">Top 10 Liked Videos<a class="anchor-link" href="#Top-10-Liked-Videos"> </a></h3><p><div class="flash">
+    <svg class="octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"></path></svg>
+    <strong>Note: </strong><a href="https://www.youtube.com/watch?v=o-_WXXVye3Y">"Reflecting on the Color of My Skin"</a> created by <strong>Marques Brownlee</strong>  and  <a href="https://www.youtube.com/watch?v=hAsZCTL__lo">"I&#8217;ve been thinking of retiring"</a> created by <strong>Linus Tech Tips</strong> are videos that don&#8217;t review a tech product.
+</div></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># Top 10 Videos by Views</span>
+<span class="n">top_chan</span> <span class="o">=</span> <span class="n">vc_merged</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Video Title&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;Channel Name&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;Publish Date&#39;</span><span class="p">])[</span><span class="s1">&#39;Likes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+
+<span class="c1"># rename columns to increase readability</span>
+<span class="n">top_chan</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+    <span class="s1">&#39;Channel Name&#39;</span><span class="p">:</span><span class="s1">&#39;Channel&#39;</span>
+    <span class="p">},</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">top_chan</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">formatter</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Likes&#39;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{:,}</span><span class="s2">&quot;</span><span class="p">,</span>
+                                 <span class="s1">&#39;Publish Date&#39;</span><span class="p">:</span> <span class="s2">&quot;{:%Y-%m-</span><span class="si">%d</span><span class="s2">}&quot;</span><span class="p">})</span><span class="o">.</span><span class="n">background_gradient</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Publish Date&#39;</span><span class="p">,</span><span class="s1">&#39;Likes&#39;</span><span class="p">],</span>
+                                                                                     <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Wistia&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">hide_index</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<style type="text/css">
+#T_e545bf50_e9ca_11eb_8019_0242ac1c0002row0_col2,#T_e545bf50_e9ca_11eb_8019_0242ac1c0002row1_col2{
+            background-color:  #fe9800;
+            color:  #000000;
+        }#T_e545bf50_e9ca_11eb_8019_0242ac1c0002row0_col3,#T_e545bf50_e9ca_11eb_8019_0242ac1c0002row5_col2{
+            background-color:  #fc7f00;
+            color:  #000000;
+        }#T_e545bf50_e9ca_11eb_8019_0242ac1c0002row1_col3{
+            background-color:  #ffbb00;
+            color:  #000000;
+        }#T_e545bf50_e9ca_11eb_8019_0242ac1c0002row2_col2,#T_e545bf50_e9ca_11eb_8019_0242ac1c0002row6_col2{
+            background-color:  #fd8d00;
+            color:  #000000;
+        }#T_e545bf50_e9ca_11eb_8019_0242ac1c0002row2_col3{
+            background-color:  #ffce0a;
+            color:  #000000;
+        }#T_e545bf50_e9ca_11eb_8019_0242ac1c0002row3_col2{
+            background-color:  #ffc706;
+            color:  #000000;
+        }#T_e545bf50_e9ca_11eb_8019_0242ac1c0002row3_col3{
+            background-color:  #fdea21;
+            color:  #000000;
+        }#T_e545bf50_e9ca_11eb_8019_0242ac1c0002row4_col2{
+            background-color:  #ffa200;
+            color:  #000000;
+        }#T_e545bf50_e9ca_11eb_8019_0242ac1c0002row4_col3{
+            background-color:  #f9ed30;
+            color:  #000000;
+        }#T_e545bf50_e9ca_11eb_8019_0242ac1c0002row5_col3{
+            background-color:  #f3f245;
+            color:  #000000;
+        }#T_e545bf50_e9ca_11eb_8019_0242ac1c0002row6_col3{
+            background-color:  #ebf960;
+            color:  #000000;
+        }#T_e545bf50_e9ca_11eb_8019_0242ac1c0002row7_col2,#T_e545bf50_e9ca_11eb_8019_0242ac1c0002row8_col3,#T_e545bf50_e9ca_11eb_8019_0242ac1c0002row9_col3{
+            background-color:  #e4ff7a;
+            color:  #000000;
+        }#T_e545bf50_e9ca_11eb_8019_0242ac1c0002row7_col3{
+            background-color:  #e9fb69;
+            color:  #000000;
+        }#T_e545bf50_e9ca_11eb_8019_0242ac1c0002row8_col2,#T_e545bf50_e9ca_11eb_8019_0242ac1c0002row9_col2{
+            background-color:  #fd8a00;
+            color:  #000000;
+        }</style><table id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002"><thead>    <tr>        <th class="col_heading level0 col0">Video Title</th>        <th class="col_heading level0 col1">Channel</th>        <th class="col_heading level0 col2">Publish Date</th>        <th class="col_heading level0 col3">Likes</th>    </tr></thead><tbody>
+                <tr>
+                                <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row0_col0" class="data row0 col0">How THIS wallpaper kills your phone.</td>
+                        <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row0_col1" class="data row0 col1">Mrwhosetheboss</td>
+                        <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row0_col2" class="data row0 col2">2020-06-04</td>
+                        <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row0_col3" class="data row0 col3">831,000.0</td>
+            </tr>
+            <tr>
+                                <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row1_col0" class="data row1 col0">Reflecting on the Color of My Skin</td>
+                        <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row1_col1" class="data row1 col1">Marques Brownlee</td>
+                        <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row1_col2" class="data row1 col2">2020-06-04</td>
+                        <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row1_col3" class="data row1 col3">620,000.0</td>
+            </tr>
+            <tr>
+                                <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row2_col0" class="data row2 col0">PlayStation 5 Unboxing &amp; Accessories!</td>
+                        <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row2_col1" class="data row2 col1">Marques Brownlee</td>
+                        <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row2_col2" class="data row2 col2">2020-10-27</td>
+                        <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row2_col3" class="data row2 col3">572,000.0</td>
+            </tr>
+            <tr>
+                                <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row3_col0" class="data row3 col0">Talking Tech with Elon Musk!</td>
+                        <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row3_col1" class="data row3 col1">Marques Brownlee</td>
+                        <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row3_col2" class="data row3 col2">2018-08-17</td>
+                        <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row3_col3" class="data row3 col3">497,000.0</td>
+            </tr>
+            <tr>
+                                <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row4_col0" class="data row4 col0">I've been thinking of retiring.</td>
+                        <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row4_col1" class="data row4 col1">Linus Tech Tips</td>
+                        <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row4_col2" class="data row4 col2">2020-01-22</td>
+                        <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row4_col3" class="data row4 col3">480,000.0</td>
+            </tr>
+            <tr>
+                                <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row5_col0" class="data row5 col0">How THIS instagram story kills your phone.</td>
+                        <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row5_col1" class="data row5 col1">Mrwhosetheboss</td>
+                        <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row5_col2" class="data row5 col2">2021-05-06</td>
+                        <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row5_col3" class="data row5 col3">456,000.0</td>
+            </tr>
+            <tr>
+                                <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row6_col0" class="data row6 col0">iPhone 12 Unboxing Experience + MagSafe Demo!</td>
+                        <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row6_col1" class="data row6 col1">Marques Brownlee</td>
+                        <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row6_col2" class="data row6 col2">2020-10-20</td>
+                        <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row6_col3" class="data row6 col3">426,000.0</td>
+            </tr>
+            <tr>
+                                <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row7_col0" class="data row7 col0">This Cup Is Unspillable - What Magic Is This?</td>
+                        <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row7_col1" class="data row7 col1">Unbox Therapy</td>
+                        <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row7_col2" class="data row7 col2">2016-07-03</td>
+                        <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row7_col3" class="data row7 col3">415,000.0</td>
+            </tr>
+            <tr>
+                                <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row8_col0" class="data row8 col0">AirPods Max Unboxing &amp; Impressions: $550?!</td>
+                        <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row8_col1" class="data row8 col1">Marques Brownlee</td>
+                        <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row8_col2" class="data row8 col2">2020-12-10</td>
+                        <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row8_col3" class="data row8 col3">396,000.0</td>
+            </tr>
+            <tr>
+                                <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row9_col0" class="data row9 col0">RETRO TECH: MACINTOSH</td>
+                        <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row9_col1" class="data row9 col1">Marques Brownlee</td>
+                        <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row9_col2" class="data row9 col2">2020-12-10</td>
+                        <td id="T_e545bf50_e9ca_11eb_8019_0242ac1c0002row9_col3" class="data row9 col3">396,000.0</td>
+            </tr>
+    </tbody></table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Top-Video-Likes-Over-Time-(Scatter-Plot)">Top Video Likes Over Time (Scatter Plot)<a class="anchor-link" href="#Top-Video-Likes-Over-Time-(Scatter-Plot)"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Frequency-of-Words-in-Video-Titles-(Word-Wall---Youtube-Logo)">Frequency of Words in Video Titles (Word Wall - Youtube Logo)<a class="anchor-link" href="#Frequency-of-Words-in-Video-Titles-(Word-Wall---Youtube-Logo)"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Frequency-of-Nouns-in-Vidoe-Titles-(Bar-Chart)">Frequency of Nouns in Vidoe Titles (Bar Chart)<a class="anchor-link" href="#Frequency-of-Nouns-in-Vidoe-Titles-(Bar-Chart)"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Frequency-of-Superlatives-in-Titles-(Bar-Chart)">Frequency of Superlatives in Titles (Bar Chart)<a class="anchor-link" href="#Frequency-of-Superlatives-in-Titles-(Bar-Chart)"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Correlations">Correlations<a class="anchor-link" href="#Correlations"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">vc_merged</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">background_gradient</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Channel Views (M)&#39;</span><span class="p">,</span>
+                                                   <span class="s1">&#39;Subscribers (M)&#39;</span><span class="p">,</span>
+                                                   <span class="s1">&#39;Video Views (M)&#39;</span><span class="p">,</span>
+                                                   <span class="s1">&#39;Likes&#39;</span><span class="p">,</span>
+                                                   <span class="s1">&#39;Video Comments&#39;</span><span class="p">,</span>
+                                                   <span class="s1">&#39;Interactations (M)&#39;</span><span class="p">],</span>
+                                           <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Wistia&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<style type="text/css">
+#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row0_col0,#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row1_col1,#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row2_col2,#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row3_col3,#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row4_col4,#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row5_col5{
+            background-color:  #fc7f00;
+            color:  #000000;
+        }#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row0_col1,#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row1_col0{
+            background-color:  #fd8d00;
+            color:  #000000;
+        }#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row0_col2,#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row0_col5{
+            background-color:  #ffbc00;
+            color:  #000000;
+        }#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row0_col3{
+            background-color:  #ffc706;
+            color:  #000000;
+        }#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row0_col4,#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row4_col0,#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row4_col1,#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row4_col2,#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row4_col3,#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row4_col5{
+            background-color:  #e4ff7a;
+            color:  #000000;
+        }#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row1_col2,#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row1_col5,#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row2_col1,#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row5_col1{
+            background-color:  #ffb200;
+            color:  #000000;
+        }#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row1_col3{
+            background-color:  #ffb800;
+            color:  #000000;
+        }#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row1_col4{
+            background-color:  #e7fc6f;
+            color:  #000000;
+        }#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row2_col0,#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row5_col0{
+            background-color:  #ffbb00;
+            color:  #000000;
+        }#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row2_col3{
+            background-color:  #ffaf00;
+            color:  #000000;
+        }#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row2_col4,#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row5_col4{
+            background-color:  #e6fd72;
+            color:  #000000;
+        }#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row2_col5,#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row5_col2{
+            background-color:  #fc8000;
+            color:  #000000;
+        }#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row3_col0{
+            background-color:  #ffbd00;
+            color:  #000000;
+        }#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row3_col1{
+            background-color:  #ffb300;
+            color:  #000000;
+        }#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row3_col2{
+            background-color:  #ffab00;
+            color:  #000000;
+        }#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row3_col4{
+            background-color:  #f0f550;
+            color:  #000000;
+        }#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row3_col5{
+            background-color:  #ffaa00;
+            color:  #000000;
+        }#T_3a12747e_e9ad_11eb_8019_0242ac1c0002row5_col3{
+            background-color:  #ffae00;
+            color:  #000000;
+        }</style><table id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002"><thead>    <tr>        <th class="blank level0"></th>        <th class="col_heading level0 col0">Channel Views (M)</th>        <th class="col_heading level0 col1">Subscribers (M)</th>        <th class="col_heading level0 col2">Video Views (M)</th>        <th class="col_heading level0 col3">Likes</th>        <th class="col_heading level0 col4">Video Comments</th>        <th class="col_heading level0 col5">Interactations (M)</th>    </tr></thead><tbody>
+                <tr>
+                        <th id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002level0_row0" class="row_heading level0 row0">Channel Views (M)</th>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row0_col0" class="data row0 col0">1.000000</td>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row0_col1" class="data row0 col1">0.907635</td>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row0_col2" class="data row0 col2">0.586217</td>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row0_col3" class="data row0 col3">0.570409</td>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row0_col4" class="data row0 col4">0.138889</td>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row0_col5" class="data row0 col5">0.583878</td>
+            </tr>
+            <tr>
+                        <th id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002level0_row1" class="row_heading level0 row1">Subscribers (M)</th>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row1_col0" class="data row1 col0">0.907635</td>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row1_col1" class="data row1 col1">1.000000</td>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row1_col2" class="data row1 col2">0.659920</td>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row1_col3" class="data row1 col3">0.652701</td>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row1_col4" class="data row1 col4">0.163038</td>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row1_col5" class="data row1 col5">0.659026</td>
+            </tr>
+            <tr>
+                        <th id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002level0_row2" class="row_heading level0 row2">Video Views (M)</th>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row2_col0" class="data row2 col0">0.586217</td>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row2_col1" class="data row2 col1">0.659920</td>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row2_col2" class="data row2 col2">1.000000</td>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row2_col3" class="data row2 col3">0.708341</td>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row2_col4" class="data row2 col4">0.155869</td>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row2_col5" class="data row2 col5">0.996397</td>
+            </tr>
+            <tr>
+                        <th id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002level0_row3" class="row_heading level0 row3">Likes</th>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row3_col0" class="data row3 col0">0.570409</td>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row3_col1" class="data row3 col1">0.652701</td>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row3_col2" class="data row3 col2">0.708341</td>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row3_col3" class="data row3 col3">1.000000</td>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row3_col4" class="data row3 col4">0.235680</td>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row3_col5" class="data row3 col5">0.715335</td>
+            </tr>
+            <tr>
+                        <th id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002level0_row4" class="row_heading level0 row4">Video Comments</th>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row4_col0" class="data row4 col0">0.138889</td>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row4_col1" class="data row4 col1">0.163038</td>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row4_col2" class="data row4 col2">0.155869</td>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row4_col3" class="data row4 col3">0.235680</td>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row4_col4" class="data row4 col4">1.000000</td>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row4_col5" class="data row4 col5">0.156037</td>
+            </tr>
+            <tr>
+                        <th id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002level0_row5" class="row_heading level0 row5">Interactations (M)</th>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row5_col0" class="data row5 col0">0.583878</td>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row5_col1" class="data row5 col1">0.659026</td>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row5_col2" class="data row5 col2">0.996397</td>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row5_col3" class="data row5 col3">0.715335</td>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row5_col4" class="data row5 col4">0.156037</td>
+                        <td id="T_3a12747e_e9ad_11eb_8019_0242ac1c0002row5_col5" class="data row5 col5">1.000000</td>
+            </tr>
+    </tbody></table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion"> </a></h2><ul>
+<li>Video Comment numbers have very little correlation to any data that was obtained in this project.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Resources">Resources<a class="anchor-link" href="#Resources"> </a></h2><ul>
+<li><p><a href="https://towardsdatascience.com/top-25-selenium-functions-that-will-make-you-pro-in-web-scraping-5c937e027244">Top 25 Selenium Functions That Will Make You Pro In Web Scraping</a></p>
+</li>
+<li><p><a href="https://medium.com/daily-programming-tips/how-to-build-a-web-scraper-or-bot-in-python-using-selenium-2815f20023f7">How to build a Web Scraper or Bot in Python using Selenium</a></p>
+</li>
+<li><p><a href="https://medium.com/velotio-perspectives/web-scraping-introduction-best-practices-caveats-9cbf4acc8d0f">Web Scraping: Introduction, Best Practices &amp; Caveats</a></p>
+</li>
+<li><p><a href="https://towardsdatascience.com/web-scraping-job-postings-from-indeed-com-using-selenium-5ae58d155daf">Web Scraping Job Postings from Indeed.com using Selenium</a></p>
+</li>
+</ul>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=pUUhvJvs-R4">How I Use Selenium to Automate the Web With Python. Pt1 -  John Watson Rooney</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="drusho/blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/blog/selenium/web%20scrapping/pandas/youtube/python/2021/07/21/_07_20_webscrapping_youtube_blog.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Exploring data with python and other analytical tools.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/drusho" title="drusho"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://www.linkedin.com/in/davidrusho" title="davidrusho"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#linkedin"></use></svg></a></li><li><a rel="me" href="https://twitter.com/drusho" title="drusho"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
