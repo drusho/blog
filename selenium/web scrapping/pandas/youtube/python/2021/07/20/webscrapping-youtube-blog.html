@@ -4,24 +4,24 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Analyzing Youtube Tech Channels | Rusho Analytics</title>
+<title>Web Scrapping Youtube with Selenium | Rusho Analytics</title>
 <meta name="generator" content="Jekyll v4.1.1" />
-<meta property="og:title" content="Analyzing Youtube Tech Channels" />
+<meta property="og:title" content="Web Scrapping Youtube with Selenium" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Using Selenium to Web Scrap Youtube" />
-<meta property="og:description" content="Using Selenium to Web Scrap Youtube" />
-<link rel="canonical" href="https://drusho.github.io/blog/blog/selenium/web%20scrapping/pandas/python/2021/07/20/webscrapping-youtube-blog.html" />
-<meta property="og:url" content="https://drusho.github.io/blog/blog/selenium/web%20scrapping/pandas/python/2021/07/20/webscrapping-youtube-blog.html" />
+<meta name="description" content="Analyzing the Top 10 Youtube Tech Channels" />
+<meta property="og:description" content="Analyzing the Top 10 Youtube Tech Channels" />
+<link rel="canonical" href="https://drusho.github.io/blog/blog/selenium/web%20scrapping/pandas/youtube/python/2021/07/20/webscrapping-youtube-blog.html" />
+<meta property="og:url" content="https://drusho.github.io/blog/blog/selenium/web%20scrapping/pandas/youtube/python/2021/07/20/webscrapping-youtube-blog.html" />
 <meta property="og:site_name" content="Rusho Analytics" />
 <meta property="og:image" content="https://drusho.github.io/blog/blog/images/thumbnails/header_youtube_web.png" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-07-20T00:00:00-05:00" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:image" content="https://drusho.github.io/blog/blog/images/thumbnails/header_youtube_web.png" />
-<meta property="twitter:title" content="Analyzing Youtube Tech Channels" />
+<meta property="twitter:title" content="Web Scrapping Youtube with Selenium" />
 <meta name="twitter:site" content="@drusho" />
 <script type="application/ld+json">
-{"url":"https://drusho.github.io/blog/blog/selenium/web%20scrapping/pandas/python/2021/07/20/webscrapping-youtube-blog.html","@type":"BlogPosting","headline":"Analyzing Youtube Tech Channels","dateModified":"2021-07-20T00:00:00-05:00","datePublished":"2021-07-20T00:00:00-05:00","image":"https://drusho.github.io/blog/blog/images/thumbnails/header_youtube_web.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://drusho.github.io/blog/blog/selenium/web%20scrapping/pandas/python/2021/07/20/webscrapping-youtube-blog.html"},"description":"Using Selenium to Web Scrap Youtube","@context":"https://schema.org"}</script>
+{"url":"https://drusho.github.io/blog/blog/selenium/web%20scrapping/pandas/youtube/python/2021/07/20/webscrapping-youtube-blog.html","@type":"BlogPosting","headline":"Web Scrapping Youtube with Selenium","dateModified":"2021-07-20T00:00:00-05:00","datePublished":"2021-07-20T00:00:00-05:00","image":"https://drusho.github.io/blog/blog/images/thumbnails/header_youtube_web.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://drusho.github.io/blog/blog/selenium/web%20scrapping/pandas/youtube/python/2021/07/20/webscrapping-youtube-blog.html"},"description":"Analyzing the Top 10 Youtube Tech Channels","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://drusho.github.io/blog/blog/feed.xml" title="Rusho Analytics" /><!-- the google_analytics_id gets auto inserted from the config file -->
 
@@ -104,7 +104,7 @@ you could add your extra link here, either beforeor after theor after theor afte
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Analyzing Youtube Tech Channels</h1><p class="page-description">Using Selenium to Web Scrap Youtube</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-07-20T00:00:00-05:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">Web Scrapping Youtube with Selenium</h1><p class="page-description">Analyzing the Top 10 Youtube Tech Channels </p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-07-20T00:00:00-05:00" itemprop="datePublished">
         Jul 20, 2021
       </time>
        • <span class="read-time" title="Estimated read time">
@@ -124,6 +124,9 @@ you could add your extra link here, either beforeor after theor after theor afte
         &nbsp;
       
         <a class="category-tags-link" href="/blog/categories/#Pandas">Pandas</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#Youtube">Youtube</a>
         &nbsp;
       
         <a class="category-tags-link" href="/blog/categories/#Python">Python</a>
@@ -187,6 +190,14 @@ you could add your extra link here, either beforeor after theor after theor afte
 
 <div class="container" id="notebook-container">
         
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://colab.research.google.com/github/drusho/blog/blob/master/_notebooks/2021-07-20-webscrapping-youtube-blog.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1823,7 +1834,7 @@ Example: iJustine Channel has 6.89 <strong>M</strong> Subscribers.
         theme="github-light"
         crossorigin="anonymous"
         async>
-</script><a class="u-url" href="/blog/selenium/web%20scrapping/pandas/python/2021/07/20/webscrapping-youtube-blog.html" hidden></a>
+</script><a class="u-url" href="/blog/selenium/web%20scrapping/pandas/youtube/python/2021/07/20/webscrapping-youtube-blog.html" hidden></a>
 </article>
       </div>
     </main><footer class="site-footer h-card">
