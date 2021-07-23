@@ -110,7 +110,7 @@ you could add your extra link here, either beforeor after theor after theor afte
        • <span class="read-time" title="Estimated read time">
     
     
-      13 min read
+      14 min read
     
 </span></p>
 
@@ -784,7 +784,8 @@ you could add your extra link here, either beforeor after theor after theor afte
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Youtube-Channels-Ordered-by-Join-Date">Youtube Channels Ordered by Join Date<a class="anchor-link" href="#Youtube-Channels-Ordered-by-Join-Date"> </a></h3><p><strong>Note:</strong> Join Date is the date that the Youtube Channel was created.</p>
+<h3 id="Youtube-Channels-Ordered-by-Join-Date">Youtube Channels Ordered by Join Date<a class="anchor-link" href="#Youtube-Channels-Ordered-by-Join-Date"> </a></h3><p><strong>Note 1 :</strong> Join Date is the date that the Youtube Channel was created.</p>
+<p><strong>Note 2:</strong> Join Date does not seem to have any relationship to number of subscribers or overall channel views</p>
 
 </div>
 </div>
@@ -1298,11 +1299,12 @@ you could add your extra link here, either beforeor after theor after theor afte
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Top-10-Liked-Videos">Top 10 Liked Videos<a class="anchor-link" href="#Top-10-Liked-Videos"> </a></h3><p><strong>Note:</strong> The following top 10 liked videos don't review a tech product.</p>
+<h3 id="Top-10-Liked-Videos">Top 10 Liked Videos<a class="anchor-link" href="#Top-10-Liked-Videos"> </a></h3><p><strong>Note 1:</strong> The following top 10 liked videos don't review a tech product.</p>
 <ul>
 <li><a href="https://www.youtube.com/watch?v=o-_WXXVye3Y">"Reflecting on the Color of My Skin"</a> created by <strong>Marques Brownlee</strong> </li>
 <li><a href="https://www.youtube.com/watch?v=hAsZCTL__lo">"I've been thinking of retiring"</a> created by <strong>Linus Tech Tips</strong> </li>
 </ul>
+<p><strong>Note 2:</strong> Mrwhosetheboss capitalizes <em>"THIS"</em> is a lot of their video titles.</p>
 
 </div>
 </div>
@@ -1593,8 +1595,7 @@ if (outputEl) {{
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Word-Frequency-in-Video-Titles-(Bar-Plot)">Word Frequency in Video Titles (Bar Plot)<a class="anchor-link" href="#Word-Frequency-in-Video-Titles-(Bar-Plot)"> </a></h3><p>Out of <strong>2,000 videos titles</strong></p>
-
+<h3 id="Word-Frequency-for-2,000-Video-Titles-(Bar-Plot)">Word Frequency for 2,000 Video Titles (Bar Plot)<a class="anchor-link" href="#Word-Frequency-for-2,000-Video-Titles-(Bar-Plot)"> </a></h3>
 </div>
 </div>
 </div>
@@ -1647,7 +1648,7 @@ if (outputEl) {{
 <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
     <span class="n">wtbckgnd</span><span class="p">,</span>  <span class="c1"># set background to white</span>
     <span class="n">title</span><span class="o">=</span><span class="p">{</span>
-        <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;Word Frequency in Video Titles&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;Word Frequency for 2,000 Video Titles&quot;</span><span class="p">,</span>
         <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="mf">0.88</span><span class="p">,</span>
         <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
         <span class="s2">&quot;xanchor&quot;</span><span class="p">:</span> <span class="s2">&quot;center&quot;</span><span class="p">,</span>
@@ -1786,7 +1787,14 @@ if (outputEl) {{
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Using-Kmeans-to-Cluster-of-Video-Titles">Using Kmeans to Cluster of Video Titles<a class="anchor-link" href="#Using-Kmeans-to-Cluster-of-Video-Titles"> </a></h3><p>Grouping text content of video titles according to their similarities.</p>
+<h3 id="Using-Kmeans-and-PCA-to-Cluster-of-Video-Titles">Using Kmeans and PCA to Cluster of Video Titles<a class="anchor-link" href="#Using-Kmeans-and-PCA-to-Cluster-of-Video-Titles"> </a></h3><p><strong>Note:</strong> Video titles fall into 5 topic groups.</p>
+<ul>
+<li>Iphone (kmeans 0)</li>
+<li>Samsung (kmeans 1)</li>
+<li>Reviews (kmeans 2)</li>
+<li>Unboxing (kmeans 3)</li>
+<li>How-to (kmeans 4)</li>
+</ul>
 
 </div>
 </div>
@@ -1882,7 +1890,12 @@ if (outputEl) {{
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Correlations">Correlations<a class="anchor-link" href="#Correlations"> </a></h3>
+<h3 id="Correlations">Correlations<a class="anchor-link" href="#Correlations"> </a></h3><p><strong>Note:</strong> The following seems to be highly correlated.</p>
+<ul>
+<li>Channel Views and Subscribers </li>
+<li>Interactions and Video Views</li>
+</ul>
+
 </div>
 </div>
 </div>
@@ -2043,9 +2056,28 @@ if (outputEl) {{
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion"> </a></h2><ul>
-<li>Video Comment numbers have very little correlation to any data that was obtained in this project.</li>
+<h2 id="Take-Aways">Take Aways<a class="anchor-link" href="#Take-Aways"> </a></h2><ol>
+<li><p>Video Comment numbers have very little correlation to any data that was obtained in this project.</p>
+</li>
+<li><p>The following seem to be seems to be highly correlated.</p>
+<ul>
+<li>Channel Views and Subscribers</li>
+<li>Interactions and Video Views</li>
 </ul>
+</li>
+<li><p>Video titles fall into 5 topic groups.</p>
+<ul>
+<li>Iphone (kmeans 0)</li>
+<li>Samsung (kmeans 1)</li>
+<li>Reviews (kmeans 2)</li>
+<li>Unboxing (kmeans 3)</li>
+<li>How-to (kmeans 4)</li>
+</ul>
+</li>
+<li><p><strong><em>70%</em></strong> of the the most viewed videos are about phones.</p>
+</li>
+<li>the Join Date (Date a Youtube Channel was created) does not seem to have any relationship to number of subscribers or overall channel views.</li>
+</ol>
 
 </div>
 </div>
