@@ -1,0 +1,2091 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Using SQL to Analyze Iowa Liquor Sales | Rusho Analytics</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Using SQL to Analyze Iowa Liquor Sales" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Exploring Public Datasets in Google BigQuery" />
+<meta property="og:description" content="Exploring Public Datasets in Google BigQuery" />
+<link rel="canonical" href="https://drusho.github.io/blog/blog/bigquery/pandas/plotly/sales/sql/2021/08/01/bigquery-liquore-sales.html" />
+<meta property="og:url" content="https://drusho.github.io/blog/blog/bigquery/pandas/plotly/sales/sql/2021/08/01/bigquery-liquore-sales.html" />
+<meta property="og:site_name" content="Rusho Analytics" />
+<meta property="og:image" content="https://drusho.github.io/blog/blog/images/thumbnails/alcohol_money.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-08-01T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:image" content="https://drusho.github.io/blog/blog/images/thumbnails/alcohol_money.jpg" />
+<meta property="twitter:title" content="Using SQL to Analyze Iowa Liquor Sales" />
+<meta name="twitter:site" content="@drusho" />
+<script type="application/ld+json">
+{"url":"https://drusho.github.io/blog/blog/bigquery/pandas/plotly/sales/sql/2021/08/01/bigquery-liquore-sales.html","@type":"BlogPosting","headline":"Using SQL to Analyze Iowa Liquor Sales","dateModified":"2021-08-01T00:00:00-05:00","datePublished":"2021-08-01T00:00:00-05:00","image":"https://drusho.github.io/blog/blog/images/thumbnails/alcohol_money.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://drusho.github.io/blog/blog/bigquery/pandas/plotly/sales/sql/2021/08/01/bigquery-liquore-sales.html"},"description":"Exploring Public Datasets in Google BigQuery","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://drusho.github.io/blog/blog/feed.xml" title="Rusho Analytics" /><!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PQV3VQXZM1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PQV3VQXZM1');
+</script>
+
+
+<link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+  <div class="wrapper"><!--
+the next line is your 'home' link for the blog (has your name by default, i changed it to say home)
+you could put your extra link next to it like this:
+-->
+    <!-- <a class="site-title" rel="author" href="/blog/">Rusho Analytics</a> -->
+    <a class="site-title" href="http://drusho.github.io/blog">Rusho Analytics</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="blah blah blah"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger">
+          <a class="page-link" href="http://drusho.github.io/">Home</a>
+          <a class="page-link" href="http://drusho.github.io/blog">Blog</a>
+          <a class="page-link" href="http://drusho.github.io/dashboards">Dashboards</a><!--
+these are your page links on the right hand side
+you could add your extra link here, either beforeor after theor after theor after theor after theor after theor after theor after theor after theor after theor after the-->
+            <a class="page-link" href="/blog/search/">Search</a><!--
+these are your page links on the right hand side
+you could add your extra link here, either beforeor after theor after theor after theor after theor after theor after theor after theor after theor after theor after the-->
+            <a class="page-link" href="/blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Using SQL to Analyze Iowa Liquor Sales</h1><p class="page-description">Exploring Public Datasets in Google BigQuery</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-08-01T00:00:00-05:00" itemprop="datePublished">
+        Aug 1, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      7 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/blog/categories/#bigquery">bigquery</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#pandas">pandas</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#plotly">plotly</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#sales">sales</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#sql">sql</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/drusho/blog/tree/master/_notebooks/2021-08-01-bigquery-liquore-sales.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/blog/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/drusho/blog/blob/master/_notebooks/2021-08-01-bigquery-liquore-sales.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/blog/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#About-the-Data">About the Data </a></li>
+<li class="toc-entry toc-h2"><a href="#Google-BigQuery-(SQL-Queries)">Google BigQuery (SQL Queries) </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Count-Table-Rows">Count Table Rows </a></li>
+<li class="toc-entry toc-h3"><a href="#Show-Distinct-Years">Show Distinct Years </a></li>
+<li class="toc-entry toc-h3"><a href="#Total-Liquior-Sales-by-Date-(Top-5)">Total Liquior Sales by Date (Top 5) </a></li>
+<li class="toc-entry toc-h3"><a href="#Total-Liquior-Sales-by-Weekday">Total Liquior Sales by Weekday </a></li>
+<li class="toc-entry toc-h3"><a href="#Total-Liquior-Sales-by-Month">Total Liquior Sales by Month </a></li>
+<li class="toc-entry toc-h3"><a href="#Total-Liquior-Sales-by-Day-for-December-(Top-5)">Total Liquior Sales by Day for December (Top 5) </a></li>
+<li class="toc-entry toc-h3"><a href="#Total-Liquior-Sales-by-Day-for-June-(Top-5)">Total Liquior Sales by Day for June (Top 5) </a></li>
+<li class="toc-entry toc-h3"><a href="#Total-Liquior-Sales-by-City-(Top-5)">Total Liquior Sales by City (Top 5) </a></li>
+<li class="toc-entry toc-h3"><a href="#Sales-by-County-(Top-5)">Sales by County (Top 5) </a></li>
+<li class="toc-entry toc-h3"><a href="#Sales-by-Vendor-(Top-5)">Sales by Vendor (Top 5) </a></li>
+<li class="toc-entry toc-h3"><a href="#Sales-by-Item-(Top-5)">Sales by Item (Top 5) </a></li>
+<li class="toc-entry toc-h3"><a href="#Sales-by-Item-and-Category-(Top-5)">Sales by Item and Category (Top 5) </a></li>
+<li class="toc-entry toc-h3"><a href="#Sales-by-Item-and-Category-for-the-Year-2020-(Top-5)">Sales by Item and Category for the Year 2020 (Top 5) </a></li>
+<li class="toc-entry toc-h3"><a href="#Sales-by-Item-and-Category-for-the-Past-10-Years-(Top-10)">Sales by Item and Category for the Past 10 Years (Top 10) </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#References">References </a></li>
+</ul><body>
+<!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2021-08-01-bigquery-liquore-sales.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://colab.research.google.com/github/drusho/blog/blob/master/_notebooks/2021-08-01-bigquery-liquore-sales.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Notebook Created by: <strong>David Rusho</strong> (<a href="https://drusho.github.io/blog">Github Blog</a> | <a href="https://public.tableau.com/app/profile/drusho/">Tableau</a> | <a href="https://linkedin.com/in/davidrusho">Linkedin</a>)</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="About-the-Data">
+<a class="anchor" href="#About-the-Data" aria-hidden="true"><span class="octicon octicon-link"></span></a>About the Data<a class="anchor-link" href="#About-the-Data"> </a>
+</h2>
+<p><strong>Data Source:</strong> <a href="https://data.iowa.gov/Sales-Distribution/Iowa-Liquor-Sales/m3tr-qhgy">data.iowa.gov</a></p>
+<p><strong>Provided by:</strong> Iowa Department of Commerce, Alcoholic Beverages Division</p>
+<p><strong>Data Created:</strong> November 7, 2014</p>
+<p><strong>Last Updated:</strong> July 1, 2021</p>
+<p>This dataset contains the spirits purchase information of Iowa Class “E” liquor licensees by product and date of purchase from January 1, 2014 to current. The dataset can be used to analyze total spirits sales in Iowa of individual products at the store level.</p>
+<p>Class E liquor license, for grocery stores, liquor stores, convenience stores, etc., allows commercial establishments to sell liquor for off-premises consumption in original unopened containers.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Google-BigQuery-(SQL-Queries)">
+<a class="anchor" href="#Google-BigQuery-(SQL-Queries)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Google BigQuery (SQL Queries)<a class="anchor-link" href="#Google-BigQuery-(SQL-Queries)"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Count-Table-Rows">
+<a class="anchor" href="#Count-Table-Rows" aria-hidden="true"><span class="octicon octicon-link"></span></a>Count Table Rows<a class="anchor-link" href="#Count-Table-Rows"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># query: count table rows and shows years</span>
+<span class="n">row_count</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">gbq</span><span class="o">.</span><span class="n">read_gbq</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2"> SELECT</span>
+<span class="s2">    COUNT(*) as total_rows</span>
+<span class="s2">  FROM </span><span class="si">{</span><span class="n">dataloc</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">  LIMIT 1"""</span><span class="p">,</span>
+    <span class="n">project_id</span><span class="o">=</span><span class="n">pjt_id</span><span class="p">,</span>
+
+<span class="p">)</span>
+
+<span class="n">row_count</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>total_rows</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>19118960</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Show-Distinct-Years">
+<a class="anchor" href="#Show-Distinct-Years" aria-hidden="true"><span class="octicon octicon-link"></span></a>Show Distinct Years<a class="anchor-link" href="#Show-Distinct-Years"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">yrs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">gbq</span><span class="o">.</span><span class="n">read_gbq</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">"""SELECT</span>
+<span class="s2">  DISTINCT(FORMAT_DATE('%Y', date)) AS years,</span>
+<span class="s2">  FROM </span><span class="si">{</span><span class="n">dataloc</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">  ORDER BY</span>
+<span class="s2">    years DESC """</span><span class="p">,</span>
+    <span class="n">project_id</span><span class="o">=</span><span class="n">pjt_id</span><span class="p">,)</span>
+
+<span class="n">yrs</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>years</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2020</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2019</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2018</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2017</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2016</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2015</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2014</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2013</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>2012</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>None</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Total-Liquior-Sales-by-Date-(Top-5)">
+<a class="anchor" href="#Total-Liquior-Sales-by-Date-(Top-5)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Total Liquior Sales by Date (Top 5)<a class="anchor-link" href="#Total-Liquior-Sales-by-Date-(Top-5)"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># query: top 5 sales by date </span>
+<span class="n">sum_sales_date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">gbq</span><span class="o">.</span><span class="n">read_gbq</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">  SELECT</span>
+<span class="s2">    date,</span>
+<span class="s2">    FORMAT_DATE('%A', date) AS day_name,</span>
+<span class="s2">    ROUND(SUM(sale_dollars),2) AS total_sales,</span>
+<span class="s2">  FROM</span>
+<span class="s2">    </span><span class="si">{</span><span class="n">dataloc</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">  GROUP BY</span>
+<span class="s2">    date</span>
+<span class="s2">  ORDER BY</span>
+<span class="s2">    total_sales DESC</span>
+<span class="s2">  """</span><span class="p">,</span>
+    <span class="n">project_id</span><span class="o">=</span><span class="n">pjt_id</span><span class="p">,)</span> 
+
+<span class="n">sum_sales_date</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>date</th>
+      <th>day_name</th>
+      <th>total_sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2013-10-04</td>
+      <td>Friday</td>
+      <td>3,516,318.05</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2013-10-11</td>
+      <td>Friday</td>
+      <td>3,278,998.01</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2020-09-29</td>
+      <td>Tuesday</td>
+      <td>2,420,417.11</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2019-07-31</td>
+      <td>Wednesday</td>
+      <td>2,357,939.86</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2019-09-05</td>
+      <td>Thursday</td>
+      <td>2,290,099.19</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Total-Liquior-Sales-by-Weekday">
+<a class="anchor" href="#Total-Liquior-Sales-by-Weekday" aria-hidden="true"><span class="octicon octicon-link"></span></a>Total Liquior Sales by Weekday<a class="anchor-link" href="#Total-Liquior-Sales-by-Weekday"> </a>
+</h3>
+<p>Total liquior sales by weekdays tend to go in order of the week, with Sunday have the least amount of sales.  This could be due to city/county restrictions placed on alcohol sales for these days.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># query: top 5 sales by weekday name</span>
+<span class="n">sum_sales_wkday</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">gbq</span><span class="o">.</span><span class="n">read_gbq</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">  SELECT</span>
+<span class="s2">    FORMAT_DATE('%A', date) AS day_name,</span>
+<span class="s2">    ROUND(SUM(sale_dollars),2) AS total_sales,</span>
+<span class="s2">  FROM</span>
+<span class="s2">    </span><span class="si">{</span><span class="n">dataloc</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">  GROUP BY</span>
+<span class="s2">    day_name</span>
+<span class="s2">  ORDER BY</span>
+<span class="s2">    total_sales DESC</span>
+<span class="s2">  """</span><span class="p">,</span>
+    <span class="n">project_id</span><span class="o">=</span><span class="n">pjt_id</span><span class="p">,)</span> 
+
+<span class="n">sum_sales_wkday</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>day_name</th>
+      <th>total_sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Monday</td>
+      <td>614,633,388.47</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Wednesday</td>
+      <td>597,276,323.07</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Tuesday</td>
+      <td>568,500,848.31</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Thursday</td>
+      <td>541,557,663.51</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Friday</td>
+      <td>240,018,689.70</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Saturday</td>
+      <td>13,397,909.20</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Sunday</td>
+      <td>23,760.06</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Total-Liquior-Sales-by-Month">
+<a class="anchor" href="#Total-Liquior-Sales-by-Month" aria-hidden="true"><span class="octicon octicon-link"></span></a>Total Liquior Sales by Month<a class="anchor-link" href="#Total-Liquior-Sales-by-Month"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># query: top 5 sales by month name</span>
+<span class="n">sum_sales_mth</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">gbq</span><span class="o">.</span><span class="n">read_gbq</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">  SELECT</span>
+<span class="s2">    FORMAT_DATE('%B', date) AS month,</span>
+<span class="s2">    ROUND(SUM(sale_dollars),2) AS total_sales,</span>
+<span class="s2">  FROM</span>
+<span class="s2">    </span><span class="si">{</span><span class="n">dataloc</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">  GROUP BY</span>
+<span class="s2">    month</span>
+<span class="s2">  ORDER BY</span>
+<span class="s2">    total_sales DESC</span>
+<span class="s2">  """</span><span class="p">,</span>
+    <span class="n">project_id</span><span class="o">=</span><span class="n">pjt_id</span><span class="p">,)</span> 
+
+<span class="n">sum_sales_mth</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>month</th>
+      <th>total_sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>October</td>
+      <td>247,480,506.06</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>June</td>
+      <td>242,536,518.44</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>May</td>
+      <td>237,071,848.85</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>August</td>
+      <td>231,144,768.16</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>July</td>
+      <td>226,319,830.86</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>April</td>
+      <td>219,497,647.39</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>December</td>
+      <td>212,573,994.46</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>March</td>
+      <td>208,744,805.41</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>September</td>
+      <td>201,244,550.88</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>February</td>
+      <td>195,893,866.98</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>November</td>
+      <td>195,440,741.81</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>January</td>
+      <td>157,459,503.02</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Total-Liquior-Sales-by-Day-for-December-(Top-5)">
+<a class="anchor" href="#Total-Liquior-Sales-by-Day-for-December-(Top-5)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Total Liquior Sales by Day for December (Top 5)<a class="anchor-link" href="#Total-Liquior-Sales-by-Day-for-December-(Top-5)"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># query: top 5 sales by month (December)</span>
+<span class="n">dec_sum_sales</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">gbq</span><span class="o">.</span><span class="n">read_gbq</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">  SELECT</span>
+<span class="s2">    EXTRACT(DAY FROM date) AS day,</span>
+<span class="s2">    ROUND(SUM(sale_dollars),2) AS total_sales,</span>
+<span class="s2">  FROM</span>
+<span class="s2">     </span><span class="si">{</span><span class="n">dataloc</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">  WHERE</span>
+<span class="s2">    FORMAT_DATE('%B', date) = 'December'</span>
+<span class="s2">  GROUP BY</span>
+<span class="s2">    day</span>
+<span class="s2">  ORDER BY</span>
+<span class="s2">    total_sales DESC</span>
+<span class="s2">  """</span><span class="p">,</span>
+    <span class="n">project_id</span><span class="o">=</span><span class="n">pjt_id</span><span class="p">,)</span> 
+
+<span class="n">dec_sum_sales</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>day</th>
+      <th>total_sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>26</td>
+      <td>11,284,143.90</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>27</td>
+      <td>10,255,324.46</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>19</td>
+      <td>9,622,026.31</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>21</td>
+      <td>9,506,483.97</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>18</td>
+      <td>9,504,026.97</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Total-Liquior-Sales-by-Day-for-June-(Top-5)">
+<a class="anchor" href="#Total-Liquior-Sales-by-Day-for-June-(Top-5)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Total Liquior Sales by Day for June (Top 5)<a class="anchor-link" href="#Total-Liquior-Sales-by-Day-for-June-(Top-5)"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># query: top 5 sales by month (June)</span>
+<span class="n">june_sum_sales</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">gbq</span><span class="o">.</span><span class="n">read_gbq</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">  SELECT</span>
+<span class="s2">    EXTRACT(DAY FROM date) AS day,</span>
+<span class="s2">    ROUND(SUM(sale_dollars),2) AS total_sales,</span>
+<span class="s2">  FROM</span>
+<span class="s2">     </span><span class="si">{</span><span class="n">dataloc</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">  WHERE</span>
+<span class="s2">    FORMAT_DATE('%B', date) = 'June'</span>
+<span class="s2">  GROUP BY</span>
+<span class="s2">    day</span>
+<span class="s2">  ORDER BY</span>
+<span class="s2">    total_sales DESC</span>
+<span class="s2">  """</span><span class="p">,</span>
+    <span class="n">project_id</span><span class="o">=</span><span class="n">pjt_id</span><span class="p">,)</span> 
+
+<span class="n">june_sum_sales</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>day</th>
+      <th>total_sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>26</td>
+      <td>12,997,654.91</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>27</td>
+      <td>11,085,004.80</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>25</td>
+      <td>10,683,658.61</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>5</td>
+      <td>9,840,296.04</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>9,823,520.72</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Total-Liquior-Sales-by-City-(Top-5)">
+<a class="anchor" href="#Total-Liquior-Sales-by-City-(Top-5)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Total Liquior Sales by City (Top 5)<a class="anchor-link" href="#Total-Liquior-Sales-by-City-(Top-5)"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># query: top 5 sales by city</span>
+<span class="n">city_sum_sales</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">gbq</span><span class="o">.</span><span class="n">read_gbq</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">  SELECT</span>
+<span class="s2">    LOWER(city) AS city,</span>
+<span class="s2">    ROUND(CAST(SUM(sale_dollars) AS numeric),0) AS total_sales,</span>
+<span class="s2">  FROM</span>
+<span class="s2">     </span><span class="si">{</span><span class="n">dataloc</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">  GROUP BY</span>
+<span class="s2">    city</span>
+<span class="s2">  ORDER BY</span>
+<span class="s2">    total_sales DESC</span>
+<span class="s2">  """</span><span class="p">,</span>
+    <span class="n">project_id</span><span class="o">=</span><span class="n">pjt_id</span><span class="p">,)</span> 
+
+<span class="c1"># title case for city col</span>
+<span class="n">city_sum_sales</span><span class="o">.</span><span class="n">city</span> <span class="o">=</span> <span class="n">city_sum_sales</span><span class="o">.</span><span class="n">city</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+
+<span class="c1">#convert total_sales to float</span>
+<span class="n">city_sum_sales</span><span class="o">.</span><span class="n">total_sales</span> <span class="o">=</span> <span class="n">city_sum_sales</span><span class="o">.</span><span class="n">total_sales</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">'float'</span><span class="p">)</span>
+
+<span class="n">city_sum_sales</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>city</th>
+      <th>total_sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Des Moines</td>
+      <td>316,446,115.00</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Cedar Rapids</td>
+      <td>173,729,963.00</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Davenport</td>
+      <td>131,458,370.00</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>West Des Moines</td>
+      <td>98,289,070.00</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Waterloo</td>
+      <td>91,743,568.00</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Sales-by-County-(Top-5)">
+<a class="anchor" href="#Sales-by-County-(Top-5)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sales by County (Top 5)<a class="anchor-link" href="#Sales-by-County-(Top-5)"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># query: top 5 sales by county</span>
+<span class="n">county_sum_sales</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">gbq</span><span class="o">.</span><span class="n">read_gbq</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">  SELECT</span>
+<span class="s2">    LOWER(county) AS county,</span>
+<span class="s2">    ROUND(CAST(SUM(sale_dollars) AS numeric),0) AS total_sales,</span>
+<span class="s2">  FROM</span>
+<span class="s2">     </span><span class="si">{</span><span class="n">dataloc</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">  GROUP BY</span>
+<span class="s2">    county</span>
+<span class="s2">  ORDER BY</span>
+<span class="s2">    total_sales DESC</span>
+<span class="s2">  """</span><span class="p">,</span>
+    <span class="n">project_id</span><span class="o">=</span><span class="n">pjt_id</span><span class="p">,)</span> 
+
+<span class="c1"># title case for county col</span>
+<span class="n">county_sum_sales</span><span class="o">.</span><span class="n">county</span> <span class="o">=</span> <span class="n">county_sum_sales</span><span class="o">.</span><span class="n">county</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+
+<span class="c1">#convert total_sales to float</span>
+<span class="n">county_sum_sales</span><span class="o">.</span><span class="n">total_sales</span> <span class="o">=</span> <span class="n">county_sum_sales</span><span class="o">.</span><span class="n">total_sales</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">'float'</span><span class="p">)</span>
+
+<span class="n">county_sum_sales</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>county</th>
+      <th>total_sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Polk</td>
+      <td>577,370,868.00</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Linn</td>
+      <td>224,323,673.00</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Scott</td>
+      <td>184,738,695.00</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Johnson</td>
+      <td>153,257,799.00</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Black Hawk</td>
+      <td>145,297,452.00</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Sales-by-Vendor-(Top-5)">
+<a class="anchor" href="#Sales-by-Vendor-(Top-5)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sales by Vendor (Top 5)<a class="anchor-link" href="#Sales-by-Vendor-(Top-5)"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># query: top 5 sales by vendor </span>
+<span class="n">vendor_sum_sales</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">gbq</span><span class="o">.</span><span class="n">read_gbq</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">  SELECT</span>
+<span class="s2">    LOWER(vendor_name) AS vendor,</span>
+<span class="s2">    ROUND(CAST(SUM(sale_dollars) AS numeric),0) AS total_sales</span>
+<span class="s2">  FROM</span>
+<span class="s2">    </span><span class="si">{</span><span class="n">dataloc</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">  GROUP BY</span>
+<span class="s2">    vendor</span>
+<span class="s2">  ORDER BY</span>
+<span class="s2">    total_sales DESC</span>
+<span class="s2">  """</span><span class="p">,</span>
+    <span class="n">project_id</span><span class="o">=</span><span class="n">pjt_id</span><span class="p">,)</span> 
+
+<span class="c1"># title case for vendor col</span>
+<span class="n">vendor_sum_sales</span><span class="o">.</span><span class="n">vendor</span> <span class="o">=</span> <span class="n">vendor_sum_sales</span><span class="o">.</span><span class="n">vendor</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+
+<span class="c1">#convert total_sales to float</span>
+<span class="n">vendor_sum_sales</span><span class="o">.</span><span class="n">total_sales</span> <span class="o">=</span> <span class="n">vendor_sum_sales</span><span class="o">.</span><span class="n">total_sales</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">'float'</span><span class="p">)</span>
+
+<span class="n">vendor_sum_sales</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>vendor</th>
+      <th>total_sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Diageo Americas</td>
+      <td>551,505,642.00</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Jim Beam Brands</td>
+      <td>199,903,939.00</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Sazerac Company  Inc</td>
+      <td>115,002,985.00</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Pernod Ricard Usa</td>
+      <td>93,186,264.00</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Pernod Ricard Usa/Austin Nichols</td>
+      <td>92,119,352.00</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Sales-by-Item-(Top-5)">
+<a class="anchor" href="#Sales-by-Item-(Top-5)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sales by Item (Top 5)<a class="anchor-link" href="#Sales-by-Item-(Top-5)"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># query: top 5 sales by item </span>
+
+<span class="n">item_sum_sales</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">gbq</span><span class="o">.</span><span class="n">read_gbq</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">  SELECT</span>
+<span class="s2">    LOWER(item_description) AS item,</span>
+<span class="s2">    ROUND(CAST(SUM(sale_dollars) AS numeric),0) AS total_sales</span>
+<span class="s2">  FROM</span>
+<span class="s2">    </span><span class="si">{</span><span class="n">dataloc</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">  GROUP BY</span>
+<span class="s2">    item</span>
+<span class="s2">  ORDER BY</span>
+<span class="s2">    total_sales DESC</span>
+<span class="s2">     """</span><span class="p">,</span>
+    <span class="n">project_id</span><span class="o">=</span><span class="n">pjt_id</span><span class="p">,)</span> 
+
+<span class="c1"># title case for item col</span>
+<span class="n">item_sum_sales</span><span class="o">.</span><span class="n">item</span> <span class="o">=</span> <span class="n">item_sum_sales</span><span class="o">.</span><span class="n">item</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+
+<span class="c1">#convert total_sales to float</span>
+<span class="n">item_sum_sales</span><span class="o">.</span><span class="n">total_sales</span> <span class="o">=</span> <span class="n">item_sum_sales</span><span class="o">.</span><span class="n">total_sales</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">'float'</span><span class="p">)</span>
+
+<span class="n">item_sum_sales</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>item</th>
+      <th>total_sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Black Velvet</td>
+      <td>103,941,337.00</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Captain Morgan Spiced Rum</td>
+      <td>72,872,932.00</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Titos Handmade Vodka</td>
+      <td>67,739,561.00</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Jack Daniels Old #7 Black Lbl</td>
+      <td>67,262,715.00</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Fireball Cinnamon Whiskey</td>
+      <td>55,922,339.00</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Sales-by-Item-and-Category-(Top-5)">
+<a class="anchor" href="#Sales-by-Item-and-Category-(Top-5)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sales by Item and Category (Top 5)<a class="anchor-link" href="#Sales-by-Item-and-Category-(Top-5)"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># query: top 5 sales by item &amp; category</span>
+
+<span class="n">item_cat_sum_sales</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">gbq</span><span class="o">.</span><span class="n">read_gbq</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">  SELECT</span>
+<span class="s2">    LOWER(item_description) AS item,</span>
+<span class="s2">    LOWER(category_name) AS category,</span>
+<span class="s2">    ROUND(CAST(SUM(sale_dollars) AS numeric),0) AS total_sales</span>
+<span class="s2">  FROM</span>
+<span class="s2">    </span><span class="si">{</span><span class="n">dataloc</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">  GROUP BY</span>
+<span class="s2">    item,category</span>
+<span class="s2">  ORDER BY</span>
+<span class="s2">    total_sales DESC</span>
+<span class="s2">       """</span><span class="p">,</span>
+    <span class="n">project_id</span><span class="o">=</span><span class="n">pjt_id</span><span class="p">,)</span> 
+
+<span class="c1"># title case for item col</span>
+<span class="n">item_cat_sum_sales</span><span class="o">.</span><span class="n">item</span> <span class="o">=</span> <span class="n">item_cat_sum_sales</span><span class="o">.</span><span class="n">item</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+
+<span class="c1"># title case for category col</span>
+<span class="n">item_cat_sum_sales</span><span class="o">.</span><span class="n">category</span> <span class="o">=</span> <span class="n">item_cat_sum_sales</span><span class="o">.</span><span class="n">category</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+
+<span class="c1">#convert total_sales to float</span>
+<span class="n">item_cat_sum_sales</span><span class="o">.</span><span class="n">total_sales</span> <span class="o">=</span> <span class="n">item_cat_sum_sales</span><span class="o">.</span><span class="n">total_sales</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">'float'</span><span class="p">)</span>
+
+<span class="n">item_cat_sum_sales</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>item</th>
+      <th>category</th>
+      <th>total_sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Black Velvet</td>
+      <td>Canadian Whiskies</td>
+      <td>103,941,337.00</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Captain Morgan Spiced Rum</td>
+      <td>Spiced Rum</td>
+      <td>72,872,932.00</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Jack Daniels Old #7 Black Lbl</td>
+      <td>Tennessee Whiskies</td>
+      <td>67,262,715.00</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Titos Handmade Vodka</td>
+      <td>American Vodkas</td>
+      <td>60,750,450.00</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Fireball Cinnamon Whiskey</td>
+      <td>Whiskey Liqueur</td>
+      <td>55,922,339.00</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Sales-by-Item-and-Category-for-the-Year-2020-(Top-5)">
+<a class="anchor" href="#Sales-by-Item-and-Category-for-the-Year-2020-(Top-5)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sales by Item and Category for the Year 2020 (Top 5)<a class="anchor-link" href="#Sales-by-Item-and-Category-for-the-Year-2020-(Top-5)"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># query: top 5 sales by item &amp; category for 2020</span>
+
+<span class="n">item_cat_sum_sales_2020</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">gbq</span><span class="o">.</span><span class="n">read_gbq</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">  SELECT</span>
+<span class="s2">    FORMAT_DATE('%Y', date) AS year,</span>
+<span class="s2">    LOWER(item_description) AS item,</span>
+<span class="s2">    LOWER(category_name) AS category,</span>
+<span class="s2">    ROUND(CAST(SUM(sale_dollars) AS numeric),0) AS total_sales</span>
+<span class="s2">  FROM</span>
+<span class="s2">    </span><span class="si">{</span><span class="n">dataloc</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">  WHERE</span>
+<span class="s2">    FORMAT_DATE('%Y', date) LIKE ('%2020%')</span>
+<span class="s2">  GROUP BY</span>
+<span class="s2">    item,</span>
+<span class="s2">    category,</span>
+<span class="s2">    year</span>
+<span class="s2">  ORDER BY</span>
+<span class="s2">    total_sales DESC</span>
+<span class="s2">       """</span><span class="p">,</span>
+    <span class="n">project_id</span><span class="o">=</span><span class="n">pjt_id</span><span class="p">,)</span> 
+
+<span class="c1"># title case for item col</span>
+<span class="n">item_cat_sum_sales_2020</span><span class="o">.</span><span class="n">item</span> <span class="o">=</span> <span class="n">item_cat_sum_sales_2020</span><span class="o">.</span><span class="n">item</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+
+<span class="c1"># title case for category col</span>
+<span class="n">item_cat_sum_sales_2020</span><span class="o">.</span><span class="n">category</span> <span class="o">=</span> <span class="n">item_cat_sum_sales_2020</span><span class="o">.</span><span class="n">category</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+
+<span class="c1">#convert total_sales to float</span>
+<span class="n">item_cat_sum_sales_2020</span><span class="o">.</span><span class="n">total_sales</span> <span class="o">=</span> <span class="n">item_cat_sum_sales_2020</span><span class="o">.</span><span class="n">total_sales</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">'float'</span><span class="p">)</span>
+
+<span class="n">item_cat_sum_sales_2020</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>item</th>
+      <th>category</th>
+      <th>total_sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2020</td>
+      <td>Titos Handmade Vodka</td>
+      <td>American Vodkas</td>
+      <td>20,148,376.00</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2020</td>
+      <td>Black Velvet</td>
+      <td>Canadian Whiskies</td>
+      <td>11,308,314.00</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2020</td>
+      <td>Hennessy Vs</td>
+      <td>Imported Brandies</td>
+      <td>9,315,170.00</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2020</td>
+      <td>Captain Morgan Original Spiced</td>
+      <td>Spiced Rum</td>
+      <td>8,696,774.00</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2020</td>
+      <td>Crown Royal</td>
+      <td>Canadian Whiskies</td>
+      <td>8,448,506.00</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># plot: top 5 sales by item &amp; category for 2020</span>
+<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+
+<span class="n">item_2020</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">item_cat_sum_sales_2020</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">"total_sales"</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="p">)</span>
+<span class="n">item_2020</span> <span class="o">=</span> <span class="n">item_2020</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">"total_sales"</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+    <span class="n">item_2020</span><span class="p">,</span>
+    <span class="n">x</span><span class="o">=</span><span class="s2">"total_sales"</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="s2">"item"</span><span class="p">,</span>
+    <span class="n">orientation</span><span class="o">=</span><span class="s2">"h"</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"total_sales"</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">"category"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># update bar markers</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">textposition</span><span class="o">=</span><span class="s2">"inside"</span><span class="p">)</span>
+
+<span class="c1"># update plot details</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+    <span class="p">{</span><span class="s2">"plot_bgcolor"</span><span class="p">:</span> <span class="s2">"rgba(255,255,255, 0.9)"</span><span class="p">},</span>  <span class="c1"># white background</span>
+    <span class="n">title</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">"text"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"2020 Sales by Item &amp; Category "</span><span class="p">,</span>
+        <span class="s2">"y"</span><span class="p">:</span> <span class="mf">0.98</span><span class="p">,</span>
+        <span class="s2">"x"</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s2">"xanchor"</span><span class="p">:</span> <span class="s2">"center"</span><span class="p">,</span>
+        <span class="s2">"yanchor"</span><span class="p">:</span> <span class="s2">"top"</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">yaxis_title</span><span class="o">=</span><span class="s2">""</span> <span class="c1">#remove axis titles</span>
+<span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+
+<meta charset="utf-8">
+
+    <div>            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script type="text/javascript">if (window.MathJax) {MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script src="https://cdn.plot.ly/plotly-2.3.1.min.js"></script>                <div id="1da84c3d-d195-409a-88e9-c1520e2ef911" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("1da84c3d-d195-409a-88e9-c1520e2ef911")) {                    Plotly.newPlot(                        "1da84c3d-d195-409a-88e9-c1520e2ef911",                        [{"alignmentgroup":"True","hovertemplate":"category=100% Agave Tequila<br>total_sales=%{text}<br>item=%{y}<extra></extra>","legendgroup":"100% Agave Tequila","marker":{"color":"#636efa","pattern":{"shape":""}},"name":"100% Agave Tequila","offsetgroup":"100% Agave Tequila","orientation":"h","showlegend":true,"text":[4450610.0],"textposition":"inside","type":"bar","x":[4450610.0],"xaxis":"x","y":["Patron Silver"],"yaxis":"y"},{"alignmentgroup":"True","hovertemplate":"category=Irish Whiskies<br>total_sales=%{text}<br>item=%{y}<extra></extra>","legendgroup":"Irish Whiskies","marker":{"color":"#EF553B","pattern":{"shape":""}},"name":"Irish Whiskies","offsetgroup":"Irish Whiskies","orientation":"h","showlegend":true,"text":[4883275.0],"textposition":"inside","type":"bar","x":[4883275.0],"xaxis":"x","y":["Jameson"],"yaxis":"y"},{"alignmentgroup":"True","hovertemplate":"category=Canadian Whiskies<br>total_sales=%{text}<br>item=%{y}<extra></extra>","legendgroup":"Canadian Whiskies","marker":{"color":"#00cc96","pattern":{"shape":""}},"name":"Canadian Whiskies","offsetgroup":"Canadian Whiskies","orientation":"h","showlegend":true,"text":[6450812.0,8448506.0,11308314.0],"textposition":"inside","type":"bar","x":[6450812.0,8448506.0,11308314.0],"xaxis":"x","y":["Crown Royal Regal Apple","Crown Royal","Black Velvet"],"yaxis":"y"},{"alignmentgroup":"True","hovertemplate":"category=Tennessee Whiskies<br>total_sales=%{text}<br>item=%{y}<extra></extra>","legendgroup":"Tennessee Whiskies","marker":{"color":"#ab63fa","pattern":{"shape":""}},"name":"Tennessee Whiskies","offsetgroup":"Tennessee Whiskies","orientation":"h","showlegend":true,"text":[7926513.0],"textposition":"inside","type":"bar","x":[7926513.0],"xaxis":"x","y":["Jack Daniels Old #7 Black Label"],"yaxis":"y"},{"alignmentgroup":"True","hovertemplate":"category=Whiskey Liqueur<br>total_sales=%{text}<br>item=%{y}<extra></extra>","legendgroup":"Whiskey Liqueur","marker":{"color":"#FFA15A","pattern":{"shape":""}},"name":"Whiskey Liqueur","offsetgroup":"Whiskey Liqueur","orientation":"h","showlegend":true,"text":[7969663.0],"textposition":"inside","type":"bar","x":[7969663.0],"xaxis":"x","y":["Fireball Cinnamon Whiskey"],"yaxis":"y"},{"alignmentgroup":"True","hovertemplate":"category=Spiced Rum<br>total_sales=%{text}<br>item=%{y}<extra></extra>","legendgroup":"Spiced Rum","marker":{"color":"#19d3f3","pattern":{"shape":""}},"name":"Spiced Rum","offsetgroup":"Spiced Rum","orientation":"h","showlegend":true,"text":[8696774.0],"textposition":"inside","type":"bar","x":[8696774.0],"xaxis":"x","y":["Captain Morgan Original Spiced"],"yaxis":"y"},{"alignmentgroup":"True","hovertemplate":"category=Imported Brandies<br>total_sales=%{text}<br>item=%{y}<extra></extra>","legendgroup":"Imported Brandies","marker":{"color":"#FF6692","pattern":{"shape":""}},"name":"Imported Brandies","offsetgroup":"Imported Brandies","orientation":"h","showlegend":true,"text":[9315170.0],"textposition":"inside","type":"bar","x":[9315170.0],"xaxis":"x","y":["Hennessy Vs"],"yaxis":"y"},{"alignmentgroup":"True","hovertemplate":"category=American Vodkas<br>total_sales=%{text}<br>item=%{y}<extra></extra>","legendgroup":"American Vodkas","marker":{"color":"#B6E880","pattern":{"shape":""}},"name":"American Vodkas","offsetgroup":"American Vodkas","orientation":"h","showlegend":true,"text":[20148376.0],"textposition":"inside","type":"bar","x":[20148376.0],"xaxis":"x","y":["Titos Handmade Vodka"],"yaxis":"y"}],                        {"barmode":"relative","legend":{"title":{"text":"category"},"tracegroupgap":0},"margin":{"t":60},"plot_bgcolor":"rgba(255,255,255, 0.9)","template":{"data":{"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"heatmapgl":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmapgl"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermapbox"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"#E5ECF6","showlakes":true,"showland":true,"subunitcolor":"white"},"hoverlabel":{"align":"left"},"hovermode":"closest","mapbox":{"style":"light"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"bgcolor":"#E5ECF6","radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","gridwidth":2,"linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white"},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","gridwidth":2,"linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white"},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","gridwidth":2,"linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"bgcolor":"#E5ECF6","caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","zerolinewidth":2}}},"title":{"text":"2020 Sales by Item & Category ","x":0.5,"xanchor":"center","y":0.98,"yanchor":"top"},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"total_sales"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":""}}},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('1da84c3d-d195-409a-88e9-c1520e2ef911');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };                            </script>        </div>
+
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Sales-by-Item-and-Category-for-the-Past-10-Years-(Top-10)">
+<a class="anchor" href="#Sales-by-Item-and-Category-for-the-Past-10-Years-(Top-10)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sales by Item and Category for the Past 10 Years (Top 10)<a class="anchor-link" href="#Sales-by-Item-and-Category-for-the-Past-10-Years-(Top-10)"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># query: top 5 sales by item &amp; category for past 10 years</span>
+
+<span class="n">item_cat_sum_sales</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">gbq</span><span class="o">.</span><span class="n">read_gbq</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">  SELECT</span>
+<span class="s2">    FORMAT_DATE('%Y', date) AS year,</span>
+<span class="s2">    LOWER(item_description) AS item,</span>
+<span class="s2">    LOWER(category_name) AS category,</span>
+<span class="s2">    ROUND(CAST(SUM(sale_dollars) AS numeric),0) AS total_sales</span>
+<span class="s2">  FROM</span>
+<span class="s2">    </span><span class="si">{</span><span class="n">dataloc</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">  GROUP BY</span>
+<span class="s2">    item,</span>
+<span class="s2">    category,</span>
+<span class="s2">    year</span>
+<span class="s2">  ORDER BY</span>
+<span class="s2">    total_sales DESC</span>
+<span class="s2">       """</span><span class="p">,</span>
+    <span class="n">project_id</span><span class="o">=</span><span class="n">pjt_id</span><span class="p">,)</span> 
+
+<span class="c1"># title case for item col</span>
+<span class="n">item_cat_sum_sales</span><span class="o">.</span><span class="n">item</span> <span class="o">=</span> <span class="n">item_cat_sum_sales</span><span class="o">.</span><span class="n">item</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+
+<span class="c1"># title case for category col</span>
+<span class="n">item_cat_sum_sales</span><span class="o">.</span><span class="n">category</span> <span class="o">=</span> <span class="n">item_cat_sum_sales</span><span class="o">.</span><span class="n">category</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+
+<span class="c1">#convert total_sales to float</span>
+<span class="n">item_cat_sum_sales</span><span class="o">.</span><span class="n">total_sales</span> <span class="o">=</span> <span class="n">item_cat_sum_sales</span><span class="o">.</span><span class="n">total_sales</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">'float'</span><span class="p">)</span>
+
+<span class="n">item_cat_sum_sales</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>item</th>
+      <th>category</th>
+      <th>total_sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2020</td>
+      <td>Titos Handmade Vodka</td>
+      <td>American Vodkas</td>
+      <td>20,148,376.00</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2018</td>
+      <td>Titos Handmade Vodka</td>
+      <td>American Vodkas</td>
+      <td>14,943,390.00</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2017</td>
+      <td>Black Velvet</td>
+      <td>Canadian Whiskies</td>
+      <td>13,258,183.00</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2018</td>
+      <td>Black Velvet</td>
+      <td>Canadian Whiskies</td>
+      <td>13,079,561.00</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2016</td>
+      <td>Black Velvet</td>
+      <td>Canadian Whiskies</td>
+      <td>12,378,453.00</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2019</td>
+      <td>Titos Handmade Vodka</td>
+      <td>American Vodkas</td>
+      <td>12,125,095.00</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2015</td>
+      <td>Black Velvet</td>
+      <td>Canadian Whiskies</td>
+      <td>12,113,647.00</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2014</td>
+      <td>Black Velvet</td>
+      <td>Canadian Whiskies</td>
+      <td>11,697,936.00</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>2020</td>
+      <td>Black Velvet</td>
+      <td>Canadian Whiskies</td>
+      <td>11,308,314.00</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>2013</td>
+      <td>Black Velvet</td>
+      <td>Canadian Whiskies</td>
+      <td>11,096,985.00</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="References">
+<a class="anchor" href="#References" aria-hidden="true"><span class="octicon octicon-link"></span></a>References<a class="anchor-link" href="#References"> </a>
+</h1>
+<p>Google Cloud Docs: <a href="https://cloud.google.com/bigquery/docs/reference/standard-sql/functions-and-operators#format_date">SQL Date Formating</a></p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+</body>
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="drusho/blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/blog/bigquery/pandas/plotly/sales/sql/2021/08/01/bigquery-liquore-sales.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Exploring data with python and other analytical tools.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/drusho" title="drusho"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://www.linkedin.com/in/davidrusho" title="davidrusho"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#linkedin"></use></svg></a></li><li><a rel="me" href="https://twitter.com/drusho" title="drusho"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
