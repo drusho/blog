@@ -110,7 +110,7 @@ you could add your extra link here, either beforeor after theor after theor afte
        • <span class="read-time" title="Estimated read time">
     
     
-      7 min read
+      8 min read
     
 </span></p>
 
@@ -161,12 +161,12 @@ you could add your extra link here, either beforeor after theor after theor afte
 <ul>
 <li class="toc-entry toc-h3"><a href="#Count-Table-Rows">Count Table Rows </a></li>
 <li class="toc-entry toc-h3"><a href="#Show-Distinct-Years">Show Distinct Years </a></li>
-<li class="toc-entry toc-h3"><a href="#Total-Liquior-Sales-by-Date-(Top-5)">Total Liquior Sales by Date (Top 5) </a></li>
-<li class="toc-entry toc-h3"><a href="#Total-Liquior-Sales-by-Weekday">Total Liquior Sales by Weekday </a></li>
-<li class="toc-entry toc-h3"><a href="#Total-Liquior-Sales-by-Month">Total Liquior Sales by Month </a></li>
-<li class="toc-entry toc-h3"><a href="#Total-Liquior-Sales-by-Day-for-December-(Top-5)">Total Liquior Sales by Day for December (Top 5) </a></li>
-<li class="toc-entry toc-h3"><a href="#Total-Liquior-Sales-by-Day-for-June-(Top-5)">Total Liquior Sales by Day for June (Top 5) </a></li>
-<li class="toc-entry toc-h3"><a href="#Total-Liquior-Sales-by-City-(Top-5)">Total Liquior Sales by City (Top 5) </a></li>
+<li class="toc-entry toc-h3"><a href="#Sales-by-Date-(Top-5)">Sales by Date (Top 5) </a></li>
+<li class="toc-entry toc-h3"><a href="#Sales-by-Weekday">Sales by Weekday </a></li>
+<li class="toc-entry toc-h3"><a href="#Sales-by-Month">Sales by Month </a></li>
+<li class="toc-entry toc-h3"><a href="#Sales-by-Day-for-December-(Top-5)">Sales by Day for December (Top 5) </a></li>
+<li class="toc-entry toc-h3"><a href="#Sales-by-Day-for-June-(Top-5)">Sales by Day for June (Top 5) </a></li>
+<li class="toc-entry toc-h3"><a href="#Sales-by-City-(Top-5)">Sales by City (Top 5) </a></li>
 <li class="toc-entry toc-h3"><a href="#Sales-by-County-(Top-5)">Sales by County (Top 5) </a></li>
 <li class="toc-entry toc-h3"><a href="#Sales-by-Vendor-(Top-5)">Sales by Vendor (Top 5) </a></li>
 <li class="toc-entry toc-h3"><a href="#Sales-by-Item-(Top-5)">Sales by Item (Top 5) </a></li>
@@ -323,6 +323,9 @@ you could add your extra link here, either beforeor after theor after theor afte
     
     
 <div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
 <div class="input">
 
 <div class="inner_cell">
@@ -342,6 +345,7 @@ you could add your extra link here, either beforeor after theor after theor afte
 </div>
 </div>
 
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -427,8 +431,8 @@ you could add your extra link here, either beforeor after theor after theor afte
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Total-Liquior-Sales-by-Date-(Top-5)">
-<a class="anchor" href="#Total-Liquior-Sales-by-Date-(Top-5)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Total Liquior Sales by Date (Top 5)<a class="anchor-link" href="#Total-Liquior-Sales-by-Date-(Top-5)"> </a>
+<h3 id="Sales-by-Date-(Top-5)">
+<a class="anchor" href="#Sales-by-Date-(Top-5)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sales by Date (Top 5)<a class="anchor-link" href="#Sales-by-Date-(Top-5)"> </a>
 </h3>
 </div>
 </div>
@@ -544,8 +548,8 @@ you could add your extra link here, either beforeor after theor after theor afte
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Total-Liquior-Sales-by-Weekday">
-<a class="anchor" href="#Total-Liquior-Sales-by-Weekday" aria-hidden="true"><span class="octicon octicon-link"></span></a>Total Liquior Sales by Weekday<a class="anchor-link" href="#Total-Liquior-Sales-by-Weekday"> </a>
+<h3 id="Sales-by-Weekday">
+<a class="anchor" href="#Sales-by-Weekday" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sales by Weekday<a class="anchor-link" href="#Sales-by-Weekday"> </a>
 </h3>
 <p>Total liquior sales by weekdays tend to go in order of the week, with Sunday have the least amount of sales.  This could be due to city/county restrictions placed on alcohol sales for these days.</p>
 
@@ -566,18 +570,18 @@ you could add your extra link here, either beforeor after theor after theor afte
 <span class="n">sum_sales_wkday</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">gbq</span><span class="o">.</span><span class="n">read_gbq</span><span class="p">(</span>
     <span class="sa">f</span><span class="s2">"""</span>
 <span class="s2">  SELECT</span>
-<span class="s2">    FORMAT_DATE('%A', date) AS day_name,</span>
+<span class="s2">    FORMAT_DATE('%A', date) AS day,</span>
 <span class="s2">    ROUND(SUM(sale_dollars),2) AS total_sales,</span>
 <span class="s2">  FROM</span>
 <span class="s2">    </span><span class="si">{</span><span class="n">dataloc</span><span class="si">}</span><span class="s2"></span>
 <span class="s2">  GROUP BY</span>
-<span class="s2">    day_name</span>
+<span class="s2">    day</span>
 <span class="s2">  ORDER BY</span>
 <span class="s2">    total_sales DESC</span>
 <span class="s2">  """</span><span class="p">,</span>
     <span class="n">project_id</span><span class="o">=</span><span class="n">pjt_id</span><span class="p">,)</span> 
 
-<span class="n">sum_sales_wkday</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="c1"># sum_sales_wkday.head(7)</span>
 </pre></div>
 
     </div>
@@ -610,7 +614,7 @@ you could add your extra link here, either beforeor after theor after theor afte
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>day_name</th>
+      <th>day</th>
       <th>total_sales</th>
     </tr>
   </thead>
@@ -663,11 +667,107 @@ you could add your extra link here, either beforeor after theor after theor afte
 </div>
     
 
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">sum_sales_wkday</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">"total_sales"</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">"day"</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"total_sales"</span><span class="p">)</span>
+
+<span class="c1"># update bar markers</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">textposition</span><span class="o">=</span><span class="s2">"outside"</span><span class="p">,</span> <span class="n">marker_color</span><span class="o">=</span><span class="s2">"rgb(47,138,196)"</span><span class="p">)</span>  <span class="c1"># blue color</span>
+
+<span class="c1"># update plot details</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+    <span class="p">{</span><span class="s2">"plot_bgcolor"</span><span class="p">:</span> <span class="s2">"rgba(255,255,255, 0.9)"</span><span class="p">},</span>  <span class="c1"># white background</span>
+    <span class="n">title</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">"text"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"Total Liquor Sales by Weekday"</span><span class="p">,</span>
+        <span class="s2">"y"</span><span class="p">:</span> <span class="mf">0.98</span><span class="p">,</span>
+        <span class="s2">"x"</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s2">"xanchor"</span><span class="p">:</span> <span class="s2">"center"</span><span class="p">,</span>
+        <span class="s2">"yanchor"</span><span class="p">:</span> <span class="s2">"top"</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">yaxis_title</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span>
+    <span class="n">xaxis</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">"categoryarray"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">"Monday"</span><span class="p">,</span>
+            <span class="s2">"Tuesday"</span><span class="p">,</span>
+            <span class="s2">"Wednesday"</span><span class="p">,</span>
+            <span class="s2">"Thursday"</span><span class="p">,</span>
+            <span class="s2">"Friday"</span><span class="p">,</span>
+            <span class="s2">"Saturday"</span><span class="p">,</span>
+            <span class="s2">"Sunday"</span><span class="p">,</span>
+        <span class="p">]</span>
+    <span class="p">},</span>  <span class="c1"># remove axis titles</span>
+<span class="p">)</span>
+
+
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+
+<meta charset="utf-8">
+
+    <div>            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script type="text/javascript">if (window.MathJax) {MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script src="https://cdn.plot.ly/plotly-2.3.1.min.js"></script>                <div id="b97fa71d-5a64-40d9-9de2-96fa2db59b53" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("b97fa71d-5a64-40d9-9de2-96fa2db59b53")) {                    Plotly.newPlot(                        "b97fa71d-5a64-40d9-9de2-96fa2db59b53",                        [{"alignmentgroup":"True","hovertemplate":"day=%{x}<br>total_sales=%{text}<extra></extra>","legendgroup":"","marker":{"color":"rgb(47,138,196)","pattern":{"shape":""}},"name":"","offsetgroup":"","orientation":"v","showlegend":false,"text":[614633388.47,597276323.07,568500848.31,541557663.51,240018689.7,13397909.2,23760.06,null],"textposition":"outside","type":"bar","x":["Monday","Wednesday","Tuesday","Thursday","Friday","Saturday","Sunday",null],"xaxis":"x","y":[614633388.47,597276323.07,568500848.31,541557663.51,240018689.7,13397909.2,23760.06,null],"yaxis":"y"}],                        {"barmode":"relative","legend":{"tracegroupgap":0},"margin":{"t":60},"plot_bgcolor":"rgba(255,255,255, 0.9)","template":{"data":{"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"heatmapgl":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmapgl"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermapbox"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"#E5ECF6","showlakes":true,"showland":true,"subunitcolor":"white"},"hoverlabel":{"align":"left"},"hovermode":"closest","mapbox":{"style":"light"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"bgcolor":"#E5ECF6","radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","gridwidth":2,"linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white"},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","gridwidth":2,"linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white"},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","gridwidth":2,"linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"bgcolor":"#E5ECF6","caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","zerolinewidth":2}}},"title":{"text":"Total Liquor Sales by Weekday","x":0.5,"xanchor":"center","y":0.98,"yanchor":"top"},"xaxis":{"anchor":"y","categoryarray":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"domain":[0.0,1.0],"title":{"text":"day"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":""}}},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('b97fa71d-5a64-40d9-9de2-96fa2db59b53');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };                            </script>        </div>
+
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Total-Liquior-Sales-by-Month">
-<a class="anchor" href="#Total-Liquior-Sales-by-Month" aria-hidden="true"><span class="octicon octicon-link"></span></a>Total Liquior Sales by Month<a class="anchor-link" href="#Total-Liquior-Sales-by-Month"> </a>
+<h3 id="Sales-by-Month">
+<a class="anchor" href="#Sales-by-Month" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sales by Month<a class="anchor-link" href="#Sales-by-Month"> </a>
 </h3>
 </div>
 </div>
@@ -697,7 +797,7 @@ you could add your extra link here, either beforeor after theor after theor afte
 <span class="s2">  """</span><span class="p">,</span>
     <span class="n">project_id</span><span class="o">=</span><span class="n">pjt_id</span><span class="p">,)</span> 
 
-<span class="n">sum_sales_mth</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+<span class="c1"># sum_sales_mth.head(12)</span>
 </pre></div>
 
     </div>
@@ -808,11 +908,108 @@ you could add your extra link here, either beforeor after theor after theor afte
 </div>
     
 
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">sum_sales_mth</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">"total_sales"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">"month"</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"total_sales"</span><span class="p">)</span>
+
+<span class="n">months</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"December"</span><span class="p">,</span>
+    <span class="s2">"November"</span><span class="p">,</span>
+    <span class="s2">"October"</span><span class="p">,</span>
+    <span class="s2">"September"</span><span class="p">,</span>
+    <span class="s2">"August"</span><span class="p">,</span>
+    <span class="s2">"July"</span><span class="p">,</span>
+    <span class="s2">"June"</span><span class="p">,</span>
+    <span class="s2">"May"</span><span class="p">,</span>
+    <span class="s2">"April"</span><span class="p">,</span>
+    <span class="s2">"March"</span><span class="p">,</span>
+    <span class="s2">"February"</span><span class="p">,</span>
+    <span class="s2">"January"</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1"># update bar markers</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">textposition</span><span class="o">=</span><span class="s2">"inside"</span><span class="p">,</span> <span class="n">marker_color</span><span class="o">=</span><span class="s2">"rgb(47,138,196)"</span><span class="p">)</span>  <span class="c1"># blue color</span>
+
+<span class="c1"># update plot details</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+    <span class="p">{</span><span class="s2">"plot_bgcolor"</span><span class="p">:</span> <span class="s2">"rgba(255,255,255, 0.9)"</span><span class="p">},</span>  <span class="c1"># white background</span>
+    <span class="n">title</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">"text"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"Total Liquor Sales by Month"</span><span class="p">,</span>
+        <span class="s2">"y"</span><span class="p">:</span> <span class="mf">0.98</span><span class="p">,</span>
+        <span class="s2">"x"</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s2">"xanchor"</span><span class="p">:</span> <span class="s2">"center"</span><span class="p">,</span>
+        <span class="s2">"yanchor"</span><span class="p">:</span> <span class="s2">"top"</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">yaxis_title</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span>
+    <span class="n">yaxis</span><span class="o">=</span><span class="p">{</span><span class="s2">"categoryarray"</span><span class="p">:</span> <span class="n">months</span><span class="p">},</span>  <span class="c1"># remove axis titles</span>
+<span class="p">)</span>
+
+
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+
+<meta charset="utf-8">
+
+    <div>            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script type="text/javascript">if (window.MathJax) {MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script src="https://cdn.plot.ly/plotly-2.3.1.min.js"></script>                <div id="e53b4b38-0c15-44ba-8de0-75c2a9a22abe" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("e53b4b38-0c15-44ba-8de0-75c2a9a22abe")) {                    Plotly.newPlot(                        "e53b4b38-0c15-44ba-8de0-75c2a9a22abe",                        [{"alignmentgroup":"True","hovertemplate":"total_sales=%{text}<br>month=%{y}<extra></extra>","legendgroup":"","marker":{"color":"rgb(47,138,196)","pattern":{"shape":""}},"name":"","offsetgroup":"","orientation":"h","showlegend":false,"text":[247480506.06,242536518.44,237071848.85,231144768.16,226319830.86,219497647.39,212573994.46,208744805.41,201244550.88,195893866.98,195440741.81,157459503.02,null],"textposition":"inside","type":"bar","x":[247480506.06,242536518.44,237071848.85,231144768.16,226319830.86,219497647.39,212573994.46,208744805.41,201244550.88,195893866.98,195440741.81,157459503.02,null],"xaxis":"x","y":["October","June","May","August","July","April","December","March","September","February","November","January",null],"yaxis":"y"}],                        {"barmode":"relative","legend":{"tracegroupgap":0},"margin":{"t":60},"plot_bgcolor":"rgba(255,255,255, 0.9)","template":{"data":{"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"heatmapgl":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmapgl"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermapbox"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"#E5ECF6","showlakes":true,"showland":true,"subunitcolor":"white"},"hoverlabel":{"align":"left"},"hovermode":"closest","mapbox":{"style":"light"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"bgcolor":"#E5ECF6","radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","gridwidth":2,"linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white"},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","gridwidth":2,"linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white"},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","gridwidth":2,"linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"bgcolor":"#E5ECF6","caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","zerolinewidth":2}}},"title":{"text":"Total Liquor Sales by Month","x":0.5,"xanchor":"center","y":0.98,"yanchor":"top"},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"total_sales"}},"yaxis":{"anchor":"x","categoryarray":["December","November","October","September","August","July","June","May","April","March","February","January"],"domain":[0.0,1.0],"title":{"text":""}}},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('e53b4b38-0c15-44ba-8de0-75c2a9a22abe');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };                            </script>        </div>
+
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Total-Liquior-Sales-by-Day-for-December-(Top-5)">
-<a class="anchor" href="#Total-Liquior-Sales-by-Day-for-December-(Top-5)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Total Liquior Sales by Day for December (Top 5)<a class="anchor-link" href="#Total-Liquior-Sales-by-Day-for-December-(Top-5)"> </a>
+<h3 id="Sales-by-Day-for-December-(Top-5)">
+<a class="anchor" href="#Sales-by-Day-for-December-(Top-5)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sales by Day for December (Top 5)<a class="anchor-link" href="#Sales-by-Day-for-December-(Top-5)"> </a>
 </h3>
 </div>
 </div>
@@ -923,8 +1120,8 @@ you could add your extra link here, either beforeor after theor after theor afte
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Total-Liquior-Sales-by-Day-for-June-(Top-5)">
-<a class="anchor" href="#Total-Liquior-Sales-by-Day-for-June-(Top-5)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Total Liquior Sales by Day for June (Top 5)<a class="anchor-link" href="#Total-Liquior-Sales-by-Day-for-June-(Top-5)"> </a>
+<h3 id="Sales-by-Day-for-June-(Top-5)">
+<a class="anchor" href="#Sales-by-Day-for-June-(Top-5)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sales by Day for June (Top 5)<a class="anchor-link" href="#Sales-by-Day-for-June-(Top-5)"> </a>
 </h3>
 </div>
 </div>
@@ -1035,8 +1232,8 @@ you could add your extra link here, either beforeor after theor after theor afte
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Total-Liquior-Sales-by-City-(Top-5)">
-<a class="anchor" href="#Total-Liquior-Sales-by-City-(Top-5)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Total Liquior Sales by City (Top 5)<a class="anchor-link" href="#Total-Liquior-Sales-by-City-(Top-5)"> </a>
+<h3 id="Sales-by-City-(Top-5)">
+<a class="anchor" href="#Sales-by-City-(Top-5)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sales by City (Top 5)<a class="anchor-link" href="#Sales-by-City-(Top-5)"> </a>
 </h3>
 </div>
 </div>
